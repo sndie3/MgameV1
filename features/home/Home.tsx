@@ -31,45 +31,56 @@ function Home() {
         <>
             <section className="flex-1  bg-black flex flex-col items-center justify-center text-white px-6">
                 {/* Provider Logos */}
-                <div className="flex flex-wrap justify-center items-center gap-10 md:gap-16 mb-15">
-                    {providers.map((provider) => (
-                        <img
-                            key={provider.name}
-                            src={provider.logo}
-                            alt={provider.name}
-                            className={`object-contain opacity-95 ${provider.name === "EPT" || provider.name === "Pragmatic Play" || provider.name === "Victory Ark"
-                                ? "h-16 md:h-20" // Larger logos
-                                : "h-8 md:h-10" // Default size
-                                }`}
-                        />
-                    ))}
+                <div className=" flex flex-col items-center">
+                    <div className="mb-10 flex flex-wrap items-center justify-center gap-x-12 gap-y-5">
+                        {providers.map((provider) => (
+                            <img
+                                key={provider.name}
+                                src={provider.logo}
+                                alt={provider.name}
+                                className={`object-contain opacity-90 transition-all duration-300 hover:scale-110 hover:opacity-100 ${
+                                    provider.name === "Pragmatic Play" ||
+                                    provider.name === "Victory Ark"
+                                    ? "h-16 md:h-20"
+                                    : "h-8 md:h-10"
+                                    }`}
+                            />
+                        ))}
+                    </div>
                 </div>
 
                 {/* Title */}
-                <h1 className="text-[clamp(1rem,4vw,1.5rem)] font-semibold">
+                <h1 className="text-[clamp(0.5rem,4vw,1.5rem)] font-semibold mt-10">
                     PinoyMGame.ph
                 </h1>
 
                 {/* Subtitle */}
-                <p className="mt-8 text-[clamp(0.5rem,4vw,1.5rem)] italic text-gray-200 text-center font-light">
+                <p className="mt-1 text-[clamp(1rem,3vw,2rem)] italic text-gray-200 text-center font-light">
                     "The architect of New Life Entertainment"
                 </p>
 
                 {/* Button */}
                 <button
                     className="
-          mt-16
-          px-10
-          py-4
-          rounded-full
-          border
-          border-gray-700
-          bg-[#111]
-          hover:bg-[#1a1a1a]
-          transition
-          text-lg
-          font-light
-          cursor-pointer
+          mt-14
+            rounded-full
+            border
+            border-gray-700
+            bg-[#111]
+            px-10
+            py-2.5
+            text-base
+            font-medium
+            tracking-wide
+            text-white
+            shadow-lg
+            transition-all
+            duration-300
+            hover:scale-105
+            hover:border-white
+            hover:bg-white
+            hover:text-black
+            cursor-pointer
         "
                     onClick={() => navigate("/disclaimer")}
                 >

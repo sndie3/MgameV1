@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function LoginCard() {
-  const [agree, setAgree] = useState(true);
+  const [agree, setAgree] = useState(false);
   const navigate = useNavigate();
 
   return (
