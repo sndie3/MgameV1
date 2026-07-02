@@ -44,7 +44,7 @@ export default function LoginCard() {
         <label className="flex items-center gap-2 mt-2 cursor-pointer">
           <div
             onClick={() => setAgree(!agree)}
-            className="w-7 h-7 border border-white flex items-center justify-center text-sm font-bold"
+            className="w-7 h-7 border border-[#333] flex items-center justify-center text-sm font-bold "
           >
             {agree && "✕"}
           </div>
@@ -58,13 +58,13 @@ export default function LoginCard() {
           LOGIN
         </button>
 
-        <div className="flex justify-between mt-5 text-lg font-bold">
+        <div className="flex justify-between mt-5 text-lg font-bold pb-5">
           <button onClick={() => navigate('/register')}>REGISTER</button>
           <button onClick={() => navigate('/reset')}>RESET</button>
         </div>
 
         <p
-          className="text-[#666] leading-relaxed mb-6 md:mb-10  sm:text-justify w-full"
+          className="text-[#666] leading-relaxed mb-6 md:mb-10  text-justify w-full"
           style={{ fontFamily: '"Aptos Narrow", sans-serif', fontSize: 'clamp(12px, 1.5vw, 16px)' }}
         >
           This site is for 21 years and above only, not allowed to any

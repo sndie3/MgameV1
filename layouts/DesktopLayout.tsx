@@ -1,9 +1,9 @@
 import { Outlet} from "react-router-dom";
 import Footer from "../components/common/Footer";
-
+import {useLocation} from "react-router-dom";
 export default function AppLayout() {
-  //const location = useLocation();
-  //const isAuthPage = location.pathname === '/register' || location.pathname === '/reset';
+  const location = useLocation();
+  const isAuthPage =  location.pathname === '/';
 
   return (
     <section className="min-h-dvh flex w-full bg-black">
@@ -12,12 +12,12 @@ export default function AppLayout() {
         <Outlet />
 
         {/* Footer - not shown on register/reset pages */}
-        <div className="px-5">
+       
+        {!isAuthPage && (
+           <div className="px-5">
             <Footer />
           </div>
-        {/* {!isAuthPage && (
-          
-        )} */}
+        )}
       </main>
     </section>
   );

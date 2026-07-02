@@ -6,6 +6,10 @@ function Home() {
 
     const providers = [
         {
+            name: "EPT",
+            logo: "/assets/ept.png",
+        },
+        {
             name: "Pragmatic Play",
             logo: "/assets/pragmatic.png",
         },
@@ -21,10 +25,7 @@ function Home() {
             name: "JILI",
             logo: "/assets/jili.png",
         },
-        {
-            name: "EPT",
-            logo: "/assets/ept.png",
-        },
+
     ];
     return (
         <>
@@ -36,18 +37,21 @@ function Home() {
                             key={provider.name}
                             src={provider.logo}
                             alt={provider.name}
-                            className="h-12 md:h-16 object-contain opacity-95"
+                            className={`object-contain opacity-95 ${provider.name === "EPT" || provider.name === "Pragmatic Play" || provider.name === "Victory Ark"
+                                ? "h-16 md:h-20" // Larger logos
+                                : "h-8 md:h-10" // Default size
+                                }`}
                         />
                     ))}
                 </div>
 
                 {/* Title */}
-                <h1 className="text-2xl md:text-4xl font-semibold">
+                <h1 className="text-[clamp(1rem,4vw,1.5rem)] font-semibold">
                     PinoyMGame.ph
                 </h1>
 
                 {/* Subtitle */}
-                <p className="mt-8 text-lg md:text-4xl italic text-gray-200 text-center font-light">
+                <p className="mt-8 text-[clamp(0.5rem,4vw,1.5rem)] italic text-gray-200 text-center font-light">
                     "The architect of New Life Entertainment"
                 </p>
 

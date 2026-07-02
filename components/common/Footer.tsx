@@ -8,8 +8,8 @@ function Footer() {
       </div>
 
      <div className="flex gap-4">
-       <img src="/assets/pagcor.png" className="h-10" alt="Pagcor" />
-       <img src="/assets/gambling.png" className="h-10" alt="Pagcor" />
+       <img src="/assets/pagcor.png" className="h-7" alt="Pagcor" />
+       <img src="/assets/gambling.png" className="h-7" alt="Pagcor" />
      </div>
 
     </div>
