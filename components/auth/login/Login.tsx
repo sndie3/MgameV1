@@ -54,13 +54,13 @@ export default function LoginCard() {
           </span>
         </label>
 
-        <button className="flex py-2 px-15 mx-auto justify-center bg-[#222] hover:bg-[#333] text-lg font-bold my-5">
+        <button className="flex py-2 px-15 mx-auto justify-center bg-[#222] hover:bg-[#333] cursor-pointer text-lg font-bold my-5">
           LOGIN
         </button>
 
-        <div className="flex justify-between mt-5 text-lg font-bold pb-5">
-          <button onClick={() => navigate('/register')}>REGISTER</button>
-          <button onClick={() => navigate('/reset')}>RESET</button>
+        <div className="flex justify-between mt-5 text-lg font-bold pb-5 ">
+          <button className="cursor-pointer " onClick={() => navigate('/register')}>REGISTER</button>
+          <button className="cursor-pointer " onClick={() => navigate('/reset')}>RESET</button>
         </div>
 
         <p

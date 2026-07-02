@@ -52,7 +52,7 @@ export default function DisclaimerCard() {
 
       <button
         onClick={() => navigate("/login")}
-        className="mt-6 w-full rounded-md bg-red-800 py-3 text-base font-semibold uppercase transition hover:bg-red-700 sm:text-lg"
+        className="mt-6 w-full rounded-md bg-red-800 py-3 text-base font-semibold uppercase transition hover:bg-red-700 sm:text-lg cursor-pointer"
       >
         Proceed
       </button>

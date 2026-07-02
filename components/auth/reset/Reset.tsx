@@ -8,7 +8,7 @@ export default function Reset() {
       <div className="flex flex-col flex-1 w-full px-4 py-6 sm:px-8 sm:py-8 md:px-12 md:py-12 lg:px-16 max-w-[1200px] mx-auto">
         {/* Header */}
         <div className="relative flex items-center justify-center mb-6 md:mb-10 w-full">
-          <button onClick={() => navigate('/login')} className="absolute left-0 w-8 h-8 md:w-12 md:h-12 bg-[#1a1a1a] rounded-full flex items-center justify-center shrink-0 hover:bg-[#333] transition-colors">
+          <button onClick={() => navigate('/login')} className="cursor-pointer absolute left-0 w-8 h-8 md:w-12 md:h-12 bg-[#1a1a1a] rounded-full flex items-center justify-center shrink-0 hover:bg-[#333] transition-colors">
             <ChevronLeft className="w-5 h-5 md:w-7 md:h-7 text-white" />
           </button>
           <h1 
@@ -52,7 +52,7 @@ export default function Reset() {
         {/* Reset Button */}
         <div className="flex justify-center mt-6 md:mt-10 mb-8 md:mb-12 w-full">
           <button 
-            className="bg-[#1a1a1a] text-white w-full max-w-[300px] md:max-w-[400px] py-4 rounded hover:bg-[#333] transition-colors"
+            className="cursor-pointer bg-[#1a1a1a] text-white w-full max-w-[300px] md:max-w-[400px] py-4 rounded hover:bg-[#333] transition-colors"
             style={{ fontFamily: '"Bahnschrift SemiCondensed", Bahnschrift, sans-serif', fontSize: 'clamp(15px, 2vw, 20px)' }}
           >
             Reset
@@ -72,7 +72,7 @@ export default function Reset() {
         {/* Submit Button */}
         <div className="flex justify-center mt-6 md:mt-10 mb-8 md:mb-16 w-full">
           <button 
-            className="bg-[#1a1a1a] text-white w-full max-w-[300px] md:max-w-[400px] py-4 rounded hover:bg-[#333] transition-colors"
+            className="cursor-pointer bg-[#1a1a1a] text-white w-full max-w-[300px] md:max-w-[400px] py-4 rounded hover:bg-[#333] transition-colors"
             style={{ fontFamily: '"Bahnschrift SemiCondensed", Bahnschrift, sans-serif', fontSize: 'clamp(15px, 2vw, 20px)' }}
           >
             Submit
