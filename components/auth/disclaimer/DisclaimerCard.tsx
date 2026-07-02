@@ -39,7 +39,7 @@ export default function DisclaimerCard() {
         NOTICE TO PLAYERS
       </h2>
 
-      <p className="text-sm leading-4 text-gray-200">
+      <p className="text-sm leading-4 text-gray-200 text-justify">
         Only eligible persons are allowed to register and play online games.
         Players found ineligible may have their funds and credits forfeited in
         favor of the Government. Please play responsibly. Playing online games
