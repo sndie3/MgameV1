@@ -17,7 +17,7 @@ export default function LoginCard() {
               fontSize: "clamp(18px, 3vw, 28px)",
             }}
           >
-            PinoyMGame
+            MGame
           </h1>
 
           <div className="space-y-2">
@@ -57,7 +57,7 @@ export default function LoginCard() {
             LOGIN
           </button>
 
-          <div className="flex justify-between mt-6 text-lg font-bold">
+          <div className="flex justify-between mt-15 text-lg font-bold">
             <button
               className="cursor-pointer"
               onClick={() => navigate("/register")}

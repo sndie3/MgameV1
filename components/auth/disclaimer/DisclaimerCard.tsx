@@ -5,7 +5,7 @@ export default function DisclaimerCard() {
   return (
     <div className="mx-auto flex h-full w-full max-w-2xl flex-col rounded-md py-4 text-white sm:px-1 md:px-2">
       <h1 className="mb-4 text-center text-lg font-bold sm:text-xl md:text-2xl">
-        PinoyMGame
+        MGame
       </h1>
       <div className="flex flex-col gap-1 text-sm leading-6 sm:text-base">
         <p>1. I am over 21 years of age.</p>

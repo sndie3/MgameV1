@@ -51,7 +51,7 @@ function Home() {
 
                 {/* Title */}
                 <h1 className="text-[clamp(0.5rem,4vw,1.5rem)] font-semibold mt-10">
-                    PinoyMGame.ph
+                    MGame.ph
                 </h1>
 
                 {/* Subtitle */}
