@@ -28,7 +28,7 @@ function Home() {
     ];
     return (
         <>
-            <section className="min-h-screen bg-black flex flex-col items-center justify-center text-white px-6">
+            <section className="flex-1  bg-black flex flex-col items-center justify-center text-white px-6">
                 {/* Provider Logos */}
                 <div className="flex flex-wrap justify-center items-center gap-10 md:gap-16 mb-15">
                     {providers.map((provider) => (
@@ -65,6 +65,7 @@ function Home() {
           transition
           text-lg
           font-light
+          cursor-pointer
         "
                     onClick={() => navigate("/disclaimer")}
                 >

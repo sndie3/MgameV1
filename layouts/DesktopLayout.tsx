@@ -6,9 +6,7 @@ export default function AppLayout() {
     <section className="min-h-dvh flex w-full bg-black">
       <main className="flex flex-1 flex-col overflow-y-auto">
         {/* Page Content */}
-        <div className="flex-1 my-2">
-          <Outlet />
-        </div>
+        <Outlet />
 
         {/* Footer */}
         <div className="px-5">

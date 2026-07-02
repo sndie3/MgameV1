@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 export default function DisclaimerCard() {
   const navigate = useNavigate();
   return (
-    <div className="text-white flex-col rounded-md font-sans">
-      <h1 className="text-center text-md font-bold ">
+    <div className="text-white flex-col rounded-md font-sans flex-1">
+      <h1 className="text-center text-md font-bold my-2 ">
         PinoyMGame
       </h1>
       <div className=" text-md  flex flex-col">
@@ -52,7 +52,7 @@ export default function DisclaimerCard() {
 
       <button 
       onClick={() => navigate("/login")}
-      className="font-bahnschrift mt-5 w-full bg-red-800 py-2 text-lg font-semibold uppercase hover:bg-red-700 transition">
+      className="font-bahnschrift mt-5 w-full bg-red-800 py-2 text-lg font-semibold uppercase hover:bg-red-700 transition cursor-pointer">
         Proceed
       </button>
     </div>

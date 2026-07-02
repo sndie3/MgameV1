@@ -3,7 +3,7 @@ import './App.css'
 // MAIN
 function App() {
   return (
-    <main className="h-dvh overflow-hidden">
+    <main className="h-dvh ">
       <AppRoutes/>
     </main>
   )
