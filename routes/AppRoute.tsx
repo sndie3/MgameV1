@@ -2,6 +2,7 @@ import DesktopLayout from "../layouts/DesktopLayout";
 import { Routes, Route } from "react-router-dom"; 
 import Home from "../features/home/Home";
 import Login from "../features/auth/Login";
+import Disclaimer from "../features/auth/Disclaimer";
 export default function AppRoutes() { 
 
   return ( 
@@ -9,6 +10,7 @@ export default function AppRoutes() {
       {/* Main Website */} 
       <Route path="/"  element={<DesktopLayout />}> 
         <Route index element={<Home />} />
+        <Route path="disclaimer" element={<Disclaimer />} />
         <Route path="login" element={<Login />} />
       </Route> 
 

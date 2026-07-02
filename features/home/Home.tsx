@@ -30,7 +30,7 @@ function Home() {
         <>
             <section className="min-h-screen bg-black flex flex-col items-center justify-center text-white px-6">
                 {/* Provider Logos */}
-                <div className="flex flex-wrap justify-center items-center gap-10 md:gap-16 mb-28">
+                <div className="flex flex-wrap justify-center items-center gap-10 md:gap-16 mb-15">
                     {providers.map((provider) => (
                         <img
                             key={provider.name}
@@ -42,12 +42,12 @@ function Home() {
                 </div>
 
                 {/* Title */}
-                <h1 className="text-3xl md:text-4xl font-semibold">
+                <h1 className="text-2xl md:text-4xl font-semibold">
                     PinoyMGame.ph
                 </h1>
 
                 {/* Subtitle */}
-                <p className="mt-8 text-xl md:text-4xl italic text-gray-200 text-center font-light">
+                <p className="mt-8 text-lg md:text-4xl italic text-gray-200 text-center font-light">
                     "The architect of New Life Entertainment"
                 </p>
 
@@ -63,10 +63,10 @@ function Home() {
           bg-[#111]
           hover:bg-[#1a1a1a]
           transition
-          text-2xl
+          text-lg
           font-light
         "
-                    onClick={() => navigate("/login")}
+                    onClick={() => navigate("/disclaimer")}
                 >
                     Start your journey
                 </button>

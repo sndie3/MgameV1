@@ -1,8 +1,8 @@
-import Footer from "../../common/Footer";
+import { useNavigate } from "react-router-dom";
 
 export default function DisclaimerCard() {
+  const navigate = useNavigate();
   return (
-
     <div className="text-white flex-col rounded-md font-sans">
       <h1 className="text-center text-md font-bold ">
         PinoyMGame
@@ -50,7 +50,9 @@ export default function DisclaimerCard() {
       </p>
       </div>
 
-      <button className="font-bahnschrift mt-5 w-full bg-red-800 py-2 text-lg font-semibold uppercase hover:bg-red-700 transition">
+      <button 
+      onClick={() => navigate("/login")}
+      className="font-bahnschrift mt-5 w-full bg-red-800 py-2 text-lg font-semibold uppercase hover:bg-red-700 transition">
         Proceed
       </button>
     </div>

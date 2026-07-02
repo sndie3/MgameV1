@@ -1,14 +1,15 @@
 import { useState } from "react";
-import Footer from "../../common/Footer";
 
 export default function LoginCard() {
   const [agree, setAgree] = useState(true);
 
   return (
-      <div>
+      <div className="text-white flex-col rounded-md font-sans pt-5 overflow-y-auto">
         <h1 className="text-center text-xl font-bold mb-16">
           PinoyMGame
         </h1>
+
+        
 
         <div className="space-y-2">
           <input
@@ -37,16 +38,16 @@ export default function LoginCard() {
           </span>
         </label>
 
-        <button className="flex py-2 px-15 mx-auto justify-center bg-[#222] hover:bg-[#333] text-lg font-bold">
+        <button className="flex py-2 px-15 mx-auto justify-center bg-[#222] hover:bg-[#333] text-lg font-bold my-5">
           LOGIN
         </button>
 
-        <div className="flex justify-between mt-5 text-lg">
+        <div className="flex justify-between mt-5 text-lg font-bold">
           <button>REGISTER</button>
           <button>RESET</button>
         </div>
 
-        <p className="text-gray-600 mt-10 leading-relaxed text-xl">
+        <p className="text-gray-600 mt-5 leading-relaxed text-sm">
           This site is for 21 years and above only, not allowed to any
           government official or employee connected with any government agency
           or armed forces, not allowed to any Gaming Employment License (GEL)
