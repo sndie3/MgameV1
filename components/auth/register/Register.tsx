@@ -140,60 +140,64 @@ export default function Register() {
           />
 
           {/* Selfie Upload - Spans 2 columns on desktop */}
-          <div className="w-full md:col-span-2 h-32 md:h-48 lg:h-56 border border-[#333] rounded flex items-center justify-center relative overflow-hidden mt-2 md:mt-0 hover:border-[#666] transition-colors">
+          <div 
+            className="w-full md:col-span-2 h-32 md:h-48 lg:h-56 border border-[#333] rounded flex items-center justify-center relative overflow-hidden mt-2 md:mt-0 hover:border-[#666] transition-colors cursor-pointer"
+            onClick={!selfie ? startCamera : undefined}
+          >
             {selfie ? (
               <div className="w-full h-full relative">
-                <img src={selfie} alt="Selfie" className="w-full h-full object-cover transform -scale-x-100" />
+                <img src={selfie} alt="Selfie" className="w-full h-full object-contain transform -scale-x-100 bg-black" />
                 <button
-                  onClick={() => setSelfie(null)}
+                  onClick={(e) => { e.stopPropagation(); setSelfie(null); }}
                   className="absolute top-2 right-2 bg-red-600 text-white w-8 h-8 rounded-full flex items-center justify-center hover:bg-red-700 transition-colors"
                 >
                   ×
                 </button>
               </div>
             ) : (
-              <button
-                onClick={startCamera}
+              <span
                 className="text-[#666]"
                 style={{ fontFamily: '"Calibri Light", Calibri, sans-serif', fontSize: 'clamp(12px, 1.5vw, 16px)' }}
               >
                 Selfie with ID
-              </button>
+              </span>
             )}
           </div>
 
           {/* Camera Modal */}
           {showCamera && (
-            <div className="fixed inset-0 bg-black z-50 flex flex-col">
-              <div className="flex-1 relative">
-                <video
-                  ref={videoRef}
-                  autoPlay
-                  playsInline
-                  muted
-                  className="w-full h-full object-cover transform -scale-x-100"
-                />
-                {cameraError && (
-                  <div className="absolute inset-0 bg-black/80 flex items-center justify-center p-4">
-                    <p className="text-red-500 text-center text-sm">{cameraError}</p>
-                  </div>
-                )}
-              </div>
-              <div className="p-4 flex justify-center gap-4 bg-black">
-                <button
-                  onClick={capturePhoto}
-                  className="bg-[#1a1a1a] text-white px-8 py-3 rounded hover:bg-[#333] transition-colors"
-                  style={{ fontFamily: '"Calibri Light", Calibri, sans-serif', fontSize: 'clamp(14px, 2vw, 18px)' }}
-                >
-                  Capture
-                </button>
-                <button
-                  onClick={stopCamera}
-                  className="bg-red-600 text-white px-8 py-3 rounded hover:bg-red-700 transition-colors"
-                  style={{ fontFamily: '"Calibri Light", Calibri, sans-serif', fontSize: 'clamp(14px, 2vw, 18px)' }}
-                >
-                  Cancel
-                </button>
+            <div className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4">
+              <div className="bg-black rounded-lg overflow-hidden max-w-2xl w-full flex flex-col border border-[#333]">
+                <div className="relative aspect-video">
+                  <video
+                    ref={videoRef}
+                    autoPlay
+                    playsInline
+                    muted
+                    className="w-full h-full object-cover transform -scale-x-100"
+                  />
+                  {cameraError && (
+                    <div className="absolute inset-0 bg-black/80 flex items-center justify-center p-4">
+                      <p className="text-red-500 text-center text-sm">{cameraError}</p>
+                    </div>
+                  )}
+                </div>
+                <div className="p-4 flex justify-center gap-4 bg-black">
+                  <button
+                    onClick={capturePhoto}
+                    className="bg-[#1a1a1a] text-white px-8 py-3 rounded hover:bg-[#333] transition-colors"
+                    style={{ fontFamily: '"Calibri Light", Calibri, sans-serif', fontSize: 'clamp(14px, 2vw, 18px)' }}
+                  >
+                    Capture
+                  </button>
+                  <button
+                    onClick={stopCamera}
+                    className="bg-red-600 text-white px-8 py-3 rounded hover:bg-red-700 transition-colors"
+                    style={{ fontFamily: '"Calibri Light", Calibri, sans-serif', fontSize: 'clamp(14px, 2vw, 18px)' }}
+                  >
+                    Cancel
+                  </button>
+                </div>
               </div>
             </div>
           )}
