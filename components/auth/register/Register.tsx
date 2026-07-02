@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ChevronLeft } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import Footer from '../../common/Footer';
 
 export default function Register() {
   const [selfie, setSelfie] = useState<string | null>(null);
@@ -14,7 +15,7 @@ export default function Register() {
   };
 
   return (
-    <div className="min-h-[100dvh] bg-black text-white flex flex-col font-sans">
+    <div className="min-h-[90dvh] bg-black text-white flex flex-col font-sans">
       <div className="flex flex-col flex-1 w-full px-4 py-6 sm:px-8 sm:py-8 md:px-12 md:py-12 lg:px-16 max-w-[1200px] mx-auto">
         {/* Header */}
         <div className="relative flex items-center justify-center mb-6 md:mb-10 w-full">
@@ -120,13 +121,14 @@ export default function Register() {
         </div>
 
         {/* Footer */}
-        <div className="flex justify-between items-center w-full pb-2 md:pb-4 border-t border-[#333] pt-4 md:pt-6 mt-auto">
+        {/* <Footer/> */}
+        {/* <div className="flex justify-between items-center w-full pb-2 md:pb-4 border-t border-[#333] pt-4 md:pt-6 mt-auto">
           <div className="flex items-center gap-1.5 sm:gap-2">
             <span className="text-white font-bold" style={{ fontSize: 'clamp(10px, 1.2vw, 14px)' }}>PINOYMGAME.PH</span>
             <span className="text-[#666]" style={{ fontSize: 'clamp(10px, 1.2vw, 14px)' }}>2026 v.1.0</span>
           </div>
           <span className="text-white font-bold uppercase shrink-0" style={{ fontSize: 'clamp(10px, 1.2vw, 14px)' }}>LICENSES</span>
-        </div>
+        </div> */}
       </div>
     </div>
   );

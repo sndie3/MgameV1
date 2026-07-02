@@ -12,11 +12,12 @@ export default function AppLayout() {
         <Outlet />
 
         {/* Footer - not shown on register/reset pages */}
-        {!isAuthPage && (
-          <div className="px-5">
+        <div className="px-5">
             <Footer />
           </div>
-        )}
+        {/* {!isAuthPage && (
+          
+        )} */}
       </main>
     </section>
   );
