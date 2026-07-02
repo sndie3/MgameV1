@@ -1,7 +1,9 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function LoginCard() {
   const [agree, setAgree] = useState(true);
+  const navigate = useNavigate();
 
   return (
       <div className="text-white flex-col rounded-md font-sans pt-5 overflow-y-auto">
@@ -43,8 +45,8 @@ export default function LoginCard() {
         </button>
 
         <div className="flex justify-between mt-5 text-lg font-bold">
-          <button>REGISTER</button>
-          <button>RESET</button>
+          <button onClick={() => navigate('/register')}>REGISTER</button>
+          <button onClick={() => navigate('/reset')}>RESET</button>
         </div>
 
         <p className="text-gray-600 mt-5 leading-relaxed text-sm">
