@@ -55,16 +55,29 @@ export default function Register() {
           ))}
 
           {/* Birthdate */}
-          <input
-            type="text"
-            placeholder="Birthdate"
-            onFocus={(e) => (e.target.type = 'date')}
-            onBlur={(e) => {
-              if (!e.target.value) e.target.type = 'text';
-            }}
-            className="w-full bg-transparent border border-[#333] rounded px-4 py-3 md:py-4 text-center text-white placeholder:text-[#666] focus:outline-none focus:border-white transition-colors appearance-none"
-            style={{ fontFamily: '"Calibri Light", Calibri, sans-serif', fontSize: 'clamp(14px, 1.5vw, 18px)' }}
-          />
+          <div className="grid grid-cols-3 gap-2 md:gap-3">
+            <input
+              type="text"
+              placeholder="MM"
+              maxLength={2}
+              className="w-full bg-transparent border border-[#333] rounded px-4 py-3 md:py-4 text-center text-white placeholder:text-[#666] focus:outline-none focus:border-white transition-colors"
+              style={{ fontFamily: '"Calibri Light", Calibri, sans-serif', fontSize: 'clamp(14px, 1.5vw, 18px)' }}
+            />
+            <input
+              type="text"
+              placeholder="DD"
+              maxLength={2}
+              className="w-full bg-transparent border border-[#333] rounded px-4 py-3 md:py-4 text-center text-white placeholder:text-[#666] focus:outline-none focus:border-white transition-colors"
+              style={{ fontFamily: '"Calibri Light", Calibri, sans-serif', fontSize: 'clamp(14px, 1.5vw, 18px)' }}
+            />
+            <input
+              type="text"
+              placeholder="YY"
+              maxLength={2}
+              className="w-full bg-transparent border border-[#333] rounded px-4 py-3 md:py-4 text-center text-white placeholder:text-[#666] focus:outline-none focus:border-white transition-colors"
+              style={{ fontFamily: '"Calibri Light", Calibri, sans-serif', fontSize: 'clamp(14px, 1.5vw, 18px)' }}
+            />
+          </div>
 
           <input
             type="password"
