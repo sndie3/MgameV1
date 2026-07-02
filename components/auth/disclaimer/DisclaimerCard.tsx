@@ -45,7 +45,7 @@ export default function DisclaimerCard() {
           favor of the Government. Please play responsibly. Playing online
           games in open and public places is prohibited.{" "}
           <span className="font-semibold italic text-red-600">
-            By clicking "Proceed" you confirm that you are qualified to play.
+            By clicking "Agree" you confirm that you are qualified to play.
           </span>
         </p>
       </div>
@@ -54,7 +54,7 @@ export default function DisclaimerCard() {
         onClick={() => navigate("/login")}
         className="mt-6 w-full rounded-md bg-red-800 py-3 text-base font-semibold uppercase transition hover:bg-red-700 sm:text-lg cursor-pointer"
       >
-        Proceed
+        Agree
       </button>
     </div>
   );
