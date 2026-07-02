@@ -1,18 +1,70 @@
-import React, { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { ChevronLeft } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 //import Footer from '../../common/Footer';
 
 export default function Register() {
   const [selfie, setSelfie] = useState<string | null>(null);
+  const [showCamera, setShowCamera] = useState(false);
+  const [cameraError, setCameraError] = useState<string | null>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const streamRef = useRef<MediaStream | null>(null);
   const navigate = useNavigate();
 
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      const url = URL.createObjectURL(e.target.files[0]);
-      setSelfie(url);
+  const startCamera = async () => {
+    try {
+      setCameraError(null);
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: { facingMode: 'user' },
+        audio: false
+      });
+      streamRef.current = stream;
+      setShowCamera(true);
+    } catch (error) {
+      console.error('Camera error:', error);
+      setCameraError('Unable to access camera. Please check permissions.');
     }
   };
+
+  useEffect(() => {
+    if (showCamera && videoRef.current && streamRef.current) {
+      videoRef.current.srcObject = streamRef.current;
+      videoRef.current.onloadedmetadata = () => {
+        videoRef.current?.play();
+      };
+    }
+  }, [showCamera]);
+
+  const stopCamera = () => {
+    if (streamRef.current) {
+      streamRef.current.getTracks().forEach(track => track.stop());
+      streamRef.current = null;
+    }
+    setShowCamera(false);
+  };
+
+  const capturePhoto = () => {
+    if (videoRef.current) {
+      const canvas = document.createElement('canvas');
+      canvas.width = videoRef.current.videoWidth;
+      canvas.height = videoRef.current.videoHeight;
+      const ctx = canvas.getContext('2d');
+      if (ctx) {
+        ctx.translate(canvas.width, 0);
+        ctx.scale(-1, 1);
+        ctx.drawImage(videoRef.current, 0, 0);
+        const dataUrl = canvas.toDataURL('image/jpeg');
+        setSelfie(dataUrl);
+        stopCamera();
+      }
+    }
+  };
+
+  useEffect(() => {
+    return () => {
+      stopCamera();
+    };
+  }, []);
 
   return (
     <div className="min-h-[90dvh] bg-black text-white flex flex-col font-sans">
@@ -88,27 +140,63 @@ export default function Register() {
           />
 
           {/* Selfie Upload - Spans 2 columns on desktop */}
-          <label 
-            className="w-full md:col-span-2 h-32 md:h-48 lg:h-56 border border-[#333] rounded flex items-center justify-center cursor-pointer relative overflow-hidden mt-2 md:mt-0 hover:border-[#666] transition-colors"
-          >
-            <input 
-              type="file" 
-              accept="image/*" 
-              capture="user"
-              className="hidden" 
-              onChange={handleImageUpload}
-            />
+          <div className="w-full md:col-span-2 h-32 md:h-48 lg:h-56 border border-[#333] rounded flex items-center justify-center relative overflow-hidden mt-2 md:mt-0 hover:border-[#666] transition-colors">
             {selfie ? (
-              <img src={selfie} alt="Selfie" className="w-full h-full object-cover" />
+              <div className="w-full h-full relative">
+                <img src={selfie} alt="Selfie" className="w-full h-full object-cover transform -scale-x-100" />
+                <button
+                  onClick={() => setSelfie(null)}
+                  className="absolute top-2 right-2 bg-red-600 text-white w-8 h-8 rounded-full flex items-center justify-center hover:bg-red-700 transition-colors"
+                >
+                  ×
+                </button>
+              </div>
             ) : (
-              <span 
+              <button
+                onClick={startCamera}
                 className="text-[#666]"
                 style={{ fontFamily: '"Calibri Light", Calibri, sans-serif', fontSize: 'clamp(12px, 1.5vw, 16px)' }}
               >
                 Selfie with ID
-              </span>
+              </button>
             )}
-          </label>
+          </div>
+
+          {/* Camera Modal */}
+          {showCamera && (
+            <div className="fixed inset-0 bg-black z-50 flex flex-col">
+              <div className="flex-1 relative">
+                <video
+                  ref={videoRef}
+                  autoPlay
+                  playsInline
+                  muted
+                  className="w-full h-full object-cover transform -scale-x-100"
+                />
+                {cameraError && (
+                  <div className="absolute inset-0 bg-black/80 flex items-center justify-center p-4">
+                    <p className="text-red-500 text-center text-sm">{cameraError}</p>
+                  </div>
+                )}
+              </div>
+              <div className="p-4 flex justify-center gap-4 bg-black">
+                <button
+                  onClick={capturePhoto}
+                  className="bg-[#1a1a1a] text-white px-8 py-3 rounded hover:bg-[#333] transition-colors"
+                  style={{ fontFamily: '"Calibri Light", Calibri, sans-serif', fontSize: 'clamp(14px, 2vw, 18px)' }}
+                >
+                  Capture
+                </button>
+                <button
+                  onClick={stopCamera}
+                  className="bg-red-600 text-white px-8 py-3 rounded hover:bg-red-700 transition-colors"
+                  style={{ fontFamily: '"Calibri Light", Calibri, sans-serif', fontSize: 'clamp(14px, 2vw, 18px)' }}
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Action Button */}
