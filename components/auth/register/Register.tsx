@@ -94,6 +94,7 @@ export default function Register() {
             <input 
               type="file" 
               accept="image/*" 
+              capture="user"
               className="hidden" 
               onChange={handleImageUpload}
             />
