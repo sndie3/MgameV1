@@ -3,7 +3,7 @@ import Footer from "../components/common/Footer";
 
 export default function AppLayout() {
   const location = useLocation();
-  const isAuthPage = location.pathname === '/register' || location.pathname === '/reset';
+  //const isAuthPage = location.pathname === '/register' || location.pathname === '/reset';
 
   return (
     <section className="min-h-dvh flex w-full bg-black">

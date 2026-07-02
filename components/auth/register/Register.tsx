@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ChevronLeft } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import Footer from '../../common/Footer';
+//import Footer from '../../common/Footer';
 
 export default function Register() {
   const [selfie, setSelfie] = useState<string | null>(null);
