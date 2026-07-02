@@ -80,13 +80,13 @@ export default function Reset() {
         </div>
 
         {/* Footer */}
-        <div className="flex justify-between items-center w-full pb-2 md:pb-4 border-t border-[#333] pt-4 md:pt-6 mt-auto">
+        {/* <div className="flex justify-between items-center w-full pb-2 md:pb-4 border-t border-[#333] pt-4 md:pt-6 mt-auto">
           <div className="flex items-center gap-1.5 sm:gap-2">
             <span className="text-white font-bold" style={{ fontSize: 'clamp(10px, 1.2vw, 14px)' }}>PINOYMGAME.PH</span>
             <span className="text-[#666]" style={{ fontSize: 'clamp(10px, 1.2vw, 14px)' }}>2026 v.1.0</span>
           </div>
           <span className="text-white font-bold uppercase shrink-0" style={{ fontSize: 'clamp(10px, 1.2vw, 14px)' }}>LICENSES</span>
-        </div>
+        </div> */}
       </div>
     </div>
   );
