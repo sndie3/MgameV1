@@ -72,7 +72,7 @@ export default function Register() {
             />
             <input
               type="text"
-              placeholder="YY"
+              placeholder="YYYY"
               maxLength={2}
               className="w-full bg-transparent border border-[#333] rounded px-4 py-3 md:py-4 text-center text-white placeholder:text-[#666] focus:outline-none focus:border-white transition-colors"
               style={{ fontFamily: '"Calibri Light", Calibri, sans-serif', fontSize: 'clamp(14px, 1.5vw, 18px)' }}
