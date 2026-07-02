@@ -2,7 +2,7 @@ import { Outlet, useLocation } from "react-router-dom";
 import Footer from "../components/common/Footer";
 
 export default function AppLayout() {
-  const location = useLocation();
+  //const location = useLocation();
   //const isAuthPage = location.pathname === '/register' || location.pathname === '/reset';
 
   return (
