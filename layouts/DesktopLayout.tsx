@@ -1,4 +1,4 @@
-import { Outlet, useLocation } from "react-router-dom";
+import { Outlet} from "react-router-dom";
 import Footer from "../components/common/Footer";
 
 export default function AppLayout() {
