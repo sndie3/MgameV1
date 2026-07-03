@@ -1,7 +1,7 @@
 import { Outlet} from "react-router-dom";
 import Footer from "../components/common/Footer";
 import {useLocation} from "react-router-dom";
-export default function AppLayout() {
+export default function BaseLayout() {
   const location = useLocation();
   const isAuthPage =  location.pathname === '/';
 

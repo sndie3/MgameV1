@@ -19,7 +19,30 @@ export default function LoginCard() {
           >
             MGame
           </h1>
-
+          <div className="pb-6">
+            <p
+              className="text-[#666] leading-relaxed text-justify"
+              style={{
+                fontFamily: '"Aptos Narrow", sans-serif',
+                fontSize: "clamp(12px, 1.5vw, 16px)",
+              }}
+            >
+              This site is for 21 years and above only, not allowed to any
+              government official or employee connected with any government agency
+              or armed forces, not allowed to any Gaming Employment License (GEL)
+              holder, not allowed to any PAGCOR's National Database of Restricted
+              Persons (NDRP), also that your funds or credits in my account may be
+              forfeited if found ineligible, you are refrain from playing in
+              public, and I agree to MGAME's{" "}
+              <span className="text-red-600 font-semibold">
+                Privacy Policy
+              </span>{" "}
+              and{" "}
+              <span className="text-red-600 font-semibold">
+                Terms of Use.
+              </span>
+            </p>
+          </div>
           <div className="space-y-2">
             <input
               type="text"
@@ -72,30 +95,7 @@ export default function LoginCard() {
               RESET
             </button>
           </div>
-          <div className="pt-6">
-            <p
-              className="text-[#666] leading-relaxed text-justify"
-              style={{
-                fontFamily: '"Aptos Narrow", sans-serif',
-                fontSize: "clamp(12px, 1.5vw, 16px)",
-              }}
-            >
-              This site is for 21 years and above only, not allowed to any
-              government official or employee connected with any government agency
-              or armed forces, not allowed to any Gaming Employment License (GEL)
-              holder, not allowed to any PAGCOR's National Database of Restricted
-              Persons (NDRP), also that your funds or credits in my account may be
-              forfeited if found ineligible, you are refrain from playing in
-              public, and I agree to MGAME's{" "}
-              <span className="text-red-600 font-semibold">
-                Privacy Policy
-              </span>{" "}
-              and{" "}
-              <span className="text-red-600 font-semibold">
-                Terms of Use.
-              </span>
-            </p>
-          </div>
+
         </div>
 
         {/* Disclaimer */}
