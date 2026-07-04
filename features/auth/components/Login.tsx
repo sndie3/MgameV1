@@ -150,7 +150,7 @@ export default function LoginCard() {
               {agree && "✕"}
             </div>
 
-            <span className="text-xs">Terms &amp; Conditions apply.</span>
+            <span className="text-xs">I agree to MGame's Privacy Policy  &amp; Terms of Use.</span>
           </label>
 
           <button
