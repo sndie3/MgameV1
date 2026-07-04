@@ -102,9 +102,7 @@ export default function Register() {
     
     // Display status with red asterisk if applicable
     const displayStatus = selfie ? 'SEMI-VERIFIED' : 'SEMI-VERIFIED*';
-    const message = selfie 
-      ? 'Registration submitted successfully! Status: SEMI-VERIFIED'
-      : 'Registration submitted successfully! Status: SEMI-VERIFIED*';
+    const message = `Registration submitted successfully! Status: ${displayStatus}`;
     
     alert(message);
     
