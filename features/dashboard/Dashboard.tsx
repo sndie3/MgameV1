@@ -1,7 +1,4 @@
-import {
-    Search,
-    ChevronRight,
-} from "lucide-react";
+import {Search,ChevronRight} from "lucide-react";
 import { useState, useEffect, useRef, useCallback } from "react";
 import PatternOne from "./components/layouts/PatternOne";
 import PatternTwo from "./components/layouts/PatternTwo";
@@ -10,11 +7,12 @@ import SkeletonLayout from "./components/layouts/SkeletonLayout";
 import { generateGameLayouts } from "./utils/layoutGenerator";
 import type { LayoutGroup, LayoutPattern } from "./utils/layoutGenerator";
 import { fetchMockGames } from "./api/mockGames";
-
+import Sidebar from "./components/Sidebar";
 export default function Dashboard() {
     const [collapsed, setCollapsed] = useState(false);
     const [verificationStatus, setVerificationStatus] = useState<string>("Fully Verified");
     const [username, setUsername] = useState<string>("Roger Nicon");
+    const [sidebarOpen, setSidebarOpen] = useState(false);
 
     useEffect(() => {
     const status = localStorage.getItem('verificationStatus');
@@ -132,11 +130,17 @@ export default function Dashboard() {
 
     return (
         <div className="relative min-h-screen bg-black text-white overflow-hidden">
+            <Sidebar
+            sidebarOpen={sidebarOpen}
+            setSidebarOpen={setSidebarOpen}
+            username={username}
+            verificationStatus={verificationStatus}
+        />
             {/* Header */}
             <div className="px-5 pt-4">
                 <div className="flex items-start justify-between">
                     <div className="flex gap-3">
-                        <button className="h-12 w-12 rounded-full bg-[#1d1d1d] flex items-center justify-center">
+                        <button  onClick={() => setSidebarOpen(true)} className="h-12 w-12 rounded-full bg-[#1d1d1d] flex items-center justify-center">
                             <img src="/assets/icons/burger.png" alt="Avatar" className="w-7 h-3 " />
                         </button>
 
@@ -205,7 +209,7 @@ export default function Dashboard() {
 
             {/* Bottom Navbar*/}
             <div
-                className={` fixed bottom-0 left-0 right-0 z-50
+                className={` fixed bottom-0 left-0 right-0 z-30
         rounded-t-3xl
         bg-[#1d1d1d]/20
         backdrop-blur-sm
