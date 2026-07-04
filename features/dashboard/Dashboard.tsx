@@ -1,13 +1,17 @@
 import {Search,ChevronRight} from "lucide-react";
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef } from "react";
 import PatternOne from "./components/layouts/PatternOne";
 import PatternTwo from "./components/layouts/PatternTwo";
 import PatternThree from "./components/layouts/PatternThree";
 import SkeletonLayout from "./components/layouts/SkeletonLayout";
-import { generateGameLayouts } from "./utils/layoutGenerator";
-import type { LayoutGroup, LayoutPattern } from "./utils/layoutGenerator";
-import { fetchMockGames } from "./api/mockGames";
+import { useInfiniteGames } from "./hooks/useInfiniteGames";
+import { MockGameProvider } from "./providers/MockGameProvider";
+// import { ApiGameProvider } from "./providers/ApiGameProvider"; // Swap here for production
 import Sidebar from "./components/Sidebar";
+
+// Instantiate provider outside component to avoid recreation on re-renders
+const gameProvider = new MockGameProvider();
+
 export default function Dashboard() {
     const [collapsed, setCollapsed] = useState(false);
     const [verificationStatus, setVerificationStatus] = useState<string>("Fully Verified");
@@ -63,54 +67,17 @@ export default function Dashboard() {
   { label: "EPT" },
 ];
 
-    const [layouts, setLayouts] = useState<LayoutGroup[]>([]);
-    const [loading, setLoading] = useState(false);
-    const [hasMore, setHasMore] = useState(true);
+    const { layouts, isLoading, hasMore, loadMore } = useInfiniteGames(gameProvider, 21);
 
-    const pageRef = useRef(1);
-    const isFetchingRef = useRef(false);
-    const lastLayoutRef = useRef<LayoutPattern | null>(null);
     const observerTarget = useRef<HTMLDivElement>(null);
     const scrollContainerRef = useRef<HTMLDivElement>(null);
-
-    const loadGames = useCallback(async () => {
-        if (isFetchingRef.current || !hasMore) return;
-        
-        isFetchingRef.current = true;
-        setLoading(true);
-        try {
-            // Load 21 games per page (multiple of 3)
-            const response = await fetchMockGames(pageRef.current, 21);
-            const newLayouts = generateGameLayouts(response.data, lastLayoutRef.current);
-            
-            if (newLayouts.length > 0) {
-                lastLayoutRef.current = newLayouts[newLayouts.length - 1].layout;
-            }
-
-            setLayouts(prev => [...prev, ...newLayouts]);
-            setHasMore(response.hasMore);
-            pageRef.current += 1;
-        } catch (error) {
-            console.error("Failed to fetch games", error);
-        } finally {
-            setLoading(false);
-            isFetchingRef.current = false;
-        }
-    }, [hasMore]);
-
-    // Initial load
-    useEffect(() => {
-        if (pageRef.current === 1 && layouts.length === 0) {
-            loadGames();
-        }
-    }, [loadGames, layouts.length]);
 
     // Intersection Observer for prefetching infinite scroll
     useEffect(() => {
         const observer = new IntersectionObserver(
             (entries) => {
                 if (entries[0].isIntersecting && hasMore) {
-                    loadGames();
+                    loadMore();
                 }
             },
             {
@@ -126,7 +93,7 @@ export default function Dashboard() {
         }
 
         return () => observer.disconnect();
-    }, [hasMore, loadGames, layouts.length]);
+    }, [hasMore, loadMore, layouts.length]);
 
     return (
         <div className="relative min-h-screen bg-black text-white overflow-hidden">
@@ -200,7 +167,7 @@ export default function Dashboard() {
                     })}
 
                     {/* Loading Skeletons */}
-                    {loading && <SkeletonLayout />}
+                    {isLoading && <SkeletonLayout />}
 
                     {/* Intersection Observer Target */}
                     <div ref={observerTarget} className="h-10 w-full" />
