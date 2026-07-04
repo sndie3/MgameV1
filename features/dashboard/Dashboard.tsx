@@ -1,4 +1,4 @@
-import {Search,ChevronRight} from "lucide-react";
+import { Search, ChevronRight } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import PatternOne from "./components/layouts/PatternOne";
 import PatternTwo from "./components/layouts/PatternTwo";
@@ -19,16 +19,16 @@ export default function Dashboard() {
     const [sidebarOpen, setSidebarOpen] = useState(false);
 
     useEffect(() => {
-    const status = localStorage.getItem('verificationStatus');
-    if (status) {
-        setVerificationStatus(status.toUpperCase());
-    }
+        const status = localStorage.getItem('verificationStatus');
+        if (status) {
+            setVerificationStatus(status.toUpperCase());
+        }
 
-    const storedUsername = localStorage.getItem('username');
-    if (storedUsername) {
-        setUsername(storedUsername);
-    }
-}, []);
+        const storedUsername = localStorage.getItem('username');
+        if (storedUsername) {
+            setUsername(storedUsername);
+        }
+    }, []);
 
     const menus = [
         {
@@ -61,11 +61,11 @@ export default function Dashboard() {
     ];
 
     const tabs = [
-  { label: "Recently" },
-  { label: "Invite", icon: "/assets/icons/invite.png" },
-  { label: "Rewards" },
-  { label: "EPT" },
-];
+        { label: "Recently" },
+        { label: "Invite", icon: "/assets/icons/invite.png" },
+        { label: "Rewards" },
+        { label: "EPT" },
+    ];
 
     const { layouts, isLoading, hasMore, loadMore } = useInfiniteGames(gameProvider, 21);
 
@@ -98,16 +98,16 @@ export default function Dashboard() {
     return (
         <div className="relative min-h-screen bg-black text-white overflow-hidden">
             <Sidebar
-            sidebarOpen={sidebarOpen}
-            setSidebarOpen={setSidebarOpen}
-            username={username}
-            verificationStatus={verificationStatus}
-        />
+                sidebarOpen={sidebarOpen}
+                setSidebarOpen={setSidebarOpen}
+                username={username}
+                verificationStatus={verificationStatus}
+            />
             {/* Header */}
             <div className="px-5 pt-4">
                 <div className="flex items-start justify-between">
                     <div className="flex gap-3">
-                        <button  onClick={() => setSidebarOpen(true)} className="h-12 w-12 rounded-full bg-[#1d1d1d] flex items-center justify-center">
+                        <button onClick={() => setSidebarOpen(true)} className="h-12 w-12 rounded-full bg-[#1d1d1d] flex items-center justify-center">
                             <img src="/assets/icons/burger.png" alt="Avatar" className="w-7 h-3 " />
                         </button>
 
@@ -139,13 +139,13 @@ export default function Dashboard() {
                         key={tab.label}
                         className="bg-[#171717] py-4 text-sm font-semibold hover:bg-[#252525]"
                     >
-                       <div className="flex items-center justify-center gap-2">
-                        {tab.icon && (
-                            <img src={tab.icon} alt={tab.label} className="w-7 h-7" />
-                        )}
-                        {tab.label}
-                       </div>
-                        
+                        <div className="flex items-center justify-center gap-2">
+                            {tab.icon && (
+                                <img src={tab.icon} alt={tab.label} className="w-7 h-7" />
+                            )}
+                            {tab.label}
+                        </div>
+
                     </button>
                 ))}
             </div>
@@ -189,14 +189,18 @@ export default function Dashboard() {
 
                     <input
                         placeholder="Search"
-                        className="flex-1 bg-transparent px-3 outline-none placeholder:text-gray-500"
+                        className="flex-1 bg-transparent px-3 outline-none placeholder:text-gray- 500"
                     />
-
                     <button
                         onClick={() => setCollapsed(!collapsed)}
-                        className={`w-7 h-7 rounded-full transition-colors ${collapsed ? "bg-blue-400" : "bg-gray-300"
-                            }`}
-                    />
+                        className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-700"
+                    >
+                        <div
+                            className={`h-6 w-6 rounded-full ${collapsed ? "bg-blue-400" : "bg-gray-300"
+                                }`}
+                        />
+                    </button>
+
                 </div>
 
                 {/* Menu*/}
@@ -213,11 +217,11 @@ export default function Dashboard() {
                         >
                             <div className="flex items-center gap-10 flex-1">
                                 <img src={item.icon} alt={item.title}
-                                className={`object-contain w-6 h-6`} />
+                                    className={`object-contain w-6 h-6`} />
 
-                            <span className="flex-1 text-left font-semibold text-[20px]">
-                                {item.title}
-                            </span>
+                                <span className="flex-1 text-left font-semibold text-[20px]">
+                                    {item.title}
+                                </span>
                             </div>
 
                             {item.count && (
