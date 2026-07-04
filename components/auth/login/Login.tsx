@@ -1,9 +1,56 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function LoginCard() {
   const [agree, setAgree] = useState(false);
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
+
+  // Load cached credentials on mount
+  useEffect(() => {
+    const cachedMobileNumber = localStorage.getItem("userMobileNumber");
+    if (cachedMobileNumber) {
+      setUsername(cachedMobileNumber);
+    }
+  }, []);
+
+  // Cache mobile number on change
+  const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setUsername(value);
+    localStorage.setItem("cachedMobileNumber", value);
+  };
+
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value);
+  };
+
+  const handleLogin = () => {
+    // Validate fields
+    if (!username || !password) {
+      alert('Please enter mobile number and password');
+      return;
+    }
+
+    if (!agree) {
+      alert('Please agree to Terms & Conditions');
+      return;
+    }
+
+    // Validate against registered mobile number
+    const registeredMobileNumber = localStorage.getItem('userMobileNumber');
+    if (registeredMobileNumber && username !== registeredMobileNumber) {
+      alert('Mobile number does not match registered account');
+      return;
+    }
+
+    // Here you would typically authenticate with your backend
+    console.log('Login attempt:', { username });
+    
+    // Navigate to dashboard
+    navigate('/dashboard');
+  };
 
   return (
     <div className="min-h-[90dvh] bg-black text-white font-sans">
@@ -46,7 +93,9 @@ export default function LoginCard() {
           <div className="space-y-2">
             <input
               type="text"
-              placeholder="Username"
+              placeholder="Mobile Number"
+              value={username}
+              onChange={handleUsernameChange}
               className="w-full bg-transparent border border-[#333] rounded px-4 py-3 md:py-4 text-center text-white placeholder:italic placeholder:tracking-[8px] outline-none focus:border-white transition-colors"
               style={{
                 fontFamily: '"Calibri Light", Calibri, sans-serif',
@@ -57,6 +106,8 @@ export default function LoginCard() {
             <input
               type="password"
               placeholder="Password"
+              value={password}
+              onChange={handlePasswordChange}
               className="w-full bg-transparent border border-[#333] rounded px-4 py-3 md:py-4 text-center text-white placeholder:italic placeholder:tracking-[8px] outline-none focus:border-white transition-colors"
               style={{
                 fontFamily: '"Calibri Light", Calibri, sans-serif',
@@ -76,7 +127,10 @@ export default function LoginCard() {
             <span className="text-xs">Terms &amp; Conditions apply.</span>
           </label>
 
-          <button className="mx-auto mt-6 bg-[#222] hover:bg-[#333] transition-colors cursor-pointer px-16 py-2 text-lg font-bold">
+          <button 
+            onClick={handleLogin}
+            className="mx-auto mt-6 bg-[#222] hover:bg-[#333] transition-colors cursor-pointer px-16 py-2 text-lg font-bold"
+          >
             LOGIN
           </button>
 

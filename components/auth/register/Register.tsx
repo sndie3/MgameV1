@@ -3,6 +3,18 @@ import { ChevronLeft } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 //import Footer from '../../common/Footer';
 
+interface RegisterFormData {
+  firstName: string;
+  middleName: string;
+  lastName: string;
+  email: string;
+  mobileNumber: string;
+  birthMonth: string;
+  birthDay: string;
+  birthYear: string;
+  password: string;
+}
+
 export default function Register() {
   const [selfie, setSelfie] = useState<string | null>(null);
   const [showCamera, setShowCamera] = useState(false);
@@ -10,6 +22,98 @@ export default function Register() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const streamRef = useRef<MediaStream | null>(null);
   const navigate = useNavigate();
+
+  const [formData, setFormData] = useState<RegisterFormData>({
+    firstName: '',
+    middleName: '',
+    lastName: '',
+    email: '',
+    mobileNumber: '',
+    birthMonth: '',
+    birthDay: '',
+    birthYear: '',
+    password: ''
+  });
+
+  // Load cached form data on mount
+  useEffect(() => {
+    const cachedData = localStorage.getItem('registerFormData');
+    if (cachedData) {
+      try {
+        const parsedData = JSON.parse(cachedData);
+        setFormData(parsedData);
+      } catch (error) {
+        console.error('Error parsing cached form data:', error);
+      }
+    }
+  }, []);
+
+  // Cache form data on change
+  const handleFieldChange = (field: keyof RegisterFormData, value: string) => {
+    const updatedData = { ...formData, [field]: value };
+    setFormData(updatedData);
+    localStorage.setItem('registerFormData', JSON.stringify(updatedData));
+  };
+
+  // Clear cached form data
+  const clearCache = () => {
+    localStorage.removeItem('registerFormData');
+    setFormData({
+      firstName: '',
+      middleName: '',
+      lastName: '',
+      email: '',
+      mobileNumber: '',
+      birthMonth: '',
+      birthDay: '',
+      birthYear: '',
+      password: ''
+    });
+  };
+
+  const handleActivate = () => {
+    // Validate required fields
+    if (!formData.firstName || !formData.lastName || !formData.email || 
+        !formData.mobileNumber || !formData.birthMonth || !formData.birthDay || 
+        !formData.birthYear || !formData.password) {
+      alert('Please fill in all required fields');
+      return;
+    }
+
+    // Determine verification status based on selfie
+    const verificationStatus = selfie ? 'semi-verified' : 'semi-verified*';
+
+    // Here you would typically send the data to your backend
+    console.log('Registration data:', { 
+      ...formData, 
+      selfie: selfie ? 'provided' : 'not provided',
+      verificationStatus 
+    });
+    
+    // Store verification status in localStorage for later use
+    localStorage.setItem('verificationStatus', verificationStatus);
+    
+    // Store username (combination of first and last name) for dashboard
+    const username = `${formData.firstName} ${formData.lastName}`.toUpperCase();
+    localStorage.setItem('username', username);
+    
+    // Store mobile number for login
+    localStorage.setItem('userMobileNumber', formData.mobileNumber);
+    
+    // Display status with red asterisk if applicable
+    const displayStatus = selfie ? 'SEMI-VERIFIED' : 'SEMI-VERIFIED*';
+    const message = selfie 
+      ? 'Registration submitted successfully! Status: SEMI-VERIFIED'
+      : 'Registration submitted successfully! Status: SEMI-VERIFIED*';
+    
+    alert(message);
+    
+    // Clear cache after successful submission
+    clearCache();
+    
+    // Navigate to login or dashboard
+    navigate('/login');
+  };
 
   const startCamera = async () => {
     try {
@@ -92,20 +196,49 @@ export default function Register() {
 
         {/* Form - Uses CSS Grid on larger screens */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-5 lg:gap-6 w-full max-w-[900px] mx-auto flex-1">
-          {[
-            { placeholder: 'First Name', type: 'text' },
-            { placeholder: 'Middle Name', type: 'text' },
-            { placeholder: 'Last Name', type: 'text' },
-            { placeholder: 'Mobile Number', type: 'tel' },
-          ].map((field, idx) => (
-            <input
-              key={idx}
-              type={field.type}
-              placeholder={field.placeholder}
-              className="w-full bg-transparent border border-[#333] rounded px-4 py-3 md:py-4 text-center text-white placeholder:text-[#666] focus:outline-none focus:border-white transition-colors"
-              style={{ fontFamily: '"Calibri Light", Calibri, sans-serif', fontSize: 'clamp(14px, 1.5vw, 18px)' }}
-            />
-          ))}
+          <input
+            type="text"
+            placeholder="First Name"
+            value={formData.firstName}
+            onChange={(e) => handleFieldChange('firstName', e.target.value)}
+            className="w-full bg-transparent border border-[#333] rounded px-4 py-3 md:py-4 text-center text-white placeholder:text-[#666] focus:outline-none focus:border-white transition-colors"
+            style={{ fontFamily: '"Calibri Light", Calibri, sans-serif', fontSize: 'clamp(14px, 1.5vw, 18px)' }}
+          />
+          <input
+            type="text"
+            placeholder="Middle Name"
+            value={formData.middleName}
+            onChange={(e) => handleFieldChange('middleName', e.target.value)}
+            className="w-full bg-transparent border border-[#333] rounded px-4 py-3 md:py-4 text-center text-white placeholder:text-[#666] focus:outline-none focus:border-white transition-colors"
+            style={{ fontFamily: '"Calibri Light", Calibri, sans-serif', fontSize: 'clamp(14px, 1.5vw, 18px)' }}
+          />
+          <input
+            type="text"
+            placeholder="Last Name"
+            value={formData.lastName}
+            onChange={(e) => handleFieldChange('lastName', e.target.value)}
+            className="w-full bg-transparent border border-[#333] rounded px-4 py-3 md:py-4 text-center text-white placeholder:text-[#666] focus:outline-none focus:border-white transition-colors"
+            style={{ fontFamily: '"Calibri Light", Calibri, sans-serif', fontSize: 'clamp(14px, 1.5vw, 18px)' }}
+          />
+          <input
+            type="email"
+            placeholder="Email"
+            value={formData.email}
+            onChange={(e) => handleFieldChange('email', e.target.value)}
+            className="w-full bg-transparent border border-[#333] rounded px-4 py-3 md:py-4 text-center text-white placeholder:text-[#666] focus:outline-none focus:border-white transition-colors"
+            style={{ fontFamily: '"Calibri Light", Calibri, sans-serif', fontSize: 'clamp(14px, 1.5vw, 18px)' }}
+          />
+          <input
+            type="tel"
+            placeholder="Mobile Number"
+            value={formData.mobileNumber}
+            onChange={(e) => {
+              const value = e.currentTarget.value.replace(/[^0-9]/g, '');
+              handleFieldChange('mobileNumber', value);
+            }}
+            className="w-full bg-transparent border border-[#333] rounded px-4 py-3 md:py-4 text-center text-white placeholder:text-[#666] focus:outline-none focus:border-white transition-colors"
+            style={{ fontFamily: '"Calibri Light", Calibri, sans-serif', fontSize: 'clamp(14px, 1.5vw, 18px)' }}
+          />
 
           {/* Birthdate */}
           <div className="grid grid-cols-3 gap-2 md:gap-3">
@@ -114,7 +247,11 @@ export default function Register() {
               inputMode="numeric"
               placeholder="MM"
               maxLength={2}
-              onInput={(e) => e.currentTarget.value = e.currentTarget.value.replace(/[^0-9]/g, '')}
+              value={formData.birthMonth}
+              onChange={(e) => {
+                const value = e.currentTarget.value.replace(/[^0-9]/g, '');
+                handleFieldChange('birthMonth', value);
+              }}
               className="w-full bg-transparent border border-[#333] rounded px-4 py-3 md:py-4 text-center text-white placeholder:text-[#666] focus:outline-none focus:border-white transition-colors"
               style={{ fontFamily: '"Calibri Light", Calibri, sans-serif', fontSize: 'clamp(14px, 1.5vw, 18px)' }}
             />
@@ -123,7 +260,11 @@ export default function Register() {
               inputMode="numeric"
               placeholder="DD"
               maxLength={2}
-              onInput={(e) => e.currentTarget.value = e.currentTarget.value.replace(/[^0-9]/g, '')}
+              value={formData.birthDay}
+              onChange={(e) => {
+                const value = e.currentTarget.value.replace(/[^0-9]/g, '');
+                handleFieldChange('birthDay', value);
+              }}
               className="w-full bg-transparent border border-[#333] rounded px-4 py-3 md:py-4 text-center text-white placeholder:text-[#666] focus:outline-none focus:border-white transition-colors"
               style={{ fontFamily: '"Calibri Light", Calibri, sans-serif', fontSize: 'clamp(14px, 1.5vw, 18px)' }}
             />
@@ -132,7 +273,11 @@ export default function Register() {
               inputMode="numeric"
               placeholder="YYYY"
               maxLength={4}
-              onInput={(e) => e.currentTarget.value = e.currentTarget.value.replace(/[^0-9]/g, '')}
+              value={formData.birthYear}
+              onChange={(e) => {
+                const value = e.currentTarget.value.replace(/[^0-9]/g, '');
+                handleFieldChange('birthYear', value);
+              }}
               className="w-full bg-transparent border border-[#333] rounded px-4 py-3 md:py-4 text-center text-white placeholder:text-[#666] focus:outline-none focus:border-white transition-colors"
               style={{ fontFamily: '"Calibri Light", Calibri, sans-serif', fontSize: 'clamp(14px, 1.5vw, 18px)' }}
             />
@@ -141,6 +286,8 @@ export default function Register() {
           <input
             type="password"
             placeholder="Password 8 characters alphanumeric"
+            value={formData.password}
+            onChange={(e) => handleFieldChange('password', e.target.value)}
             className="w-full bg-transparent border border-[#333] rounded px-4 py-3 md:py-4 text-center text-white placeholder:text-[#666] focus:outline-none focus:border-white transition-colors"
             style={{ fontFamily: '"Calibri Light", Calibri, sans-serif', fontSize: 'clamp(14px, 1.5vw, 18px)' }}
           />
@@ -210,12 +357,19 @@ export default function Register() {
         </div>
 
         {/* Action Button */}
-        <div className="flex justify-center mt-8 md:mt-12 mb-8 md:mb-12 w-full">
+        <div className="flex flex-col items-center gap-4 mt-8 md:mt-12 mb-8 md:mb-12 w-full">
           <button 
+            onClick={handleActivate}
             className="cursor-pointer bg-[#1a1a1a] text-white w-full max-w-[300px] md:max-w-[400px] py-4 rounded hover:bg-[#333] transition-colors"
             style={{ fontFamily: '"Bahnschrift SemiCondensed", Bahnschrift, sans-serif', fontSize: 'clamp(15px, 2vw, 20px)' }}
           >
             Activate
+          </button>
+          <button 
+            onClick={clearCache}
+            className="cursor-pointer text-[#666] text-xs hover:text-white transition-colors"
+          >
+            Clear Form Data
           </button>
         </div>
 
