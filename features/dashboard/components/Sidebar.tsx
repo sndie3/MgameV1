@@ -1,4 +1,5 @@
 import { ChevronRight } from "lucide-react";
+import Button from "../../../components/ui/Button";
 
 interface SidebarProps {
     sidebarOpen: boolean;
@@ -7,6 +8,26 @@ interface SidebarProps {
     verificationStatus: string;
 }
 
+const menus = [
+        {
+            title: "How to Use",
+        },
+        {
+            title: "Profile",
+        },
+        {
+            title: "Notifications",
+        },
+        {
+            title: "Privacy",
+        },
+        {
+            title: "Game Responsibly",
+        },
+        {
+            title: "Talk to Us Campaign",
+        },
+    ];
 export default function Sidebar({
     sidebarOpen,
     setSidebarOpen,
@@ -43,9 +64,9 @@ export default function Sidebar({
                     </button>
                 </div>
 
-                <div className="flex flex-col px-7 py-4 gap-2">
+                <div className="flex flex-col px-6 py-4 gap-2">
                     <h2 className="text-lg font-bold uppercase">{username}</h2>
-                    <p className="text-md text-gray-400">
+                    <p className="text-sm text-gray-400">
                         {verificationStatus.includes('*') ? (
                             <>
                                 {verificationStatus.replace('*', '')}
@@ -55,6 +76,29 @@ export default function Sidebar({
                             verificationStatus
                         )}
                     </p>
+                </div>
+                <div>
+                    {menus.map((item) => (
+                        <button
+                            key={item.title}
+                            className="w-full px-6 py-4 flex items-center hover:bg-white/10 transition gap-2"
+                        >
+                            <div className="flex items-center gap-10 flex-1">
+                            <span className="flex-1 text-left font-semibold text-[20px]">
+                                {item.title}
+                            </span>
+                            </div>
+
+                
+
+                            <ChevronRight size={20} />
+                        </button>
+                    ))}
+                </div>
+                <div className="flex flex-col px-7 py-4 gap-2">
+                    <Button variant="secondary">
+                        Log Out
+                    </Button>
                 </div>
             </div>
         </>
