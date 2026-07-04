@@ -1,11 +1,14 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useModal } from "../../../context/ModalContext";
 
 export default function LoginCard() {
   const [agree, setAgree] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+
+  const { showModal } = useModal();
 
   // Load cached credentials on mount
   useEffect(() => {
@@ -29,12 +32,36 @@ export default function LoginCard() {
   const handleLogin = () => {
     // Validate fields
     if (!username || !password) {
-      alert('Please enter mobile number and password');
+      let message = "";
+      let title = "";
+
+      if (!username && !password) {
+        message = "Please enter your username and password.";
+        title = "Missing Required Fields";
+      } else if (!username) {
+        message = "Please enter your username.";
+        title = "Missing Username";
+      } else {
+        message = "Please enter your password.";
+        title = "Missing Password";
+      }
+
+      showModal(
+        "error",
+        title,
+        message
+      );
+
       return;
     }
 
     if (!agree) {
-      alert('Please agree to Terms & Conditions');
+      showModal(
+        "error",
+        "Agreement Required",
+        "Please agree to the Terms & Conditions."
+      );
+
       return;
     }
 
@@ -47,7 +74,6 @@ export default function LoginCard() {
 
     // Here you would typically authenticate with your backend
     console.log('Login attempt:', { username });
-    
     // Navigate to dashboard
     navigate('/dashboard');
   };
@@ -127,7 +153,7 @@ export default function LoginCard() {
             <span className="text-xs">Terms &amp; Conditions apply.</span>
           </label>
 
-          <button 
+          <button
             onClick={handleLogin}
             className="mx-auto mt-6 bg-[#222] hover:bg-[#333] transition-colors cursor-pointer px-16 py-2 text-lg font-bold"
           >

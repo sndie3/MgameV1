@@ -2,18 +2,8 @@ import { useState, useRef, useEffect } from 'react';
 import { ChevronLeft } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 //import Footer from '../../common/Footer';
-
-interface RegisterFormData {
-  firstName: string;
-  middleName: string;
-  lastName: string;
-  email: string;
-  mobileNumber: string;
-  birthMonth: string;
-  birthDay: string;
-  birthYear: string;
-  password: string;
-}
+import type { RegisterFormData } from '../../../Interfaces/Auth';
+import { useModal } from "../../../context/ModalContext";
 
 export default function Register() {
   const [selfie, setSelfie] = useState<string | null>(null);
@@ -22,6 +12,7 @@ export default function Register() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const streamRef = useRef<MediaStream | null>(null);
   const navigate = useNavigate();
+  const { showModal } = useModal();
 
   const [formData, setFormData] = useState<RegisterFormData>({
     firstName: '',
@@ -76,7 +67,11 @@ export default function Register() {
     if (!formData.firstName || !formData.lastName || !formData.email || 
         !formData.mobileNumber || !formData.birthMonth || !formData.birthDay || 
         !formData.birthYear || !formData.password) {
-      alert('Please fill in all required fields');
+      showModal(
+        "warning",
+        "Missing Required Fields",
+        "Please fill in all required fields"
+      );
       return;
     }
 

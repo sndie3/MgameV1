@@ -1,4 +1,4 @@
-import ResetCard from "../../components/auth/reset/Reset";
+import ResetCard from "../auth/components/Reset";
 
 export default function Reset() {
   return (

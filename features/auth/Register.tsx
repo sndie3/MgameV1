@@ -1,4 +1,4 @@
-import RegisterCard from "../../components/auth/register/Register";
+import RegisterCard from "./components/Register";
 
 export default function Register() {
   return (

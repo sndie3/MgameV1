@@ -1,4 +1,4 @@
-import DisclaimerCard from "../../components/auth/disclaimer/DisclaimerCard";
+import DisclaimerCard from "./components/DisclaimerCard";
 
 
 export default function Disclaimer() {

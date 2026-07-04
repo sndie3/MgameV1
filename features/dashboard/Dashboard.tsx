@@ -4,7 +4,7 @@ import {
     ChevronRight,
 } from "lucide-react";
 import { useState, useEffect } from "react";
-import GameCard from "../../components/dashboard/GameCard";
+import GameCard from "../dashboard/components/GameCard"
 
 export default function Dashboard() {
     const [collapsed, setCollapsed] = useState(false);
