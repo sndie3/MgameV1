@@ -53,6 +53,12 @@ export default function Dashboard() {
         },
     ];
 
+    const tabs = [
+  { label: "Recently" },
+  { label: "Invite", icon: "/assets/icons/invite.png" },
+  { label: "Rewards" },
+  { label: "EPT" },
+];
     const games = [
         { id: 1, title: "Game 1", image: "", size: "big" },
         { id: 2, title: "Game 2", image: "", size: "small" },
@@ -72,7 +78,7 @@ export default function Dashboard() {
                 <div className="flex items-start justify-between">
                     <div className="flex gap-3">
                         <button className="h-14 w-14 rounded-full bg-[#1d1d1d] flex items-center justify-center">
-                            <Menu size={28} />
+                            <img src="/assets/icons/burger.png" alt="Avatar" className="w-10 h-6 " />
                         </button>
 
                         <div>
@@ -98,12 +104,18 @@ export default function Dashboard() {
 
             {/* Header Tab */}
             <div className="grid grid-cols-4 gap-1 mt-4 px-2">
-                {["Recently", "Invite", "Rewards", "EPT"].map((tab) => (
+                {tabs.map((tab) => (
                     <button
-                        key={tab}
+                        key={tab.label}
                         className="bg-[#171717] py-4 text-sm font-semibold hover:bg-[#252525]"
                     >
-                        {tab}
+                       <div className="flex items-center justify-center gap-2">
+                        {tab.icon && (
+                            <img src={tab.icon} alt={tab.label} className="w-7 h-7" />
+                        )}
+                        {tab.label}
+                       </div>
+                        
                     </button>
                 ))}
             </div>
@@ -224,7 +236,7 @@ export default function Dashboard() {
                                 <img src={item.icon} alt={item.title}
                                 className={`object-contain w-6 h-6`} />
 
-                            <span className="flex-1 text-left font-semibold text-sm">
+                            <span className="flex-1 text-left font-semibold text-md">
                                 {item.title}
                             </span>
                             </div>
