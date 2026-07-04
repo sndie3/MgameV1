@@ -76,8 +76,8 @@ export default function Dashboard() {
             <div className="px-5 pt-4">
                 <div className="flex items-start justify-between">
                     <div className="flex gap-3">
-                        <button className="h-14 w-14 rounded-full bg-[#1d1d1d] flex items-center justify-center">
-                            <img src="/assets/icons/burger.png" alt="Avatar" className="w-7 h-4 " />
+                        <button className="h-10 w-10 rounded-full bg-[#1d1d1d] flex items-center justify-center">
+                            <img src="/assets/icons/burger.png" alt="Avatar" className="w-7 h-3 " />
                         </button>
 
                         <div>
