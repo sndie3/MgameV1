@@ -1,3 +1,5 @@
+import { ChevronRight } from "lucide-react";
+
 interface SidebarProps {
     sidebarOpen: boolean;
     setSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -16,32 +18,43 @@ export default function Sidebar({
             {/* backdrop */}
             <div
                 onClick={() => setSidebarOpen(false)}
-                className={`fixed inset-0 bg-black/50 z-40 transition-opacity duration-300 ${sidebarOpen
-                        ? "opacity-100 pointer-events-auto"
-                        : "opacity-0 pointer-events-none"
+                className={`fixed inset-0 bg-black z-40 transition-opacity duration-300 ${sidebarOpen
+                    ? "opacity-100 pointer-events-auto"
+                    : "opacity-0 pointer-events-none"
                     }`}
             />
 
             {/* sidebar with details */}
             <div
-                className={`fixed top-0 left-0 h-full w-full bg-[#111111] z-50
+                className={`fixed top-0 left-0 h-full w-full bg-black z-50
         transform transition-transform duration-300 ease-in-out
         ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}`}
             >
                 <div className="flex items-center justify-between p-5 border-b border-[#2a2a2a]">
-                    <div>
-                        <h2 className="font-bold uppercase">{username}</h2>
-                        <p className="text-sm text-gray-400">
-                            {verificationStatus}
-                        </p>
-                    </div>
 
+                    <div className="h-12 w-auto rounded-full bg-[#1d1d1d] flex items-center gap-5 p-3">
+                        <img src="/assets/icons/setting.png" alt="setting" className="w-10 h-9 rounded-full" />
+                        <img src="/assets/icons/ribbon.png" alt="ribbon" className="w-10 h-9 rounded-full" />
+                    </div>
                     <button
                         onClick={() => setSidebarOpen(false)}
-                        className="text-2xl"
-                    >
-                        ✕
+                        className="h-12 w-12 rounded-full bg-[#1d1d1d] flex items-center justify-center">
+                        <ChevronRight size={32} />
                     </button>
+                </div>
+
+                <div className="flex flex-col px-7 py-4 gap-2">
+                    <h2 className="text-lg font-bold uppercase">{username}</h2>
+                    <p className="text-md text-gray-400">
+                        {verificationStatus.includes('*') ? (
+                            <>
+                                {verificationStatus.replace('*', '')}
+                                <span className="text-red-500">*</span>
+                            </>
+                        ) : (
+                            verificationStatus
+                        )}
+                    </p>
                 </div>
             </div>
         </>
