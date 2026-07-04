@@ -1,5 +1,4 @@
 import {
-    Menu,
     Search,
     ChevronRight,
 } from "lucide-react";
@@ -202,7 +201,7 @@ export default function Dashboard() {
         bg-[#1d1d1d]/20
         backdrop-blur-sm
         transition-all duration-500
-        ${collapsed ? "h-14" : "h-[400px]"}`}
+        ${collapsed ? "h-14" : "h-[430px]"}`}
             >
                 {/* Search */}
                 <div className="border-b border-[#2a2a2a] flex items-center px-4 h-14">
@@ -236,7 +235,7 @@ export default function Dashboard() {
                                 <img src={item.icon} alt={item.title}
                                 className={`object-contain w-6 h-6`} />
 
-                            <span className="flex-1 text-left font-semibold text-md">
+                            <span className="flex-1 text-left font-semibold text-[20px]">
                                 {item.title}
                             </span>
                             </div>
