@@ -2,8 +2,14 @@ import {
     Search,
     ChevronRight,
 } from "lucide-react";
-import { useState, useEffect } from "react";
-import GameCard from "../dashboard/components/GameCard"
+import { useState, useEffect, useRef, useCallback } from "react";
+import PatternOne from "./components/layouts/PatternOne";
+import PatternTwo from "./components/layouts/PatternTwo";
+import PatternThree from "./components/layouts/PatternThree";
+import SkeletonLayout from "./components/layouts/SkeletonLayout";
+import { generateGameLayouts } from "./utils/layoutGenerator";
+import type { LayoutGroup, LayoutPattern } from "./utils/layoutGenerator";
+import { fetchMockGames } from "./api/mockGames";
 
 export default function Dashboard() {
     const [collapsed, setCollapsed] = useState(false);
@@ -58,17 +64,71 @@ export default function Dashboard() {
   { label: "Rewards" },
   { label: "EPT" },
 ];
-    const games = [
-        { id: 1, title: "Game 1", image: "", size: "big" },
-        { id: 2, title: "Game 2", image: "", size: "small" },
-        { id: 3, title: "Game 3", image: "", size: "small" },
-        { id: 4, title: "Game 4", image: "", size: "small" },
-        { id: 5, title: "Game 5", image: "", size: "big" },
-        { id: 6, title: "Game 6", image: "", size: "small" },
-        { id: 7, title: "Game 7", image: "", size: "small" },
-        { id: 8, title: "Game 8", image: "", size: "small" },
-        { id: 9, title: "Game 9", image: "", size: "small" },
-    ];
+
+    const [layouts, setLayouts] = useState<LayoutGroup[]>([]);
+    const [loading, setLoading] = useState(false);
+    const [hasMore, setHasMore] = useState(true);
+
+    const pageRef = useRef(1);
+    const isFetchingRef = useRef(false);
+    const lastLayoutRef = useRef<LayoutPattern | null>(null);
+    const observerTarget = useRef<HTMLDivElement>(null);
+    const scrollContainerRef = useRef<HTMLDivElement>(null);
+
+    const loadGames = useCallback(async () => {
+        if (isFetchingRef.current || !hasMore) return;
+        
+        isFetchingRef.current = true;
+        setLoading(true);
+        try {
+            // Load 21 games per page (multiple of 3)
+            const response = await fetchMockGames(pageRef.current, 21);
+            const newLayouts = generateGameLayouts(response.data, lastLayoutRef.current);
+            
+            if (newLayouts.length > 0) {
+                lastLayoutRef.current = newLayouts[newLayouts.length - 1].layout;
+            }
+
+            setLayouts(prev => [...prev, ...newLayouts]);
+            setHasMore(response.hasMore);
+            pageRef.current += 1;
+        } catch (error) {
+            console.error("Failed to fetch games", error);
+        } finally {
+            setLoading(false);
+            isFetchingRef.current = false;
+        }
+    }, [hasMore]);
+
+    // Initial load
+    useEffect(() => {
+        if (pageRef.current === 1 && layouts.length === 0) {
+            loadGames();
+        }
+    }, [loadGames, layouts.length]);
+
+    // Intersection Observer for prefetching infinite scroll
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            (entries) => {
+                if (entries[0].isIntersecting && hasMore) {
+                    loadGames();
+                }
+            },
+            {
+                root: scrollContainerRef.current,
+                // Expand the root margin downwards to trigger prefetch early
+                rootMargin: '0px 0px 400px 0px',
+                threshold: 0
+            }
+        );
+
+        if (observerTarget.current) {
+            observer.observe(observerTarget.current);
+        }
+
+        return () => observer.disconnect();
+    }, [hasMore, loadGames, layouts.length]);
 
     return (
         <div className="relative min-h-screen bg-black text-white overflow-hidden">
@@ -120,77 +180,26 @@ export default function Dashboard() {
             </div>
 
             {/* Contents / Game Cards Grid */}
-            <div className="overflow-y-auto h-[calc(100vh-120px)] px-5 pt-4 pb-[80px]">
+            <div ref={scrollContainerRef} className="overflow-y-auto h-[calc(100vh-120px)] px-5 pt-4 pb-[80px]">
                 <div className="space-y-4">
-                    {/* Pattern 1: 1 big left, 2 small right */}
-                    <div className="grid grid-cols-2 gap-3">
-                        <GameCard
-                            key={games[0].id}
-                            imageSrc={games[0].image}
-                            title={games[0].title}
-                            size="big"
-                        />
-                        <div className="grid grid-rows-2 gap-3">
-                            <GameCard
-                                key={games[1].id}
-                                imageSrc={games[1].image}
-                                title={games[1].title}
-                                size="small"
-                            />
-                            <GameCard
-                                key={games[2].id}
-                                imageSrc={games[2].image}
-                                title={games[2].title}
-                                size="small"
-                            />
-                        </div>
-                    </div>
+                    {layouts.map((group, index) => {
+                        if (group.layout === 'pattern1') {
+                            return <PatternOne key={`pattern1-${index}`} games={group.games} />;
+                        }
+                        if (group.layout === 'pattern2') {
+                            return <PatternTwo key={`pattern2-${index}`} games={group.games} />;
+                        }
+                        if (group.layout === 'pattern3') {
+                            return <PatternThree key={`pattern3-${index}`} games={group.games} />;
+                        }
+                        return null;
+                    })}
 
-                    {/* Pattern 2: 2 small left, 1 big right */}
-                    <div className="grid grid-cols-2 gap-3">
-                        <div className="grid grid-rows-2 gap-3">
-                            <GameCard
-                                key={games[3].id}
-                                imageSrc={games[3].image}
-                                title={games[3].title}
-                                size="small"
-                            />
-                            <GameCard
-                                key={games[4].id}
-                                imageSrc={games[4].image}
-                                title={games[4].title}
-                                size="small"
-                            />
-                        </div>
-                        <GameCard
-                            key={games[5].id}
-                            imageSrc={games[5].image}
-                            title={games[5].title}
-                            size="big"
-                        />
-                    </div>
+                    {/* Loading Skeletons */}
+                    {loading && <SkeletonLayout />}
 
-                    {/* Pattern 3: 3 small cards horizontal */}
-                    <div className="grid grid-cols-3 gap-3">
-                        <GameCard
-                            key={games[6].id}
-                            imageSrc={games[6].image}
-                            title={games[6].title}
-                            size="small"
-                        />
-                        <GameCard
-                            key={games[7].id}
-                            imageSrc={games[7].image}
-                            title={games[7].title}
-                            size="small"
-                        />
-                        <GameCard
-                            key={games[8].id}
-                            imageSrc={games[8].image}
-                            title={games[8].title}
-                            size="small"
-                        />
-                    </div>
+                    {/* Intersection Observer Target */}
+                    <div ref={observerTarget} className="h-10 w-full" />
                 </div>
             </div>
 

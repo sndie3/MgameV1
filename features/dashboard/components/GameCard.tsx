@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 interface GameCardProps {
   imageSrc: string;
@@ -31,4 +31,4 @@ const GameCard: React.FC<GameCardProps> = ({ imageSrc, title, size = 'small' }) 
   );
 };
 
-export default GameCard;
+export default memo(GameCard);
