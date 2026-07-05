@@ -8,7 +8,8 @@ function Home() {
     const [currentVideo, setCurrentVideo] = useState(0);
     const [touchStartX, setTouchStartX] = useState(0);
     const [touchEndX, setTouchEndX] = useState(0);
-    const videoRefs = useRef<(HTMLVideoElement | null)[]>([]); const providers = [
+    const videoRefs = useRef<(HTMLVideoElement | null)[]>([]); 
+    const providers = [
         {
             name: "EPT",
             logo: "/assets/ept.png",
