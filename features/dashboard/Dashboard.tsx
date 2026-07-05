@@ -151,7 +151,7 @@ export default function Dashboard() {
             </div>
 
             {/* Contents / Game Cards Grid */}
-            <div ref={scrollContainerRef} className="overflow-y-auto h-[calc(100vh-120px)] px-5 pt-4 pb-[80px]">
+            <div ref={scrollContainerRef} className="overflow-y-auto h-[calc(100vh-120px)] px-5 pt-4">
                 <div className="space-y-4">
                     {layouts.map((group, index) => {
                         if (group.layout === 'pattern1') {
