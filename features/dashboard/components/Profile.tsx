@@ -9,7 +9,6 @@ interface UserProfile {
   middleName: string;
   lastName: string;
   phoneNumber: string;
-  address: string;
   city: string;
   province: string;
   maritalStatus: string;
@@ -69,7 +68,6 @@ export default function Profile() {
     middleName: '',
     lastName: '',
     phoneNumber: '',
-    address: '',
     city: '',
     province: '',
     maritalStatus: '',
@@ -223,7 +221,6 @@ export default function Profile() {
   const handleSaveAndActivate = () => {
     // Validate all required fields
     const requiredFields: (keyof UserProfile)[] = [
-      'address',
       'city',
       'province',
       'maritalStatus',
@@ -236,7 +233,6 @@ export default function Profile() {
 
     if (emptyFields.length > 0) {
       const fieldLabels: Record<string, string> = {
-        address: 'Address',
         city: 'City',
         province: 'Province',
         maritalStatus: 'Marital Status',
