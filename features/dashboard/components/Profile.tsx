@@ -1,0 +1,412 @@
+import { useState, useEffect } from 'react';
+import { ArrowLeft, Edit2, ChevronDown } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import Footer from '../../../components/common/Footer';
+import ImageUpload from '../../../components/common/ImageUpload';
+
+interface UserProfile {
+  firstName: string;
+  middleName: string;
+  lastName: string;
+  phoneNumber: string;
+  address: string;
+  city: string;
+  province: string;
+  maritalStatus: string;
+  locationOfWork: string;
+  email: string;
+  businessType: string;
+  sourceOfIncome: string;
+  gameVenue: string;
+}
+
+interface VerificationImages {
+  selfieWithId: string | null;
+  frontId: string | null;
+  backId: string | null;
+}
+
+const SOURCE_OF_INCOME_OPTIONS = [
+  'BUSINESS',
+  'EMPLOYMENT',
+  'COMMISSION',
+  'OTHER EARNINGS',
+];
+
+const GAME_VENUE_OPTIONS = [
+  'GMALL',
+  'BINGO BEE MANDAUE',
+  'LAFUERZA BULACAN',
+  'NEWALLSTAR ANTIPOLO',
+  'PAULJS ANTIPOLO',
+  'PAULJS SAN JUAN',
+  'TREGS BAGUIO',
+  'TREGS PANGASINAN',
+  'TREGS CALAMBA',
+  'TREGS TARLAC',
+];
+
+export default function Profile() {
+  const navigate = useNavigate();
+  const [verificationStatus, setVerificationStatus] = useState<string>('');
+  const [username, setUsername] = useState<string>('');
+  const [isEditing, setIsEditing] = useState(false);
+  
+  const [profile, setProfile] = useState<UserProfile>({
+    firstName: '',
+    middleName: '',
+    lastName: '',
+    phoneNumber: '',
+    address: '',
+    city: '',
+    province: '',
+    maritalStatus: '',
+    locationOfWork: '',
+    email: '',
+    businessType: '',
+    sourceOfIncome: '',
+    gameVenue: '',
+  });
+
+  const [images, setImages] = useState<VerificationImages>({
+    selfieWithId: null, // This would be pre-filled from registration
+    frontId: null,
+    backId: null,
+  });
+
+  useEffect(() => {
+    const status = localStorage.getItem('verificationStatus');
+    if (status) {
+      setVerificationStatus(status.toUpperCase());
+    }
+
+    const storedUsername = localStorage.getItem('username');
+    if (storedUsername) {
+      setUsername(storedUsername);
+    }
+
+    // Load registration data from localStorage
+    const registerFormData = localStorage.getItem('registerFormData');
+    if (registerFormData) {
+      try {
+        const parsedRegistration = JSON.parse(registerFormData);
+        setProfile(prev => ({
+          ...prev,
+          firstName: parsedRegistration.firstName || '',
+          middleName: parsedRegistration.middleName || '',
+          lastName: parsedRegistration.lastName || '',
+          email: parsedRegistration.email || '',
+          phoneNumber: parsedRegistration.mobileNumber || '',
+        }));
+      } catch (error) {
+        console.error('Error parsing registration data:', error);
+      }
+    }
+
+    // Load profile data from localStorage if available (overrides registration data)
+    const storedProfile = localStorage.getItem('userProfile');
+    if (storedProfile) {
+      try {
+        const parsedProfile = JSON.parse(storedProfile);
+        setProfile(prev => ({ ...prev, ...parsedProfile }));
+      } catch (error) {
+        console.error('Error parsing user profile data:', error);
+      }
+    }
+
+    // Load selfie with ID from registration
+    const storedSelfie = localStorage.getItem('selfieWithId');
+    if (storedSelfie) {
+      setImages(prev => ({ ...prev, selfieWithId: storedSelfie }));
+    }
+
+    // Load front ID from localStorage
+    const storedFrontId = localStorage.getItem('frontId');
+    if (storedFrontId) {
+      setImages(prev => ({ ...prev, frontId: storedFrontId }));
+    }
+
+    // Load back ID from localStorage
+    const storedBackId = localStorage.getItem('backId');
+    if (storedBackId) {
+      setImages(prev => ({ ...prev, backId: storedBackId }));
+    }
+  }, []);
+
+  const handleImageUpload = (type: 'frontId' | 'backId', compressedDataUrl: string, _compressedFile: File) => {
+    setImages(prev => ({ ...prev, [type]: compressedDataUrl }));
+  };
+
+  const handleImageRemove = (type: 'frontId' | 'backId') => {
+    setImages(prev => ({ ...prev, [type]: null }));
+  };
+
+  const handleSaveAndActivate = () => {
+    // Validate all required fields
+    const requiredFields: (keyof UserProfile)[] = [
+      'address',
+      'city',
+      'province',
+      'maritalStatus',
+      'gameVenue',
+      'email',
+      'sourceOfIncome',
+    ];
+
+    const emptyFields = requiredFields.filter(field => !profile[field] || profile[field].trim() === '');
+
+    if (emptyFields.length > 0) {
+      const fieldLabels: Record<string, string> = {
+        address: 'Address',
+        city: 'City',
+        province: 'Province',
+        maritalStatus: 'Marital Status',
+        gameVenue: 'Game Venue',
+        email: 'Email',
+        sourceOfIncome: 'Source of Income',
+      };
+
+      const missingFields = emptyFields.map(field => fieldLabels[field]).join(', ');
+      alert(`Please fill in all required fields: ${missingFields}`);
+      return;
+    }
+
+    // Validate image uploads
+    if (!images.frontId || !images.backId) {
+      alert('Please upload both front and back of your ID.');
+      return;
+    }
+
+    // Save profile data to localStorage
+    localStorage.setItem('userProfile', JSON.stringify(profile));
+    
+    // Save uploaded images to localStorage
+    if (images.frontId) {
+      localStorage.setItem('frontId', images.frontId);
+    }
+    if (images.backId) {
+      localStorage.setItem('backId', images.backId);
+    }
+
+    // Auto-approve verification for now
+    // TODO: Backend approval - Uncomment this section when backend is ready
+    /*
+    // Send verification data to backend for approval
+    const verificationData = {
+      userId: localStorage.getItem('userId'),
+      frontId: images.frontId,
+      backId: images.backId,
+      profile: profile,
+    };
+    
+    fetch('/api/verify-user', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(verificationData),
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.approved) {
+        setVerificationStatus('Fully Verified');
+        localStorage.setItem('verificationStatus', 'Fully Verified');
+      }
+    });
+    */
+
+    // Auto-approve for now (remove this when backend is implemented)
+    setVerificationStatus('Fully Verified');
+    localStorage.setItem('verificationStatus', 'Fully Verified');
+    alert('Verification submitted successfully! You are now fully verified.');
+  };
+
+  const handleUpdateNow = () => {
+    setIsEditing(true);
+  };
+
+  const handleProfileChange = (field: keyof UserProfile, value: string) => {
+    setProfile(prev => ({ ...prev, [field]: value }));
+  };
+
+  return (
+    <div className="min-h-screen bg-[#0A0A0A] text-white flex flex-col">
+      {/* Header */}
+      <div className="bg-[#0A0A0A] rounded-t-[32px] px-5 pt-6 pb-6">
+        <div className="flex items-center gap-4 mb-5">
+          <button 
+            onClick={() => navigate('/dashboard')} 
+            className="h-12 w-12 rounded-full bg-[#1A1A1A] flex items-center justify-center"
+          >
+            <ArrowLeft size={20} className="text-white" />
+          </button>
+          <h1 className="text-[24px] font-semibold flex-1 text-center">Profile</h1>
+          <div className="w-12"></div>
+        </div>
+
+        {/* User Info Section */}
+        <div className="flex items-center justify-between gap-4">
+          <div>
+            <h2 className="text-[20px] font-bold">{username}</h2>
+            <p className="text-[15px] text-gray-400 mt-1">
+              {verificationStatus.includes('*') ? (
+                <>
+                  {verificationStatus.replace('*', '')}
+                  <span className="text-red-500">*</span>
+                </>
+              ) : (
+                verificationStatus
+              )}
+            </p>
+          </div>
+          <button 
+            onClick={handleUpdateNow}
+            className="h-[52px] px-6 bg-[#181818] rounded-[26px] text-white text-sm font-semibold uppercase shadow-lg hover:bg-[#1f1f1f] transition flex flex-col items-center justify-center leading-tight"
+          >
+            <span>UPDATE</span>
+            <span>NOW!</span>
+          </button>
+        </div>
+      </div>
+
+      {/* Content Area */}
+      <div className="flex-1">
+
+      {/* Personal Details Section */}
+      <div className="px-5 py-6">
+        <h2 className="text-lg font-semibold mb-4">Personal Information</h2>
+        <div className="space-y-3">
+          {[
+            { field: 'firstName', label: 'First Name', readonly: true },
+            { field: 'middleName', label: 'Middle Name', readonly: true },
+            { field: 'lastName', label: 'Last Name', readonly: true },
+            { field: 'phoneNumber', readonly: true },
+            { field: 'address',  readonly: false },
+            { field: 'city', readonly: false },
+            { field: 'province', readonly: false },
+            { field: 'maritalStatus', readonly: false },
+            { field: 'gameVenue', readonly: false, isDropdown: true, options: GAME_VENUE_OPTIONS },
+            { field: 'email', readonly: false },
+            { field: 'sourceOfIncome', readonly: false, isDropdown: true, options: SOURCE_OF_INCOME_OPTIONS },
+          ].map((item) => (
+            <div key={item.field} className="h-[56px] bg-[#121212] rounded-lg border border-[#3A3A3A] flex items-center">
+              <div className="flex-1 pl-4">
+                {item.isDropdown ? (
+                  <select
+                    value={profile[item.field as keyof UserProfile]}
+                    onChange={(e) => handleProfileChange(item.field as keyof UserProfile, e.target.value)}
+                    disabled={!isEditing}
+                    className={`w-full bg-[#121212] text-white font-bold text-[18px] uppercase outline-none appearance-none ${
+                      !isEditing ? 'cursor-default' : ''
+                    }`}
+                  >
+                    <option value="" className="bg-[#1a1a1a] text-gray-400">Select</option>
+                    {item.options?.map((option) => (
+                      <option key={option} value={option} className="bg-[#1a1a1a] text-white">
+                        {option}
+                      </option>
+                    ))}
+                  </select>
+                ) : (
+                  <input
+                    type="text"
+                    value={profile[item.field as keyof UserProfile]}
+                    onChange={(e) => handleProfileChange(item.field as keyof UserProfile, e.target.value)}
+                    disabled={item.readonly || !isEditing}
+                    readOnly={item.readonly}
+                    className={`w-full bg-transparent text-white font-bold text-[18px] uppercase outline-none ${
+                      item.readonly ? 'cursor-default pointer-events-none' : ''
+                    } ${!isEditing && !item.readonly ? 'cursor-default' : ''}`}
+                  />
+                )}
+              </div>
+              <div className="w-[48px] flex items-center justify-center">
+                {item.isDropdown ? (
+                  <ChevronDown 
+                    size={20} 
+                    className="text-[#8A8F98] opacity-75 hover:opacity-100 hover:text-[#B0B4BB] transition-all duration-200"
+                  />
+                ) : (
+                  !item.readonly && (
+                    <Edit2 
+                      size={20} 
+                      className="text-[#8A8F98] opacity-75 hover:opacity-100 hover:text-[#B0B4BB] transition-all duration-200"
+                    />
+                  )
+                )}
+              </div>
+              <div className="pr-4 text-right flex items-center justify-end">
+                <span className="text-[13px] italic text-[#6E727A] font-medium">{item.label}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Verification Documents Section */}
+      <div className="px-5 py-6">
+        <div className="grid grid-cols-3 gap-4 align-items-stretch">
+          {/* Front of ID */}
+          <div className="bg-[#1d1d1d] rounded-lg p-4 flex flex-col">
+            <ImageUpload
+              label="Front of ID"
+              value={images.frontId}
+              onChange={(compressedDataUrl, compressedFile) => handleImageUpload('frontId', compressedDataUrl, compressedFile)}
+              onRemove={() => handleImageRemove('frontId')}
+              height="180px"
+              maxWidth={1920}
+              maxHeight={1080}
+              quality={0.85}
+              format="image/jpeg"
+              objectFit="cover"
+            />
+          </div>
+
+          {/* Back of ID */}
+          <div className="bg-[#1d1d1d] rounded-lg p-4 flex flex-col">
+            <ImageUpload
+              label="Back of ID"
+              value={images.backId}
+              onChange={(compressedDataUrl, compressedFile) => handleImageUpload('backId', compressedDataUrl, compressedFile)}
+              onRemove={() => handleImageRemove('backId')}
+              height="180px"
+              maxWidth={1920}
+              maxHeight={1080}
+              quality={0.85}
+              format="image/jpeg"
+              objectFit="cover"
+            />
+          </div>
+
+          {/* Selfie with ID (already provided during registration) */}
+          <div className="bg-[#1d1d1d] rounded-lg p-4 flex flex-col">
+            <p className="text-sm font-medium mb-2 text-left">Selfie with ID</p>
+            {images.selfieWithId ? (
+              <div className="w-full h-[180px] bg-[#2a2a2a] rounded-lg flex items-center justify-center overflow-hidden flex-1">
+                <img src={images.selfieWithId} alt="Selfie with ID" className="w-full h-full object-cover object-position-center" />
+              </div>
+            ) : (
+              <div className="w-full h-[180px] bg-[#2a2a2a] rounded-lg flex items-center justify-center flex-1">
+                <p className="text-gray-500 text-sm">Provided during registration</p>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Save & Activate Button */}
+      <div className="px-5 py-6">
+        <button
+          onClick={handleSaveAndActivate}
+          className="w-full py-4 bg-[#1a1a1a] rounded-lg text-lg font-semibold hover:bg-[#2a2a2a] transition"
+        >
+          Save & Activate
+        </button>
+      </div>
+      </div>
+
+      {/* Footer */}
+      <div className="px-5 py-4 border-none">
+        <Footer />
+      </div>
+    </div>
+  );
+}

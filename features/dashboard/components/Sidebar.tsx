@@ -1,5 +1,5 @@
 import { ChevronRight } from "lucide-react";
-import Button from "../../../components/ui/Button";
+import { useNavigate } from "react-router-dom";
 import Footer from "../../../components/common/Footer";
 
 interface SidebarProps {
@@ -36,6 +36,28 @@ export default function Sidebar({
     username,
     verificationStatus,
 }: SidebarProps) {
+    const navigate = useNavigate();
+
+    const handleMenuClick = (title: string) => {
+        if (title === 'Profile') {
+            navigate('/profile');
+            setSidebarOpen(false);
+        }
+    };
+
+    const handleLogout = () => {
+        // Clear all user-related data from localStorage
+        localStorage.removeItem('verificationStatus');
+        localStorage.removeItem('username');
+        localStorage.removeItem('userProfile');
+        localStorage.removeItem('selfieWithId');
+        localStorage.removeItem('frontId');
+        localStorage.removeItem('backId');
+        
+        // Navigate to login page
+        navigate('/login');
+    };
+
     return (
         <>
             {/* backdrop */}
@@ -81,6 +103,7 @@ export default function Sidebar({
                         {menus.map((item) => (
                             <button
                                 key={item.title}
+                                onClick={() => handleMenuClick(item.title)}
                                 className="w-full px-6 py-4 flex items-center hover:bg-white/10 transition gap-2"
                             >
                                 <div className="flex items-center gap-10 flex-1">
@@ -93,9 +116,12 @@ export default function Sidebar({
                         ))}
                     </div>
                     <div className="flex flex-col px-7 py-4 gap-2">
-                        <Button variant="secondary">
+                        <button
+                            onClick={handleLogout}
+                            className="h-[52px] px-6 bg-[#181818] rounded-[26px] text-white text-sm font-semibold uppercase shadow-lg hover:bg-[#1f1f1f] transition border border-white/20"
+                        >
                             Log Out
-                        </Button>
+                        </button>
                     </div>
                 </div>
                 <div className="px-5">

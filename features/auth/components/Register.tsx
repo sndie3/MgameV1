@@ -99,6 +99,28 @@ export default function Register() {
     const displayStatus = selfie ? 'SEMI-VERIFIED' : 'SEMI-VERIFIED*';
     const message = `Registration submitted successfully! Status: ${displayStatus}`;
     
+    // Create initial user profile for Profile page
+    const initialProfile = {
+      firstName: formData.firstName,
+      middleName: formData.middleName,
+      lastName: formData.lastName,
+      phoneNumber: formData.mobileNumber,
+      email: formData.email,
+      address: '',
+      city: '',
+      province: '',
+      maritalStatus: '',
+      locationOfWork: '',
+      businessType: '',
+      sourceOfIncome: '',
+      gameVenue: '',
+    };
+    localStorage.setItem('userProfile', JSON.stringify(initialProfile));
+    
+    if (selfie) {
+      localStorage.setItem('selfieWithId', selfie);
+    }
+    
     alert(message);
     
     // Clear cache after successful submission
