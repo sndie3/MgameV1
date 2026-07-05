@@ -19,9 +19,9 @@ function ProtectedRoute() {
     ];
 
     // Not verified or not allowed to access protected routes because of verification status 
-    // Inshort: only allowedStatuses can access protected routes, otherwise redirect to verification page
+    // Inshort: only allowedStatuses can access protected routes, otherwise redirect to profile page
     if (!allowedStatuses.includes(verificationStatus)) {
-        return <Navigate to="/verification" replace />;
+        return <Navigate to="/profile" replace />;
     }
 
     return <Outlet />;
