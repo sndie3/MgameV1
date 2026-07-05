@@ -8,7 +8,7 @@ function Home() {
     const [currentVideo, setCurrentVideo] = useState(0);
     const [touchStartX, setTouchStartX] = useState(0);
     const [touchEndX, setTouchEndX] = useState(0);
-    const videoRefs = useRef<(HTMLVideoElement | null)[]>([]); 
+    const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
     const providers = [
         {
             name: "EPT",
@@ -112,7 +112,7 @@ function Home() {
 
     return (
         <>
-            <div className="relative w-full h-screen overflow-hidden">
+            <div className="relative w-full min-h-screen overflow-hidden">
 
                 {/* Background Video */}
                 <section
@@ -156,13 +156,13 @@ function Home() {
                         />
                     ))}
 
-                    <div className="absolute bottom-0 h-20 z-10 w-full bg-black/50 px-4 py-2 text-white backdrop-blur-md">
-                        <div className="flex justify-center">
+                    <div className="absolute bottom-0 h-40 z-10 w-full bg-black px-4 py-2 text-white">
+                        <div className="flex justify-center pt-6">
                             <button
                                 onClick={closeCarousel}
-                                className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-700"
+                                className="flex h-12 w-12 items-center justify-center rounded-full bg-gray-700"
                             >
-                                <div className="h-6 w-6 rounded-full bg-blue-400 hover:bg-gray-300" />
+                                <div className="h-10 w-10 rounded-full bg-blue-400 hover:bg-gray-300" />
                             </button>
                         </div>
                     </div>
@@ -181,19 +181,17 @@ function Home() {
 
                 {/* HOME */}
                 <section
-                    className={`
+                className={`
                 absolute inset-0 z-10
                 origin-top flex-1 min-h-screen bg-black flex flex-col items-center justify-center text-white px-6
-                transition-transform duration-700 ease-in-out 
-                ${isOpen ? "scale-y-0" : "scale-y-100"}
-            `}
+                transition-transform duration-700 ease-in-out overflow-auto 
+                ${isOpen ? "translate-y-full" : "translate-y-0"}            `}
 
                 >
                     {/* Home Content */}
-
                     {/* Provider Logos */}
                     <div className="flex flex-col items-center ">
-                        <div className="mb-10 flex flex-wrap items-center justify-center gap-x-12 gap-y-5 ">
+                        <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-5 ">
                             {providers.map((provider) => (
                                 <img
                                     key={provider.name}
@@ -209,11 +207,11 @@ function Home() {
                         </div>
                     </div>
 
-                    <h1 className="text-[clamp(0.5rem,4vw,1.5rem)] font-semibold mt-10">
+                    <h1 className="text-[clamp(0.5rem,4vw,1.5rem)] font-semibold mt-10 ">
                         MGame.ph
                     </h1>
 
-                    <p className="mt-1 text-[clamp(1rem,3vw,2rem)] italic text-gray-200 text-center font-light">
+                    <p className="mt-2 text-[clamp(1rem,3vw,2rem)] italic text-gray-200 text-center font-light">
                         "The architect of New Life Entertainment"
                     </p>
 
@@ -224,13 +222,13 @@ function Home() {
                         Start your journey
                     </button>
 
-                    <div className="flex justify-center pt-10 ">
+                    <div className="flex justify-center pt-5 ">
                         <button
                             onClick={openCarousel}
-                            className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-700"
+                            className="flex h-12 w-12 items-center justify-center rounded-full bg-gray-700"
                         >
                             <div
-                                className={`h-6 w-6 rounded-full bg-gray-300 hover:bg-blue-400
+                                className={`h-10 w-10 rounded-full bg-gray-300 hover:bg-blue-400
                                 }`}
                             />
                         </button>
