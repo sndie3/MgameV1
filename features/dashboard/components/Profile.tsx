@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { ArrowLeft, Edit2, ChevronDown } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import Footer from '../../../components/common/Footer';
@@ -59,6 +59,10 @@ export default function Profile() {
   const [username, setUsername] = useState<string>('');
   const [isEditing, setIsEditing] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const [showCamera, setShowCamera] = useState(false);
+  const [cameraError, setCameraError] = useState<string | null>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const streamRef = useRef<MediaStream | null>(null);
 
   const [profile, setProfile] = useState<UserProfile>({
     firstName: '',
@@ -153,11 +157,66 @@ export default function Profile() {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  const handleImageUpload = (type: 'frontId' | 'backId', compressedDataUrl: string, _compressedFile: File) => {
+  const startCamera = async () => {
+    try {
+      setCameraError(null);
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: { facingMode: 'user' },
+        audio: false
+      });
+      streamRef.current = stream;
+      setShowCamera(true);
+    } catch (error) {
+      console.error('Camera error:', error);
+      setCameraError('Unable to access camera. Please check permissions.');
+    }
+  };
+
+  useEffect(() => {
+    if (showCamera && videoRef.current && streamRef.current) {
+      videoRef.current.srcObject = streamRef.current;
+      videoRef.current.onloadedmetadata = () => {
+        videoRef.current?.play();
+      };
+    }
+  }, [showCamera]);
+
+  const stopCamera = () => {
+    if (streamRef.current) {
+      streamRef.current.getTracks().forEach(track => track.stop());
+      streamRef.current = null;
+    }
+    setShowCamera(false);
+  };
+
+  const capturePhoto = () => {
+    if (videoRef.current) {
+      const canvas = document.createElement('canvas');
+      canvas.width = videoRef.current.videoWidth;
+      canvas.height = videoRef.current.videoHeight;
+      const ctx = canvas.getContext('2d');
+      if (ctx) {
+        ctx.translate(canvas.width, 0);
+        ctx.scale(-1, 1);
+        ctx.drawImage(videoRef.current, 0, 0);
+        const dataUrl = canvas.toDataURL('image/jpeg');
+        setImages(prev => ({ ...prev, selfieWithId: dataUrl }));
+        stopCamera();
+      }
+    }
+  };
+
+  useEffect(() => {
+    return () => {
+      stopCamera();
+    };
+  }, []);
+
+  const handleImageUpload = (type: 'frontId' | 'backId' | 'selfieWithId', compressedDataUrl: string, _compressedFile: File) => {
     setImages(prev => ({ ...prev, [type]: compressedDataUrl }));
   };
 
-  const handleImageRemove = (type: 'frontId' | 'backId') => {
+  const handleImageRemove = (type: 'frontId' | 'backId' | 'selfieWithId') => {
     setImages(prev => ({ ...prev, [type]: null }));
   };
 
@@ -197,6 +256,12 @@ export default function Profile() {
       return;
     }
 
+    // For semi-verified users, selfie with ID is required
+    if (verificationStatus.includes('*') && !images.selfieWithId) {
+      alert('Please upload your selfie with ID.');
+      return;
+    }
+
     // Save profile data to localStorage
     localStorage.setItem('userProfile', JSON.stringify(profile));
 
@@ -206,6 +271,9 @@ export default function Profile() {
     }
     if (images.backId) {
       localStorage.setItem('backId', images.backId);
+    }
+    if (images.selfieWithId) {
+      localStorage.setItem('selfieWithId', images.selfieWithId);
     }
 
     // Auto-approve verification for now
@@ -411,23 +479,85 @@ export default function Profile() {
                 />
               </div>
 
-              {/* Selfie with ID (already provided during registration) */}
+              {/* Selfie with ID - camera capture for semi-verified users */}
               <div className="bg-[#1d1d1d] rounded-lg p-4 flex flex-col">
-                <p className="text-sm font-medium mb-2 text-left">Selfie with ID</p>
-                {images.selfieWithId ? (
-                  <div className="w-full h-[180px] bg-[#2a2a2a] rounded-lg flex items-center justify-center overflow-hidden flex-1">
-                    <img src={images.selfieWithId} alt="Selfie with ID" className="w-full h-full object-cover object-position-center" />
-                  </div>
+                {verificationStatus.includes('*') ? (
+                  <>
+                    <p className="text-sm font-medium mb-2 text-left">Selfie with ID</p>
+                    <div 
+                      className="w-full h-[180px] border border-[#333] rounded flex items-center justify-center relative overflow-hidden cursor-pointer hover:border-[#666] transition-colors"
+                      onClick={!images.selfieWithId ? startCamera : undefined}
+                    >
+                      {images.selfieWithId ? (
+                        <div className="w-full h-full relative">
+                          <img src={images.selfieWithId} alt="Selfie with ID" className="w-full h-full object-contain transform -scale-x-100 bg-black" />
+                          <button
+                            onClick={(e) => { e.stopPropagation(); handleImageRemove('selfieWithId'); }}
+                            className="absolute top-2 right-2 bg-red-600 text-white w-8 h-8 rounded-full flex items-center justify-center hover:bg-red-700 transition-colors"
+                          >
+                            ×
+                          </button>
+                        </div>
+                      ) : (
+                        <span className="text-[#666] text-sm">Take Selfie with ID</span>
+                      )}
+                    </div>
+                  </>
                 ) : (
-                  <div className="w-full h-[180px] rounded-lg bg-[#2a2a2a] flex items-center justify-center">
-                    <p className="max-w-[80%] text-center text-sm text-gray-500">
-                      Provided during registration
-                    </p>
-                  </div>
+                  <>
+                    <p className="text-sm font-medium mb-2 text-left">Selfie with ID</p>
+                    {images.selfieWithId ? (
+                      <div className="w-full h-[180px] bg-[#2a2a2a] rounded-lg flex items-center justify-center overflow-hidden flex-1">
+                        <img src={images.selfieWithId} alt="Selfie with ID" className="w-full h-full object-cover object-position-center" />
+                      </div>
+                    ) : (
+                      <div className="w-full h-[180px] rounded-lg bg-[#2a2a2a] flex items-center justify-center">
+                        <p className="max-w-[80%] text-center text-sm text-gray-500">
+                          Provided during registration
+                        </p>
+                      </div>
+                    )}
+                  </>
                 )}
               </div>
             </div>
           </div>
+
+          {/* Camera Modal */}
+          {showCamera && (
+            <div className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4">
+              <div className="bg-black rounded-lg overflow-hidden max-w-2xl w-full flex flex-col border border-[#333]">
+                <div className="relative aspect-video">
+                  <video
+                    ref={videoRef}
+                    autoPlay
+                    playsInline
+                    muted
+                    className="w-full h-full object-cover transform -scale-x-100"
+                  />
+                  {cameraError && (
+                    <div className="absolute inset-0 bg-black/80 flex items-center justify-center p-4">
+                      <p className="text-red-500 text-center text-sm">{cameraError}</p>
+                    </div>
+                  )}
+                </div>
+                <div className="p-4 flex justify-center gap-4 bg-black">
+                  <button
+                    onClick={capturePhoto}
+                    className="bg-[#1a1a1a] text-white px-8 py-3 rounded hover:bg-[#333] transition-colors"
+                  >
+                    Capture
+                  </button>
+                  <button
+                    onClick={stopCamera}
+                    className="bg-red-600 text-white px-8 py-3 rounded hover:bg-red-700 transition-colors"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
 
           {/* Save & Activate Button */}
           <div className="px-5 py-6">
