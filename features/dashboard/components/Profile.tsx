@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { ArrowLeft, Edit2, ChevronDown } from 'lucide-react';
+import { ArrowLeft, Edit2 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import Footer from '../../../components/common/Footer';
 import ImageUpload from '../../../components/common/ImageUpload';
