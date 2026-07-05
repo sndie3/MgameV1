@@ -47,7 +47,7 @@ export default function LoginCard() {
       }
 
       showModal(
-        "error",
+        "warning",
         title,
         message
       );
@@ -57,7 +57,7 @@ export default function LoginCard() {
 
     if (!agree) {
       showModal(
-        "error",
+        "warning",
         "Agreement Required",
         "Please agree to the Terms & Conditions."
       );
@@ -150,7 +150,7 @@ export default function LoginCard() {
               {agree && "✕"}
             </div>
 
-            <span className="text-xs">I agree to MGame's Privacy Policy  &amp; Terms of Use.</span>
+            <span className="text-xs">I agree to MGame's <span className="text-red-600">Privacy Policy</span>   &amp;<span className="text-red-600"> Terms of Use.</span> </span>
           </label>
 
           <button

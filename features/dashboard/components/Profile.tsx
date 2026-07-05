@@ -53,7 +53,7 @@ export default function Profile() {
   const [username, setUsername] = useState<string>('');
   const [isEditing, setIsEditing] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
-  
+
   const [profile, setProfile] = useState<UserProfile>({
     firstName: '',
     middleName: '',
@@ -181,7 +181,7 @@ export default function Profile() {
 
     // Save profile data to localStorage
     localStorage.setItem('userProfile', JSON.stringify(profile));
-    
+
     // Save uploaded images to localStorage
     if (images.frontId) {
       localStorage.setItem('frontId', images.frontId);
@@ -234,8 +234,8 @@ export default function Profile() {
       {/* Header */}
       <div className="bg-[#0A0A0A] rounded-t-[32px] px-5 pt-6 pb-6">
         <div className="flex items-center gap-4 mb-5">
-          <button 
-            onClick={() => navigate('/dashboard')} 
+          <button
+            onClick={() => navigate('/dashboard')}
             className="h-12 w-12 rounded-full bg-[#1A1A1A] flex items-center justify-center"
           >
             <ArrowLeft size={20} className="text-white" />
@@ -259,13 +259,12 @@ export default function Profile() {
               )}
             </p>
           </div>
-          <button 
+          <button
             onClick={handleUpdateNow}
-            className={`h-[52px] px-6 rounded-[26px] text-sm font-semibold uppercase shadow-lg transition flex flex-col items-center justify-center leading-tight ${
-              isEditing 
-                ? 'bg-red-600 text-white hover:bg-red-700' 
+            className={`h-[52px] px-6 rounded-[26px] text-sm font-semibold uppercase shadow-lg transition flex flex-col items-center justify-center leading-tight ${isEditing
+                ? 'bg-red-600 text-white hover:bg-red-700'
                 : 'bg-[#181818] text-white hover:bg-[#1f1f1f]'
-            }`}
+              }`}
           >
             <span>UPDATE</span>
             <span>NOW!</span>
@@ -276,123 +275,124 @@ export default function Profile() {
       {/* Content Area */}
       <div className="flex-1">
 
-      {/* Personal Details Section */}
-      <div className="px-5 py-6">
-        <h2 className="text-lg font-semibold mb-4">Personal Information</h2>
-        <div className="space-y-3">
-          {[
-            { field: 'firstName', label: 'First Name', readonly: true },
-            { field: 'middleName', label: 'Middle Name', readonly: true },
-            { field: 'lastName', label: 'Last Name', readonly: true },
-            { field: 'phoneNumber', label: 'Mobile Number', readonly: true },
-            { field: 'street', label: 'Street', readonly: false },
-            { field: 'city', label: 'Mun/City', readonly: false },
-            { field: 'province', label: 'Province', readonly: false },
-            { field: 'maritalStatus', label: "Civil Status", readonly: false },
-            { field: 'gameVenue', label: 'Game Venue', readonly: false, isDropdown: true, options: GAME_VENUE_OPTIONS },
-            { field: 'email', label: 'Email', readonly: false },
-            { field: 'sourceOfIncome', label: 'Source of Income', readonly: false, isDropdown: true, options: SOURCE_OF_INCOME_OPTIONS },
-          ].map((item) => (
-            <div key={item.field} className="h-[56px] bg-[#121212] rounded-lg border border-[#3A3A3A] flex items-center">
-              <div className="flex-1 pl-4">
-                {item.isDropdown ? (
-                  <CustomDropdown
-                    value={profile[item.field as keyof UserProfile]}
-                    onChange={(value) => handleProfileChange(item.field as keyof UserProfile, value)}
-                    options={item.options || []}
-                    disabled={!isEditing}
-                    placeholder="Select"
-                    isOpen={openDropdown === item.field}
-                    onToggle={() => setOpenDropdown(openDropdown === item.field ? null : item.field)}
-                    onClose={() => setOpenDropdown(null)}
-                  />
-                ) : (
-                  <input
-                    type="text"
-                    value={profile[item.field as keyof UserProfile]}
-                    onChange={(e) => handleProfileChange(item.field as keyof UserProfile, e.target.value)}
-                    disabled={item.readonly || !isEditing}
-                    readOnly={item.readonly}
-                    className={`w-full bg-transparent text-white font-bold text-[18px] uppercase outline-none ${
-                      item.readonly ? 'cursor-default pointer-events-none' : ''
-                    } ${!isEditing && !item.readonly ? 'cursor-default' : ''}`}
-                  />
-                )}
+        {/* Personal Details Section */}
+        <div className="px-5 py-6">
+          <h2 className="text-lg font-semibold mb-4">Personal Information</h2>
+          <div className="space-y-3">
+            {[
+              { field: 'firstName', label: 'First Name', readonly: true },
+              { field: 'middleName', label: 'Middle Name', readonly: true },
+              { field: 'lastName', label: 'Last Name', readonly: true },
+              { field: 'phoneNumber', label: 'Mobile Number', readonly: true },
+              { field: 'street', label: 'Street', readonly: false },
+              { field: 'city', label: 'Mun/City', readonly: false },
+              { field: 'province', label: 'Province', readonly: false },
+              { field: 'maritalStatus', label: "Civil Status", readonly: false },
+              { field: 'gameVenue', label: 'Game Venue', readonly: false, isDropdown: true, options: GAME_VENUE_OPTIONS },
+              { field: 'email', label: 'Email', readonly: false },
+              { field: 'sourceOfIncome', label: 'Source of Income', readonly: false, isDropdown: true, options: SOURCE_OF_INCOME_OPTIONS },
+            ].map((item) => (
+              <div key={item.field} className="h-[56px] bg-[#121212] rounded-lg border border-[#3A3A3A] flex items-center">
+                <div className="flex-1 pl-4">
+                  {item.isDropdown ? (
+                    <CustomDropdown
+                      value={profile[item.field as keyof UserProfile]}
+                      onChange={(value) => handleProfileChange(item.field as keyof UserProfile, value)}
+                      options={item.options || []}
+                      disabled={!isEditing}
+                      placeholder="Select"
+                      isOpen={openDropdown === item.field}
+                      onToggle={() => setOpenDropdown(openDropdown === item.field ? null : item.field)}
+                      onClose={() => setOpenDropdown(null)}
+                    />
+                  ) : (
+                    <input
+                      type="text"
+                      value={profile[item.field as keyof UserProfile]}
+                      onChange={(e) => handleProfileChange(item.field as keyof UserProfile, e.target.value)}
+                      disabled={item.readonly || !isEditing}
+                      readOnly={item.readonly}
+                      className={`w-full bg-transparent text-white font-bold text-[18px] uppercase outline-none ${item.readonly ? 'cursor-default pointer-events-none' : ''
+                        } ${!isEditing && !item.readonly ? 'cursor-default' : ''}`}
+                    />
+                  )}
+                </div>
+                <div className="pr-4 flex items-center gap-2">
+                  <span className="text-[13px] italic text-[#6E727A] font-medium">{item.label}</span>
+                  {!item.isDropdown && !item.readonly && (
+                    <Edit2
+                      size={20}
+                      className="text-[#8A8F98] opacity-75 hover:opacity-100 hover:text-[#B0B4BB] transition-all duration-200"
+                    />
+                  )}
+                </div>
               </div>
-              <div className="pr-4 flex items-center gap-2">
-                <span className="text-[13px] italic text-[#6E727A] font-medium">{item.label}</span>
-                {!item.isDropdown && !item.readonly && (
-                  <Edit2 
-                    size={20} 
-                    className="text-[#8A8F98] opacity-75 hover:opacity-100 hover:text-[#B0B4BB] transition-all duration-200"
-                  />
-                )}
-              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Verification Documents Section */}
+        <div className="px-5 py-6">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 align-items-stretch">
+            {/* Front of ID */}
+            <div className="bg-[#1d1d1d] rounded-lg p-4 flex flex-col">
+              <ImageUpload
+                label="Front of ID"
+                value={images.frontId}
+                onChange={(compressedDataUrl, compressedFile) => handleImageUpload('frontId', compressedDataUrl, compressedFile)}
+                onRemove={() => handleImageRemove('frontId')}
+                height="180px"
+                maxWidth={1920}
+                maxHeight={1080}
+                quality={0.85}
+                format="image/jpeg"
+                objectFit="cover"
+              />
             </div>
-          ))}
-        </div>
-      </div>
 
-      {/* Verification Documents Section */}
-      <div className="px-5 py-6">
-        <div className="grid grid-cols-3 gap-4 align-items-stretch">
-          {/* Front of ID */}
-          <div className="bg-[#1d1d1d] rounded-lg p-4 flex flex-col">
-            <ImageUpload
-              label="Front of ID"
-              value={images.frontId}
-              onChange={(compressedDataUrl, compressedFile) => handleImageUpload('frontId', compressedDataUrl, compressedFile)}
-              onRemove={() => handleImageRemove('frontId')}
-              height="180px"
-              maxWidth={1920}
-              maxHeight={1080}
-              quality={0.85}
-              format="image/jpeg"
-              objectFit="cover"
-            />
-          </div>
+            {/* Back of ID */}
+            <div className="bg-[#1d1d1d] rounded-lg p-4 flex flex-col">
+              <ImageUpload
+                label="Back of ID"
+                value={images.backId}
+                onChange={(compressedDataUrl, compressedFile) => handleImageUpload('backId', compressedDataUrl, compressedFile)}
+                onRemove={() => handleImageRemove('backId')}
+                height="180px"
+                maxWidth={1920}
+                maxHeight={1080}
+                quality={0.85}
+                format="image/jpeg"
+                objectFit="cover"
+              />
+            </div>
 
-          {/* Back of ID */}
-          <div className="bg-[#1d1d1d] rounded-lg p-4 flex flex-col">
-            <ImageUpload
-              label="Back of ID"
-              value={images.backId}
-              onChange={(compressedDataUrl, compressedFile) => handleImageUpload('backId', compressedDataUrl, compressedFile)}
-              onRemove={() => handleImageRemove('backId')}
-              height="180px"
-              maxWidth={1920}
-              maxHeight={1080}
-              quality={0.85}
-              format="image/jpeg"
-              objectFit="cover"
-            />
-          </div>
-
-          {/* Selfie with ID (already provided during registration) */}
-          <div className="bg-[#1d1d1d] rounded-lg p-4 flex flex-col">
-            <p className="text-sm font-medium mb-2 text-left">Selfie with ID</p>
-            {images.selfieWithId ? (
-              <div className="w-full h-[180px] bg-[#2a2a2a] rounded-lg flex items-center justify-center overflow-hidden flex-1">
-                <img src={images.selfieWithId} alt="Selfie with ID" className="w-full h-full object-cover object-position-center" />
-              </div>
-            ) : (
-              <div className="w-full h-[180px] bg-[#2a2a2a] rounded-lg flex items-center justify-center flex-1">
-                <p className="text-gray-500 text-sm">Provided during registration</p>
-              </div>
-            )}
+            {/* Selfie with ID (already provided during registration) */}
+            <div className="bg-[#1d1d1d] rounded-lg p-4 flex flex-col">
+              <p className="text-sm font-medium mb-2 text-left">Selfie with ID</p>
+              {images.selfieWithId ? (
+                <div className="w-full h-[180px] bg-[#2a2a2a] rounded-lg flex items-center justify-center overflow-hidden flex-1">
+                  <img src={images.selfieWithId} alt="Selfie with ID" className="w-full h-full object-cover object-position-center" />
+                </div>
+              ) : (
+                <div className="w-full h-[180px] rounded-lg bg-[#2a2a2a] flex items-center justify-center">
+                  <p className="max-w-[80%] text-center text-sm text-gray-500">
+                    Provided during registration
+                  </p>
+                </div>
+              )}
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Save & Activate Button */}
-      <div className="px-5 py-6">
-        <button
-          onClick={handleSaveAndActivate}
-          className="w-full py-4 bg-[#1a1a1a] rounded-lg text-lg font-semibold hover:bg-[#2a2a2a] transition"
-        >
-          Save & Activate
-        </button>
-      </div>
+        {/* Save & Activate Button */}
+        <div className="px-5 py-6">
+          <button
+            onClick={handleSaveAndActivate}
+            className="w-full py-4 bg-[#1a1a1a] rounded-lg text-lg font-semibold hover:bg-[#2a2a2a] transition"
+          >
+            Save & Activate
+          </button>
+        </div>
       </div>
 
       {/* Footer */}

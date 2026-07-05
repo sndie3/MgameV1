@@ -133,7 +133,7 @@ export default function Dashboard() {
             </div>
 
             {/* Header Tab */}
-            <div className="grid grid-cols-4 gap-1 mt-4 px-2">
+            <div className="grid grid-cols-4 gap-1 mt-2 px-2">
                 {tabs.map((tab) => (
                     <button
                         key={tab.label}
@@ -151,8 +151,8 @@ export default function Dashboard() {
             </div>
 
             {/* Contents / Game Cards Grid */}
-            <div ref={scrollContainerRef} className="overflow-y-auto h-[calc(100vh-120px)] px-5 pt-4">
-                <div className="space-y-4">
+            <div ref={scrollContainerRef} className="overflow-y-auto h-[calc(95vh-120px)] px-5 pt-4">
+                <div className="space-y-2">
                     {layouts.map((group, index) => {
                         if (group.layout === 'pattern1') {
                             return <PatternOne key={`pattern1-${index}`} games={group.games} />;

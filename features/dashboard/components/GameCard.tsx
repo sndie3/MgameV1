@@ -11,7 +11,7 @@ const GameCard: React.FC<GameCardProps> = ({ imageSrc, title, size = 'small' }) 
   
   return (
     <div 
-      className="relative rounded-[16px] overflow-hidden shadow-xl hover:shadow-2xl hover:shadow-purple-500/20 transition-all duration-300 ease-in-out transform hover:-translate-y-2 hover:scale-105 cursor-pointer border border-gray-700/50"
+      className="relative rounded-[16px] overflow-hidden shadow-xl hover:shadow-2xl hover:shadow-purple-500/20 transition-all duration-300 ease-in-out transform hover:-translate-y-2  cursor-pointer border border-gray-700/50"
       style={{ height }}
     >
       {imageSrc ? (
