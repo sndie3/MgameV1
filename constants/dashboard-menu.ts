@@ -1,4 +1,4 @@
-export const menus = [
+export const MENUS = [
     {
         icon: "/assets/icons/Nav1.png",
         title: "Pinoy Games",
@@ -29,7 +29,7 @@ export const menus = [
 ];
 
 // FULLY VERIFIED
-export const tabs = [
+export const TABS = [
     { label: "Recently" },
     { label: "Invite", icon: "/assets/icons/invite.png" },
     { label: "Rewards" },

@@ -59,7 +59,7 @@ export default function LoginCard() {
       showModal(
         "warning",
         "Agreement Required",
-        "Please agree to the Terms & Conditions."
+        "Please agree to Privacy Policy & Terms of Use"
       );
 
       return;
