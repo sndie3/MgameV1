@@ -3,6 +3,7 @@ import { ArrowLeft, Edit2, ChevronDown } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import Footer from '../../../components/common/Footer';
 import ImageUpload from '../../../components/common/ImageUpload';
+import CustomDropdown from '../../../components/common/CustomDropdown';
 
 interface UserProfile {
   firstName: string;
@@ -51,6 +52,7 @@ export default function Profile() {
   const [verificationStatus, setVerificationStatus] = useState<string>('');
   const [username, setUsername] = useState<string>('');
   const [isEditing, setIsEditing] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   
   const [profile, setProfile] = useState<UserProfile>({
     firstName: '',
@@ -220,7 +222,7 @@ export default function Profile() {
   };
 
   const handleUpdateNow = () => {
-    setIsEditing(true);
+    setIsEditing(!isEditing);
   };
 
   const handleProfileChange = (field: keyof UserProfile, value: string) => {
@@ -259,7 +261,11 @@ export default function Profile() {
           </div>
           <button 
             onClick={handleUpdateNow}
-            className="h-[52px] px-6 bg-[#181818] rounded-[26px] text-white text-sm font-semibold uppercase shadow-lg hover:bg-[#1f1f1f] transition flex flex-col items-center justify-center leading-tight"
+            className={`h-[52px] px-6 rounded-[26px] text-sm font-semibold uppercase shadow-lg transition flex flex-col items-center justify-center leading-tight ${
+              isEditing 
+                ? 'bg-red-600 text-white hover:bg-red-700' 
+                : 'bg-[#181818] text-white hover:bg-[#1f1f1f]'
+            }`}
           >
             <span>UPDATE</span>
             <span>NOW!</span>
@@ -278,33 +284,28 @@ export default function Profile() {
             { field: 'firstName', label: 'First Name', readonly: true },
             { field: 'middleName', label: 'Middle Name', readonly: true },
             { field: 'lastName', label: 'Last Name', readonly: true },
-            { field: 'phoneNumber', readonly: true },
-            { field: 'address',  readonly: false },
-            { field: 'city', readonly: false },
-            { field: 'province', readonly: false },
-            { field: 'maritalStatus', readonly: false },
-            { field: 'gameVenue', readonly: false, isDropdown: true, options: GAME_VENUE_OPTIONS },
-            { field: 'email', readonly: false },
-            { field: 'sourceOfIncome', readonly: false, isDropdown: true, options: SOURCE_OF_INCOME_OPTIONS },
+            { field: 'phoneNumber', label: 'Mobile Number', readonly: true },
+            { field: 'street', label: 'Street', readonly: false },
+            { field: 'city', label: 'Mun/City', readonly: false },
+            { field: 'province', label: 'Province', readonly: false },
+            { field: 'maritalStatus', label: "Civil Status", readonly: false },
+            { field: 'gameVenue', label: 'Game Venue', readonly: false, isDropdown: true, options: GAME_VENUE_OPTIONS },
+            { field: 'email', label: 'Email', readonly: false },
+            { field: 'sourceOfIncome', label: 'Source of Income', readonly: false, isDropdown: true, options: SOURCE_OF_INCOME_OPTIONS },
           ].map((item) => (
             <div key={item.field} className="h-[56px] bg-[#121212] rounded-lg border border-[#3A3A3A] flex items-center">
               <div className="flex-1 pl-4">
                 {item.isDropdown ? (
-                  <select
+                  <CustomDropdown
                     value={profile[item.field as keyof UserProfile]}
-                    onChange={(e) => handleProfileChange(item.field as keyof UserProfile, e.target.value)}
+                    onChange={(value) => handleProfileChange(item.field as keyof UserProfile, value)}
+                    options={item.options || []}
                     disabled={!isEditing}
-                    className={`w-full bg-[#121212] text-white font-bold text-[18px] uppercase outline-none appearance-none ${
-                      !isEditing ? 'cursor-default' : ''
-                    }`}
-                  >
-                    <option value="" className="bg-[#1a1a1a] text-gray-400">Select</option>
-                    {item.options?.map((option) => (
-                      <option key={option} value={option} className="bg-[#1a1a1a] text-white">
-                        {option}
-                      </option>
-                    ))}
-                  </select>
+                    placeholder="Select"
+                    isOpen={openDropdown === item.field}
+                    onToggle={() => setOpenDropdown(openDropdown === item.field ? null : item.field)}
+                    onClose={() => setOpenDropdown(null)}
+                  />
                 ) : (
                   <input
                     type="text"
@@ -318,23 +319,14 @@ export default function Profile() {
                   />
                 )}
               </div>
-              <div className="w-[48px] flex items-center justify-center">
-                {item.isDropdown ? (
-                  <ChevronDown 
+              <div className="pr-4 flex items-center gap-2">
+                <span className="text-[13px] italic text-[#6E727A] font-medium">{item.label}</span>
+                {!item.isDropdown && !item.readonly && (
+                  <Edit2 
                     size={20} 
                     className="text-[#8A8F98] opacity-75 hover:opacity-100 hover:text-[#B0B4BB] transition-all duration-200"
                   />
-                ) : (
-                  !item.readonly && (
-                    <Edit2 
-                      size={20} 
-                      className="text-[#8A8F98] opacity-75 hover:opacity-100 hover:text-[#B0B4BB] transition-all duration-200"
-                    />
-                  )
                 )}
-              </div>
-              <div className="pr-4 text-right flex items-center justify-end">
-                <span className="text-[13px] italic text-[#6E727A] font-medium">{item.label}</span>
               </div>
             </div>
           ))}
