@@ -1,10 +1,10 @@
 import { useState, useCallback } from 'react';
 import Footer from '../../../components/common/Footer';
-import ProfileHeader from './ProfileHeader';
-import PersonalInformationForm from './PersonalInformationForm';
-import VerificationDocuments from './VerificationDocuments';
-import CameraModal from './CameraModal';
-import SaveActivateButton from './SaveActivateButton';
+import ProfileHeader from '../components/ProfileHeader';
+import PersonalInformationForm from '../components/PersonalInformationForm';
+import VerificationDocuments from '../components/VerificationDocuments';
+import CameraModal from '../components/CameraModal';
+import SaveActivateButton from '../components/SaveActivateButton';
 import { useProfileData } from '../hooks/useProfileData';
 import { useCamera } from '../hooks/useCamera';
 import { useDropdown } from '../hooks/useDropdown';

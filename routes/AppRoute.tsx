@@ -6,7 +6,7 @@ import Register from "../features/auth/Register";
 import Reset from "../features/auth/Reset";
 import BaseLayout from "../layouts/BaseLayout";
 import Dashboard from "../features/dashboard/Dashboard";
-import Profile from "../features/dashboard/components/Profile";
+import Profile from "../features/dashboard/pages/Profile";
 import AuthenticatedLayout from "../layouts/AuthenticatedLayout";
 import ProtectedRoute from "../routes/ProtectedRoute";
 
