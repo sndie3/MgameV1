@@ -17,12 +17,7 @@ export default function Dashboard() {
     const [collapsed, setCollapsed] = useState(false);
     const [verificationStatus, setVerificationStatus] = useState<string>("Fully Verified");
     const [username, setUsername] = useState<string>("Roger Nicon");
-    const [sidebarOpen, setSidebarOpen] = useState(() => {
-        return localStorage.getItem('openSidebar') === 'true';
-    });
-    const [skipSidebarTransition, setSkipSidebarTransition] = useState(() => {
-        return localStorage.getItem('openSidebar') === 'true';
-    });
+    const [sidebarOpen, setSidebarOpen] = useState(false);
 
     useEffect(() => {
         const status = localStorage.getItem('verificationStatus');
@@ -34,15 +29,7 @@ export default function Dashboard() {
         if (storedUsername) {
             setUsername(storedUsername);
         }
-
-        // Clear the sidebar flag after reading it
-        localStorage.removeItem('openSidebar');
-
-        // Re-enable transition after sidebar is visible
-        if (skipSidebarTransition) {
-            setTimeout(() => setSkipSidebarTransition(false), 50);
-        }
-    }, [skipSidebarTransition]);
+    }, []);
 
     const menus = [
         {
@@ -126,7 +113,6 @@ export default function Dashboard() {
                 setSidebarOpen={setSidebarOpen}
                 username={username}
                 verificationStatus={verificationStatus}
-                skipTransition={skipSidebarTransition}
             />
             {/* Header */}
             <div className="px-5 pt-4">

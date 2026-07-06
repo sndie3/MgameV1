@@ -24,7 +24,6 @@ export default function ProfileHeader({
     if (showDetailedForm && onBack) {
       onBack();
     } else {
-      localStorage.setItem('openSidebar', 'true');
       navigate('/dashboard');
     }
   };
