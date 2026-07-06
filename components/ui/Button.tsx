@@ -7,10 +7,13 @@ type ButtonVariant =
 
 type ButtonSize = "sm" | "md" | "lg";
 
+type widthProps = "sm" | "md" | "lg";
+
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   children: ReactNode;
   variant?: ButtonVariant;
   size?: ButtonSize;
+  widthSize?:widthProps
 };
 
 const variantClasses: Record<ButtonVariant, string> = {
@@ -24,10 +27,17 @@ const sizeClasses: Record<ButtonSize, string> = {
   lg: "px-6 py-4 text-lg",
 };
 
+const widthClasses: Record<widthProps,string> = {
+  sm:'w-[120px]',
+  md:'w-[220px]',
+  lg:'w-[330px]'
+}
+
 export default function Button({
   children,
   variant = "primary",
   size = "md",
+  widthSize= "sm",
   className = "",
   disabled = false,
   ...props
@@ -43,6 +53,7 @@ export default function Button({
         transition
         duration-200
         w-full
+        ${widthClasses[widthSize]}
         ${variantClasses[variant]}
         ${sizeClasses[size]}
         ${disabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}

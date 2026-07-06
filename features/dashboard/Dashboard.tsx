@@ -8,6 +8,7 @@ import { useInfiniteGames } from "./hooks/useInfiniteGames";
 import { MockGameProvider } from "./providers/MockGameProvider";
 // import { ApiGameProvider } from "./providers/ApiGameProvider"; // Swap here for production
 import Sidebar from "./components/Sidebar";
+import { useNavigate } from "react-router-dom";
 
 // Instantiate provider outside component to avoid recreation on re-renders
 const gameProvider = new MockGameProvider();
@@ -35,28 +36,38 @@ export default function Dashboard() {
             icon: "/assets/icons/Nav1.png",
             title: "Pinoy Games",
             count: "3",
+            route: ""
         },
         {
             icon: "/assets/icons/Nav2.png",
             title: "E-Casino",
             count: "3,247",
+            route: ""
+
         },
         {
             icon: "/assets/icons/Nav3.png",
             title: "E-Bingo",
             count: "12",
+            route: ""
+
         },
         {
             icon: "/assets/icons/Nav4.png",
             title: "Cash-In",
+            route: "/cash-in"
+
         },
         {
             icon: "/assets/icons/Nav5.png",
             title: "Cash-Out",
+            route: "/cash-out"
+
         },
         {
             icon: "/assets/icons/Nav6.png",
             title: "Support",
+            route: ""
         },
     ];
 
@@ -68,7 +79,7 @@ export default function Dashboard() {
     ];
 
     const { layouts, isLoading, hasMore, loadMore } = useInfiniteGames(gameProvider, 21);
-
+    const navigate = useNavigate();
     const observerTarget = useRef<HTMLDivElement>(null);
     const scrollContainerRef = useRef<HTMLDivElement>(null);
 
@@ -213,6 +224,7 @@ export default function Dashboard() {
                     {menus.map((item) => (
                         <button
                             key={item.title}
+                            onClick={() => navigate(item.route)}
                             className="w-full px-6 py-4 flex items-center hover:bg-white/10 transition gap-2"
                         >
                             <div className="flex items-center gap-10 flex-1">

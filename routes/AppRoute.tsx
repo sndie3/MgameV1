@@ -9,7 +9,8 @@ import Dashboard from "../features/dashboard/Dashboard";
 import Profile from "../features/dashboard/pages/Profile";
 import AuthenticatedLayout from "../layouts/AuthenticatedLayout";
 import ProtectedRoute from "../routes/ProtectedRoute";
-
+import CashIn from "../features/cashin/CashIn";
+import CashOut from "../features/cashout/CashOut"
 export default function AppRoutes() { 
 
   return ( 
@@ -34,6 +35,9 @@ export default function AppRoutes() {
           {/* // Dashboard and other protected routes */}
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="profile" element={<Profile />} />
+            <Route path="cash-in" element={<CashIn/>} />
+            <Route path="cash-out" element={<CashOut/>} />
+
 
         </Route>
       </Route> 
