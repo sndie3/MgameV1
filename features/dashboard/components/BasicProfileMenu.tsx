@@ -1,4 +1,3 @@
-  import { Edit2 } from 'lucide-react';
 import type { UserProfile } from '../types/profile.types';
 
 interface BasicProfileMenuProps {
