@@ -8,7 +8,7 @@ interface BasicProfileMenuProps {
 
 export default function BasicProfileMenu({ profile, onEditProfile }: BasicProfileMenuProps) {
   return (
-    <div className="px-5 py-6">
+    <div className="px-5 py-6 font-bahnschrift">
       <div className="space-y-3">
         {/* Profile Edit Button */}
         <div 
@@ -26,7 +26,6 @@ export default function BasicProfileMenu({ profile, onEditProfile }: BasicProfil
           <span className="font-bold text-[16px] text-white truncate">
             Email: <span className="ml-2 font-normal">{profile.email || ''}</span>
           </span>
-          <Edit2 size={20} className="text-[#8A8F98] opacity-75 hover:opacity-100 hover:text-[#B0B4BB] transition-all duration-200" />
         </div>
 
         {/* Contact Field */}
@@ -37,7 +36,6 @@ export default function BasicProfileMenu({ profile, onEditProfile }: BasicProfil
           <span className="font-bold text-[16px] text-white truncate">
             Contact: <span className="ml-2 font-normal">{profile.phoneNumber || ''}</span>
           </span>
-          <Edit2 size={20} className="text-[#8A8F98] opacity-75 hover:opacity-100 hover:text-[#B0B4BB] transition-all duration-200" />
         </div>
 
         {/* Theme Button */}

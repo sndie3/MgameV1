@@ -79,13 +79,13 @@ function CashIn() {
                     setCustomAmount(e.target.value);
                     setSelectedAmount(0);
                 }}
-                className="w-full h-20 bg-[#111] text-center text-xl placeholder:text-gray-600 outline-none mb-10 italic"
+                className="w-full h-15 bg-[#111] text-center text-xl placeholder:text-gray-600 outline-none mb-10 italic"
             />
             </div>
 
             {/* Deposit */}
             <div className="flex justify-center">
-                <button className="bg-red-800 hover:bg-red-700 transition px-24 py-5  font-bold">
+                <button className="bg-red-800 hover:bg-red-700 transition px-24 py-4  font-bold">
                     Deposit
                 </button>
                
