@@ -2,7 +2,7 @@ export interface Game {
   id: number;
   title: string;
   image: string;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 export type LayoutPattern = 'pattern1' | 'pattern2' | 'pattern3';

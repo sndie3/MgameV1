@@ -1,4 +1,4 @@
-import{ useEffect, useState } from "react";
+import{ useState } from "react";
 import { ChevronLeft } from "lucide-react";
 import { getUsername, getVerificationStatus } from "../dashboard/services/profileStorage.service";
 import { useNavigate } from "react-router-dom";
@@ -10,22 +10,15 @@ function CashIn() {
     const [selectedAmount, setSelectedAmount] = useState(0);
     const [customAmount, setCustomAmount] = useState("");
 
-    const [username, setUsername] = useState('')
-    const [verificationStatus, setVerificationStatus] = useState('')
+    const [username] = useState(() => {
+        return getUsername() || '';
+    });
+    const [verificationStatus] = useState(() => {
+        const status = getVerificationStatus();
+        return status ? status.toUpperCase() : '';
+    });
 
   const navigate = useNavigate();
-    useEffect(() => {
-        const storedUsername = getUsername();
-        const storedVerification = getVerificationStatus();
-
-        if (storedUsername) {
-            setUsername(storedUsername);
-        }
-
-        if (storedVerification) {
-            setVerificationStatus(storedVerification.toUpperCase());
-        }
-    }, []);
 
     return (
         <div className="relative min-h-screen bg-black text-white overflow-hidden ">

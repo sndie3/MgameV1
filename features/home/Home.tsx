@@ -58,7 +58,7 @@ function Home() {
 
             video.muted = !isOpen;
         });
-    }, []);
+    }, [isOpen]);
 
     // Open the Carousel and set Video Index to 0
     const openCarousel = () => {

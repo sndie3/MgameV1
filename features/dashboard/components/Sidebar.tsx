@@ -46,13 +46,9 @@ export default function Sidebar({
     };
 
     const handleLogout = () => {
-        // Clear all user-related data from localStorage
-        localStorage.removeItem('verificationStatus');
-        localStorage.removeItem('username');
-        localStorage.removeItem('userProfile');
-        localStorage.removeItem('selfieWithId');
-        localStorage.removeItem('frontId');
-        localStorage.removeItem('backId');
+        // Clear only the session data (userMobileNumber) so they are logged out
+        // We keep userProfile, username, verificationStatus, etc. so their data persists when they log back in
+        localStorage.removeItem('userMobileNumber');
         
         // Navigate to login page
         navigate('/login');

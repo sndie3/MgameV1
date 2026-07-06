@@ -19,10 +19,21 @@ export function setVerificationStatus(status: string): void {
 }
 
 export function getUsername(): string | null {
+  const profileStr = localStorage.getItem(STORAGE_KEYS.USER_PROFILE);
+  if (profileStr) {
+    try {
+      const profile = JSON.parse(profileStr);
+      if (profile.firstName || profile.lastName) {
+        return `${profile.firstName || ''} ${profile.lastName || ''}`.trim();
+      }
+    } catch {
+      // Ignore parsing errors
+    }
+  }
   return localStorage.getItem(STORAGE_KEYS.USERNAME);
 }
 
-export function getRegisterFormData(): any | null {
+export function getRegisterFormData(): Record<string, string> | null {
   const data = localStorage.getItem(STORAGE_KEYS.REGISTER_FORM_DATA);
   if (!data) return null;
   

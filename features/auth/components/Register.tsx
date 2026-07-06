@@ -14,30 +14,27 @@ export default function Register() {
   const navigate = useNavigate();
   const { showModal } = useModal();
 
-  const [formData, setFormData] = useState<RegisterFormData>({
-    firstName: '',
-    middleName: '',
-    lastName: '',
-    email: '',
-    mobileNumber: '',
-    birthMonth: '',
-    birthDay: '',
-    birthYear: '',
-    password: ''
-  });
-
-  // Load cached form data on mount
-  useEffect(() => {
+  const [formData, setFormData] = useState<RegisterFormData>(() => {
     const cachedData = localStorage.getItem('registerFormData');
     if (cachedData) {
       try {
-        const parsedData = JSON.parse(cachedData);
-        setFormData(parsedData);
+        return JSON.parse(cachedData);
       } catch (error) {
         console.error('Error parsing cached form data:', error);
       }
     }
-  }, []);
+    return {
+      firstName: '',
+      middleName: '',
+      lastName: '',
+      email: '',
+      mobileNumber: '',
+      birthMonth: '',
+      birthDay: '',
+      birthYear: '',
+      password: ''
+    };
+  });
 
   // Cache form data on change
   const handleFieldChange = (field: keyof RegisterFormData, value: string) => {
@@ -94,6 +91,7 @@ export default function Register() {
     
     // Store mobile number for login
     localStorage.setItem('userMobileNumber', formData.mobileNumber);
+    localStorage.setItem('registeredMobileNumber', formData.mobileNumber);
     
     // Display status with red asterisk if applicable
     const displayStatus = selfie ? 'SEMI-VERIFIED' : 'SEMI-VERIFIED*';

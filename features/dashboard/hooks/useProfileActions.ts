@@ -29,7 +29,8 @@ export function useProfileActions(
     saveUserProfile(profile);
     saveVerificationImages(images);
 
-    setVerificationStatusStorage('Fully Verified');
+    setVerificationStatusStorage('fully-verified');
+    setVerificationStatus('fully-verified');
     alert('Verification submitted successfully! You are now fully verified.');
   }, [profile, images, verificationStatus, setVerificationStatus]);
 

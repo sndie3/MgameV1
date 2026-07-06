@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import type { UserProfile, VerificationImages } from '../types/profile.types';
 import {
   getVerificationStatus,
@@ -9,59 +9,56 @@ import {
 } from '../services/profileStorage.service';
 
 export function useProfileData() {
-  const [verificationStatus, setVerificationStatus] = useState<string>('');
-  const [username, setUsername] = useState<string>('');
-  const [profile, setProfile] = useState<UserProfile>({
-    firstName: '',
-    middleName: '',
-    lastName: '',
-    phoneNumber: '',
-    city: '',
-    province: '',
-    maritalStatus: '',
-    locationOfWork: '',
-    email: '',
-    businessType: '',
-    sourceOfIncome: '',
-    gameVenue: '',
-  });
-  const [images, setImages] = useState<VerificationImages>({
-    selfieWithId: null,
-    frontId: null,
-    backId: null,
-  });
-
-  useEffect(() => {
+  const [verificationStatus, setVerificationStatus] = useState<string>(() => {
     const status = getVerificationStatus();
-    if (status) {
-      setVerificationStatus(status.toUpperCase());
-    }
+    return status ? status.toUpperCase() : '';
+  });
+  
+  const [username] = useState<string>(() => {
+    return getUsername() || '';
+  });
 
-    const storedUsername = getUsername();
-    if (storedUsername) {
-      setUsername(storedUsername);
-    }
-
+  const [profile, setProfile] = useState<UserProfile>(() => {
+    const defaultProfile = {
+      firstName: '',
+      middleName: '',
+      lastName: '',
+      phoneNumber: '',
+      city: '',
+      province: '',
+      maritalStatus: '',
+      locationOfWork: '',
+      email: '',
+      businessType: '',
+      sourceOfIncome: '',
+      gameVenue: '',
+    };
+    
     const registerFormData = getRegisterFormData();
+    let initialProfile = { ...defaultProfile };
+    
     if (registerFormData) {
-      setProfile(prev => ({
-        ...prev,
+      initialProfile = {
+        ...initialProfile,
         firstName: registerFormData.firstName || '',
         middleName: registerFormData.middleName || '',
         lastName: registerFormData.lastName || '',
         email: registerFormData.email || '',
         phoneNumber: registerFormData.mobileNumber || '',
-      }));
+      };
     }
-
+    
     const storedProfile = getUserProfile();
     if (storedProfile) {
-      setProfile(prev => ({ ...prev, ...storedProfile }));
+      initialProfile = { ...initialProfile, ...storedProfile };
     }
+    
+    return initialProfile;
+  });
 
-    const loadedImages = loadAllVerificationImages();
-    setImages(loadedImages);
-  }, []);
+  const [images, setImages] = useState<VerificationImages>(() => {
+    return loadAllVerificationImages();
+  });
 
   const updateProfile = (field: keyof UserProfile, value: string) => {
     setProfile(prev => ({ ...prev, [field]: value }));

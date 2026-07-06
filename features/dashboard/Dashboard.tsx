@@ -6,6 +6,7 @@ import PatternThree from "./components/layouts/PatternThree";
 import SkeletonLayout from "./components/layouts/SkeletonLayout";
 import { useInfiniteGames } from "./hooks/useInfiniteGames";
 import { MockGameProvider } from "./providers/MockGameProvider";
+import { getUsername } from "./services/profileStorage.service";
 // import { ApiGameProvider } from "./providers/ApiGameProvider"; // Swap here for production
 import Sidebar from "./components/Sidebar";
 import { useNavigate } from "react-router-dom";
@@ -15,21 +16,14 @@ const gameProvider = new MockGameProvider();
 
 export default function Dashboard() {
     const [collapsed, setCollapsed] = useState(false);
-    const [verificationStatus, setVerificationStatus] = useState<string>("Fully Verified");
-    const [username, setUsername] = useState<string>("Roger Nicon");
-    const [sidebarOpen, setSidebarOpen] = useState(false);
-
-    useEffect(() => {
+    const [verificationStatus] = useState<string>(() => {
         const status = localStorage.getItem('verificationStatus');
-        if (status) {
-            setVerificationStatus(status.toUpperCase());
-        }
-
-        const storedUsername = localStorage.getItem('username');
-        if (storedUsername) {
-            setUsername(storedUsername);
-        }
-    }, []);
+        return status ? status.toUpperCase() : "Fully Verified";
+    });
+    const [username] = useState<string>(() => {
+        return getUsername() || "Player";
+    });
+    const [sidebarOpen, setSidebarOpen] = useState(false);
 
     const menus = [
         {

@@ -29,7 +29,7 @@ export default function ProfileHeader({
   };
 
   return (
-    <div className="bg-[#0A0A0A] rounded-t-[32px] px-5 pt-6 pb-6">
+    <div className="bg-[#0A0A0A] rounded-t-[32px] px-5 pt-6 pb-6 relative z-10">
       <div className="flex items-center gap-4 mb-5">
         <button
           onClick={handleBack}

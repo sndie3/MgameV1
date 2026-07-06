@@ -1,22 +1,14 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useModal } from "../../../context/ModalContext";
 
 export default function LoginCard() {
   const [agree, setAgree] = useState(false);
-  const [username, setUsername] = useState("");
+  const [username, setUsername] = useState(() => localStorage.getItem("cachedMobileNumber") || "");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
   const { showModal } = useModal();
-
-  // Load cached credentials on mount
-  useEffect(() => {
-    const cachedMobileNumber = localStorage.getItem("userMobileNumber");
-    if (cachedMobileNumber) {
-      setUsername(cachedMobileNumber);
-    }
-  }, []);
 
   // Cache mobile number on change
   const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -32,8 +24,8 @@ export default function LoginCard() {
   const handleLogin = () => {
     // Validate fields
     if (!username || !password) {
-      let message = "";
-      let title = "";
+      let message;
+      let title;
 
       if (!username && !password) {
         message = "Please enter your username and password.";
@@ -66,7 +58,7 @@ export default function LoginCard() {
     }
 
     // Validate against registered mobile number
-    const registeredMobileNumber = localStorage.getItem('userMobileNumber');
+    const registeredMobileNumber = localStorage.getItem('registeredMobileNumber');
     if (registeredMobileNumber && username !== registeredMobileNumber) {
       alert('Mobile number does not match registered account');
       return;
@@ -74,6 +66,25 @@ export default function LoginCard() {
 
     // Here you would typically authenticate with your backend
     console.log('Login attempt:', { username });
+    
+    // Store user mobile number to establish session
+    localStorage.setItem('userMobileNumber', username);
+    
+    // Store registered mobile number if not present (simulating successful login for new device)
+    if (!registeredMobileNumber) {
+      localStorage.setItem('registeredMobileNumber', username);
+    }
+    
+    // Set a generic username if not registered
+    if (!localStorage.getItem('username')) {
+      localStorage.setItem('username', 'Player');
+    }
+
+    // Set default verification status if not already set
+    if (!localStorage.getItem('verificationStatus')) {
+      localStorage.setItem('verificationStatus', 'fully-verified');
+    }
+    
     // Navigate to dashboard
     navigate('/dashboard');
   };

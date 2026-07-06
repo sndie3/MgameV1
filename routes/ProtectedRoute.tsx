@@ -1,11 +1,18 @@
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
 
 // Note: This is only a partial Protected Route because we are not using a proper backend authentication system yet.
 // We are using localStorage to test the flow of protected routes.
 function ProtectedRoute() {
+    const location = useLocation();
     const mobileNumber = localStorage.getItem("userMobileNumber");
-    const verificationStatus =
+    let verificationStatus =
         localStorage.getItem("verificationStatus")?.toLowerCase() || "";
+
+    // Set default verification status if not set
+    if (!verificationStatus && mobileNumber) {
+        verificationStatus = "fully-verified";
+        localStorage.setItem("verificationStatus", "fully-verified");
+    }
 
     // Not logged in
     if (!mobileNumber) {
@@ -20,7 +27,7 @@ function ProtectedRoute() {
 
     // Not verified or not allowed to access protected routes because of verification status 
     // Inshort: only allowedStatuses can access protected routes, otherwise redirect to profile page
-    if (!allowedStatuses.includes(verificationStatus)) {
+    if (!allowedStatuses.includes(verificationStatus) && location.pathname !== "/profile") {
         return <Navigate to="/profile" replace />;
     }
 
