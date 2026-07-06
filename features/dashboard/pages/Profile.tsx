@@ -5,6 +5,7 @@ import PersonalInformationForm from '../components/PersonalInformationForm';
 import VerificationDocuments from '../components/VerificationDocuments';
 import CameraModal from '../components/CameraModal';
 import SaveActivateButton from '../components/SaveActivateButton';
+import BasicProfileMenu from '../components/BasicProfileMenu';
 import { useProfileData } from '../hooks/useProfileData';
 import { useCamera } from '../hooks/useCamera';
 import { useDropdown } from '../hooks/useDropdown';
@@ -12,6 +13,7 @@ import { useProfileActions } from '../hooks/useProfileActions';
 
 export default function Profile() {
   const [isEditing, setIsEditing] = useState(false);
+  const [showDetailedForm, setShowDetailedForm] = useState(false);
 
   const {
     verificationStatus,
@@ -47,6 +49,11 @@ export default function Profile() {
     setIsEditing(prev => !prev);
   }, []);
 
+  const handleBack = useCallback(() => {
+    setShowDetailedForm(false);
+    setIsEditing(false);
+  }, []);
+
   const handleProfileChange = useCallback((field: keyof typeof profile, value: string) => {
     updateProfile(field, value);
   }, [updateProfile]);
@@ -63,35 +70,49 @@ export default function Profile() {
         username={username}
         verificationStatus={verificationStatus}
         isEditing={isEditing}
+        showDetailedForm={showDetailedForm}
         onUpdateNow={handleUpdateNow}
+        onBack={handleBack}
       />
 
       <div className="flex-1">
-        <PersonalInformationForm
-          profile={profile}
-          isEditing={isEditing}
-          openDropdown={openDropdown}
-          onProfileChange={handleProfileChange}
-          onDropdownToggle={toggleDropdown}
-        />
+        {!showDetailedForm ? (
+          <BasicProfileMenu 
+            profile={profile}
+            onEditProfile={() => {
+              setShowDetailedForm(true);
+              setIsEditing(false);
+            }}
+          />
+        ) : (
+          <>
+            <PersonalInformationForm
+              profile={profile}
+              isEditing={isEditing}
+              openDropdown={openDropdown}
+              onProfileChange={handleProfileChange}
+              onDropdownToggle={toggleDropdown}
+            />
 
-        <VerificationDocuments
-          images={images}
-          verificationStatus={verificationStatus}
-          onImageUpload={handleImageUpload}
-          onImageRemove={handleImageRemove}
-          onStartCamera={startCamera}
-        />
+            <VerificationDocuments
+              images={images}
+              verificationStatus={verificationStatus}
+              onImageUpload={handleImageUpload}
+              onImageRemove={handleImageRemove}
+              onStartCamera={startCamera}
+            />
 
-        <CameraModal
-          showCamera={showCamera}
-          cameraError={cameraError}
-          videoRef={videoRef}
-          onCapture={handleCapturePhoto}
-          onCancel={stopCamera}
-        />
+            <CameraModal
+              showCamera={showCamera}
+              cameraError={cameraError}
+              videoRef={videoRef}
+              onCapture={handleCapturePhoto}
+              onCancel={stopCamera}
+            />
 
-        <SaveActivateButton onSaveAndActivate={handleSaveAndActivate} />
+            <SaveActivateButton onSaveAndActivate={handleSaveAndActivate} />
+          </>
+        )}
       </div>
 
       <div className="px-5 py-4 border-none">

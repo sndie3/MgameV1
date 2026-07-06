@@ -7,6 +7,7 @@ interface SidebarProps {
     setSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>;
     username: string;
     verificationStatus: string;
+    skipTransition?: boolean;
 }
 
 const menus = [
@@ -35,11 +36,13 @@ export default function Sidebar({
     setSidebarOpen,
     username,
     verificationStatus,
+    skipTransition = false,
 }: SidebarProps) {
     const navigate = useNavigate();
 
     const handleMenuClick = (title: string) => {
         if (title === 'Profile') {
+            localStorage.setItem('fromSidebar', 'true');
             navigate('/profile');
             setSidebarOpen(false);
         }
@@ -71,7 +74,7 @@ export default function Sidebar({
             {/* sidebar with details */}
             <div
                 className={`fixed top-0 left-0 h-full w-full bg-black z-50 flex flex-col
-        transform transition-transform duration-300 ease-in-out
+        transform ${skipTransition ? '' : 'transition-transform duration-300 ease-in-out'}
         ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}`}
             >
                 <div className="flex items-center justify-between p-5 border-b border-[#2a2a2a]">
