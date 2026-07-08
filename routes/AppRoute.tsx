@@ -11,6 +11,7 @@ import AuthenticatedLayout from "../layouts/AuthenticatedLayout";
 import ProtectedRoute from "../routes/ProtectedRoute";
 import CashIn from "../features/cashin/CashIn";
 import CashOut from "../features/cashout/CashOut"
+import Support from "../features/support/Support";
 export default function AppRoutes() { 
 
   return ( 
@@ -37,6 +38,7 @@ export default function AppRoutes() {
             <Route path="profile" element={<Profile />} />
             <Route path="cash-in" element={<CashIn/>} />
             <Route path="cash-out" element={<CashOut/>} />
+            <Route path="support" element={<Support/>} />
 
 
         </Route>
