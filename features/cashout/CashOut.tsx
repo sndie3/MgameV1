@@ -11,7 +11,7 @@ function CashIn() {
     // const [selectedAmount, setSelectedAmount] = useState(0);
     const [showCashOutOption, setShowCashOutOption] = useState(false)
 
-    const [customAmount, setCustomAmount] = useState(0);
+    // const [customAmount, setCustomAmount] = useState(0);
 
     // const [username] = useState(() => {
     //     return getUsername() || '';
@@ -22,7 +22,9 @@ function CashIn() {
     // });
 
     const navigate = useNavigate();
+ const paymentMethods = ["GCASH", "MAYA", "QR PH"];
 
+    const [selectedMethod, setSelectedMethod] = useState("GCASH");
     return (
         <div className="relative min-h-screen bg-black text-white overflow-hidden flex flex-col">
             <div className="flex-1">
@@ -44,108 +46,56 @@ function CashIn() {
                 <div className="flex place-content-center mb-5">
                     <img src="/assets/icons/manoy.png" alt="Manoy" className="h-30 object-contain" />
                 </div>
-                <h2 className="text-center text-[clamp(0.5rem,6vw,1.5rem)] mt-4 font-bold text-white mb-6 font-bahnschrift">
+                <h2 className="text-center text-[clamp(0.5rem,5vw,1.5rem)] mt-4 font-bold text-white mb-6">
                     CASH OUT
                 </h2>
-                {/* 
-            <div className="flex justify-between items-center px-5 pb-5">
-               <div>
-                 <h2 className="text-[20px] font-bold">{username}</h2>
-                <p className="text-[15px] text-gray-400 mt-1">
-                    {verificationStatus.includes('*') ? (
-                        <>
-                            {verificationStatus.replace('*', '')}
-                            <span className="text-red-500">*</span>
-                        </>
-                    ) : (
-                        verificationStatus
-                    )}
-                </p>
-               </div>
-                <span className="text-2xl font-semibold">₱1,237.00</span>
-            </div> */}
+                <h2 className="text-center text-xl font-bold text-white mb-6">
+                    SELECT
+                </h2>
 
-
-
-                {/* Amounts */}
-                {/* <div className="grid grid-cols-3 gap-3 mb-4 px-5  text-[clamp(0.5rem,4vw,1.5rem)] font-bahnschrift">
-                {amounts.map((amount) => (
-                    <button
-                        key={amount}
-                        onClick={() => {
-                            setSelectedAmount(amount);
-                            setCustomAmount("");
-                        }}
-                        className="bg-[#111] h-20 font-semibold hover:bg-[#1b1b1b]"
-                    >
-                        <span
-                            className={
-                                selectedAmount === amount
-                                    ? "text-red-500"
-                                    : "text-white"
-                            }
+                {/* Payment Methods */}
+                <div className="grid grid-cols-3 gap-3 mb-3 font-bahnschrift text-[clamp(0.5rem,4vw,1.2rem)] ">
+                    {paymentMethods.map((method) => (
+                        <button
+                            key={method}
+                            onClick={() => setSelectedMethod(method)}
+                            className={`h-20 font-bold  transition-all cursor-pointer
+                            ${selectedMethod === method
+                                    ? "bg-red-800"
+                                    : "bg-[#111] hover:bg-[#191919]"
+                                }`}
                         >
-                            {amount}
-                        </span>
-                    </button>
-                ))}
-            </div> */}
-
-                {/* Custom Amount */}
-                <div className="px-5 font-bahnschrift">
-                    <div className="flex justify-center py-4">
-                        <label htmlFor="any-amount" className="text-xl">Input Amount</label>
-                    </div>
-                    <input
-                        type="number"
-                        placeholder="Any amount"
-                        value={customAmount === 0 ? "" : customAmount}
-                        onChange={(e) => {
-                            setCustomAmount(Number(e.target.value));
-                            //setSelectedAmount(0);
-                        }}
-                        className="w-full h-15 bg-[#111] text-center text-2xl placeholder:text-gray-600 outline-none mb-10 italic"
-                    />
+                            {method}
+                        </button>
+                    ))}
                 </div>
 
-                {/* Deposit */}
-                <div className="flex justify-center">
+                <div className="space-y-10 px-10 py-5">
                     <button
-                        disabled={customAmount <= 0}
+                    onClick={() => setShowCashOutOption(true)}
+                        className="font-bahnschrift w-full rounded-md py-3 text-lg font-semibold text-white transition bg-red-800 hover:bg-red-700 cursor-pointer flex-col"
+                    >
+                        <p className="text-2xl">1,234</p>
+                        
+                        <p>E-CASINO WALLET</p>
+                    </button>
+                    <button
+                    onClick={() => setShowCashOutOption(true)}
+                        className="font-bahnschrift w-full rounded-md  py-3 text-lg font-semibold text-white transition bg-red-800 hover:bg-red-700 cursor-pointer flex-col"
+                    >
+                        <p className="text-2xl">1,234</p>
+                        <p>PINOY GAMES WALLET</p>
+                    </button>
+                </div>
+                {/* Deposit
+                <div className="flex justify-center py-6">
+                    <button
                         onClick={() => setShowCashOutOption(true)}
-                        className={`px-24 py-4 font-bold transition ${customAmount
-                            ? "bg-red-800 hover:bg-red-700 cursor-pointer"
-                            : "bg-gray-600 cursor-not-allowed opacity-50"
-                            }`}>
+                        className={`px-24 py-4 font-bold transition bg-red-800 hover:bg-red-700`}>
                         Withdraw
                     </button>
-
-                </div>
-
-                {/* Logos */}
-                {/* <div className="mt-12 flex justify-evenly items-center gap-10">
-                <img
-                    src="/assets/icons/gcash.png"
-                    alt="GCash"
-                    className="h-6 object-contain"
-                />
-
-                <img
-                    src="/assets/icons/allbank.png"
-                    alt="AllBank"
-                    className="h-6 object-contain"
-                />
+                </div> */}
             </div>
-
-            <div className="flex justify-center mt-6">
-                <img
-                    src="/assets/icons/maya.png"
-                    alt="Maya"
-                    className="h-6 object-contain"
-                />
-            </div> */}
-            </div>
-
             {/* Footer */}
             <div className="mt-12 flex justify-between text-gray-600 text-md px-5 font-bahnschrift">
                 <span className="text-white">CASH-OUT</span>
@@ -158,8 +108,6 @@ function CashIn() {
             <CreditModalCashOut
                 open={showCashOutOption}
                 onClose={() => setShowCashOutOption(false)}
-                ecasinoWallet={Number(customAmount)}
-                pinoyGamesWallet={Number(customAmount)}
             />
         </div>
     );
