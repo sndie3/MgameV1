@@ -6,6 +6,7 @@ import VerificationDocuments from '../components/VerificationDocuments';
 import CameraModal from '../components/CameraModal';
 import SaveActivateButton from '../components/SaveActivateButton';
 import BasicProfileMenu from '../components/BasicProfileMenu';
+import ThemeSelectionView from '../components/ThemeSelectionView';
 import { useProfileData } from '../hooks/useProfileData';
 import { useCamera } from '../hooks/useCamera';
 import { useDropdown } from '../hooks/useDropdown';
@@ -14,6 +15,7 @@ import { useProfileActions } from '../hooks/useProfileActions';
 export default function Profile() {
   const [isEditing, setIsEditing] = useState(false);
   const [showDetailedForm, setShowDetailedForm] = useState(false);
+  const [showThemeModal, setShowThemeModal] = useState(false);
 
   const {
     verificationStatus,
@@ -64,8 +66,22 @@ export default function Profile() {
     });
   }, [capturePhoto, updateImages]);
 
+  const handleThemeClick = useCallback(() => {
+    setShowThemeModal(true);
+  }, []);
+
+  if (showThemeModal) {
+    return (
+      <ThemeSelectionView 
+        onBack={() => setShowThemeModal(false)}
+        username={username}
+        verificationStatus={verificationStatus}
+      />
+    );
+  }
+
   return (
-    <div className="min-h-screen bg-[#0A0A0A] text-white flex flex-col">
+    <div className="min-h-screen text-white flex flex-col">
       <ProfileHeader
         username={username}
         verificationStatus={verificationStatus}
@@ -83,6 +99,7 @@ export default function Profile() {
               setShowDetailedForm(true);
               setIsEditing(false);
             }}
+            onThemeClick={handleThemeClick}
           />
         ) : (
           <>

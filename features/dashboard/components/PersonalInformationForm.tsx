@@ -22,7 +22,7 @@ export default function PersonalInformationForm({
       <h2 className="text-lg font-semibold mb-4">Personal Information</h2>
       <div className="space-y-3">
         {FORM_FIELDS_CONFIG.map((item) => (
-          <div key={item.field} className={`dropdown-container h-[56px] bg-[#121212] rounded-lg border border-[#3A3A3A] flex items-center relative ${'isDropdown' in item && item.isDropdown ? 'overflow-visible' : ''}`}>
+          <div key={item.field} className={`dropdown-container h-[56px] rounded-lg border border-[#3A3A3A] flex items-center relative ${'isDropdown' in item && item.isDropdown ? 'overflow-visible' : ''}`} style={{ backgroundColor: 'var(--card-color)' }}>
             {'isDropdown' in item && item.isDropdown ? (
               <div 
                 className={`flex-1 flex items-center justify-between pl-4 pr-4 cursor-pointer w-full h-full ${!isEditing ? 'opacity-50 pointer-events-none' : ''}`}
@@ -39,7 +39,7 @@ export default function PersonalInformationForm({
                 </div>
                 
                 {openDropdown === item.field && isEditing && (
-                  <div className="absolute top-full left-0 right-0 mt-1 bg-[#1a1a1a] border border-[#3A3A3A] rounded-lg shadow-xl z-[100] max-h-60 overflow-y-auto">
+                  <div className="absolute top-full left-0 right-0 mt-1 border border-[#3A3A3A] rounded-lg shadow-xl z-[100] max-h-60 overflow-y-auto" style={{ backgroundColor: 'var(--button-color)' }}>
                     {'options' in item && item.options?.map((option: string) => (
                       <div
                         key={option}
@@ -48,7 +48,7 @@ export default function PersonalInformationForm({
                           onProfileChange(item.field as keyof UserProfile, option);
                           onDropdownToggle(item.field);
                         }}
-                        className={`px-4 py-3 hover:bg-[#2a2a2a] cursor-pointer text-sm ${
+                        className={`px-4 py-3 cursor-pointer text-sm hover:opacity-80 ${
                           profile[item.field as keyof UserProfile] === option ? 'text-white font-bold' : 'text-white'
                         }`}
                       >

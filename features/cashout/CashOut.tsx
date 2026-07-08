@@ -21,7 +21,7 @@ function CashIn() {
   const navigate = useNavigate();
 
     return (
-        <div className="relative min-h-screen bg-black text-white overflow-hidden ">
+        <div className="relative min-h-screen text-white overflow-hidden ">
             <div className="px-5 pt-6 pb-6">
 
                 {/* Header */}

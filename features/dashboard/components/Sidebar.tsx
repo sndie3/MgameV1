@@ -71,13 +71,13 @@ export default function Sidebar({
         ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}`}
             >
                 <div className="flex items-center justify-between p-5 border-b border-[#2a2a2a]">
-                    <div className="h-12 w-auto rounded-full bg-[#1d1d1d] flex items-center gap-5 p-3">
+                    <div className="h-12 w-auto rounded-full flex items-center gap-5 p-3" style={{ backgroundColor: 'var(--button-color)' }}>
                         <img src="/assets/icons/setting.png" alt="setting" className="w-10 h-9 rounded-full" />
                         <img src="/assets/icons/ribbon.png" alt="ribbon" className="w-10 h-9 rounded-full" />
                     </div>
                     <button
                         onClick={() => setSidebarOpen(false)}
-                        className="h-12 w-12 rounded-full bg-[#1d1d1d] flex items-center justify-center">
+                        className="h-12 w-12 rounded-full flex items-center justify-center" style={{ backgroundColor: 'var(--button-color)' }}>
                         <ChevronRight size={32} />
                     </button>
                 </div>
@@ -114,7 +114,8 @@ export default function Sidebar({
                     <div className="flex flex-col px-7 py-4 gap-2">
                         <button
                             onClick={handleLogout}
-                            className="h-[52px] px-6 bg-[#181818] rounded-[26px] text-white text-sm font-semibold uppercase shadow-lg hover:bg-[#1f1f1f] transition border border-white/20"
+                            className="h-[52px] px-6 rounded-[26px] text-white text-sm font-semibold uppercase shadow-lg hover:opacity-80 transition border border-white/20"
+                            style={{ backgroundColor: 'var(--button-color)' }}
                         >
                             Log Out
                         </button>

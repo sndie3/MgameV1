@@ -37,7 +37,8 @@ export default function CameraModal({
         <div className="p-4 flex justify-center gap-4 bg-black">
           <button
             onClick={onCapture}
-            className="bg-[#1a1a1a] text-white px-8 py-3 rounded hover:bg-[#333] transition-colors"
+            className="text-white px-8 py-3 rounded hover:opacity-80 transition-colors"
+            style={{ backgroundColor: 'var(--button-color)' }}
           >
             Capture
           </button>

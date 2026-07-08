@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 export default function Reset() {
   const navigate = useNavigate();
   return (
-    <div className="min-h-[100dvh] bg-black text-white flex flex-col font-sans">
+    <div className="min-h-[100dvh] text-white flex flex-col font-sans">
       <div className="flex flex-col flex-1 w-full px-4 py-6 sm:px-8 sm:py-8 md:px-12 md:py-12 lg:px-16 max-w-[1200px] mx-auto">
         {/* Header */}
         <div className="relative flex items-center justify-center mb-6 md:mb-10 w-full">

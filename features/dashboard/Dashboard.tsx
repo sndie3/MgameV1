@@ -101,7 +101,7 @@ export default function Dashboard() {
     }, [hasMore, loadMore, layouts.length]);
 
     return (
-        <div className="relative min-h-screen bg-black text-white overflow-hidden">
+        <div className="relative min-h-screen text-white overflow-hidden">
             <Sidebar
                 sidebarOpen={sidebarOpen}
                 setSidebarOpen={setSidebarOpen}
@@ -112,7 +112,7 @@ export default function Dashboard() {
             <div className="px-5 pt-4">
                 <div className="flex items-start justify-between">
                     <div className="flex gap-3">
-                        <button onClick={() => setSidebarOpen(true)} className="h-12 w-12 rounded-full bg-[#1d1d1d] flex items-center justify-center">
+                        <button onClick={() => setSidebarOpen(true)} className="h-12 w-12 rounded-full flex items-center justify-center" style={{ backgroundColor: 'var(--button-color)' }}>
                             <img src="/assets/icons/burger.png" alt="Avatar" className="w-7 h-3 " />
                         </button>
 
@@ -142,7 +142,7 @@ export default function Dashboard() {
                 {tabs.map((tab) => (
                     <button
                         key={tab.label}
-                        className="bg-[#171717] py-4 text-sm font-semibold hover:bg-[#252525]"
+                        className="py-4 text-sm font-semibold hover:opacity-80" style={{ backgroundColor: 'var(--button-color)' }}
                     >
                         <div className="flex items-center justify-center gap-2">
                             {tab.icon && (
@@ -198,7 +198,8 @@ export default function Dashboard() {
                     />
                     <button
                         onClick={() => setCollapsed(!collapsed)}
-                        className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-700"
+                        className="flex h-8 w-8 items-center justify-center rounded-full hover:opacity-80"
+                        style={{ backgroundColor: 'var(--button-color)' }}
                     >
                         <div
                             className={`h-6 w-6 rounded-full ${collapsed ? "bg-blue-400" : "bg-gray-300"

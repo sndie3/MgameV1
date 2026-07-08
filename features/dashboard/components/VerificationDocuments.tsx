@@ -19,7 +19,7 @@ export default function VerificationDocuments({
   return (
     <div className="px-5 py-6">
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 align-items-stretch">
-        <div className="bg-[#1d1d1d] rounded-lg p-4 flex flex-col">
+        <div className="rounded-lg p-4 flex flex-col" style={{ backgroundColor: 'var(--card-color)' }}>
           <ImageUpload
             label="Front of ID"
             value={images.frontId}
@@ -34,7 +34,7 @@ export default function VerificationDocuments({
           />
         </div>
 
-        <div className="bg-[#1d1d1d] rounded-lg p-4 flex flex-col">
+        <div className="rounded-lg p-4 flex flex-col" style={{ backgroundColor: 'var(--card-color)' }}>
           <ImageUpload
             label="Back of ID"
             value={images.backId}
@@ -49,7 +49,7 @@ export default function VerificationDocuments({
           />
         </div>
 
-        <div className="bg-[#1d1d1d] rounded-lg p-4 flex flex-col">
+        <div className="rounded-lg p-4 flex flex-col" style={{ backgroundColor: 'var(--card-color)' }}>
           {verificationStatus.includes('*') ? (
             <>
               <p className="text-sm font-medium mb-2 text-left">Selfie with ID</p>
@@ -76,11 +76,11 @@ export default function VerificationDocuments({
             <>
               <p className="text-sm font-medium mb-2 text-left">Selfie with ID</p>
               {images.selfieWithId ? (
-                <div className="w-full h-[180px] bg-[#2a2a2a] rounded-lg flex items-center justify-center overflow-hidden flex-1">
+                <div className="w-full h-[180px] rounded-lg flex items-center justify-center overflow-hidden flex-1" style={{ backgroundColor: 'var(--input-color)' }}>
                   <img src={images.selfieWithId} alt="Selfie with ID" className="w-full h-full object-cover object-position-center" />
                 </div>
               ) : (
-                <div className="w-full h-[180px] rounded-lg bg-[#2a2a2a] flex items-center justify-center">
+                <div className="w-full h-[180px] rounded-lg flex items-center justify-center" style={{ backgroundColor: 'var(--input-color)' }}>
                   <p className="max-w-[80%] text-center text-sm text-gray-500">
                     Provided during registration
                   </p>

@@ -7,7 +7,8 @@ export default function SaveActivateButton({ onSaveAndActivate }: SaveActivateBu
     <div className="px-5 py-6">
       <button
         onClick={onSaveAndActivate}
-        className="w-full py-4 bg-[#1a1a1a] rounded-lg text-lg font-semibold hover:bg-[#2a2a2a] transition"
+        className="w-full py-4 rounded-lg text-lg font-semibold transition hover:opacity-80"
+        style={{ backgroundColor: 'var(--button-color)' }}
       >
         Save & Activate
       </button>

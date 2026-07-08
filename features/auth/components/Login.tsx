@@ -90,7 +90,7 @@ export default function LoginCard() {
   };
 
   return (
-    <div className="min-h-[90dvh] bg-black text-white font-sans">
+    <div className="min-h-[90dvh] text-white font-sans">
       <div className="flex min-h-[90dvh] flex-col w-full max-w-[1200px] mx-auto px-4 py-6 sm:px-8 sm:py-8 md:px-12 md:py-12 lg:px-16">
         {/* Centered Login Section */}
         <div className="flex-1 flex flex-col justify-center">

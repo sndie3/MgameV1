@@ -29,11 +29,11 @@ export default function ProfileHeader({
   };
 
   return (
-    <div className="bg-[#0A0A0A] rounded-t-[32px] px-5 pt-6 pb-6 relative z-10">
+    <div className="rounded-t-[32px] px-5 pt-6 pb-6 relative z-10" style={{ backgroundColor: 'var(--background-color)' }}>
       <div className="flex items-center gap-4 mb-5">
         <button
           onClick={handleBack}
-          className="h-12 w-12 rounded-full bg-[#1A1A1A] flex items-center justify-center"
+          className="h-12 w-12 rounded-full flex items-center justify-center" style={{ backgroundColor: 'var(--button-color)' }}
         >
           <ArrowLeft size={20} className="text-white" />
         </button>
@@ -59,8 +59,9 @@ export default function ProfileHeader({
           <button
             onClick={onUpdateNow}
             className={`h-[52px] px-6 rounded-[26px] text-sm font-semibold uppercase shadow-lg transition flex flex-col items-center justify-center leading-tight ${
-              isEditing ? 'bg-red-600 text-white hover:bg-red-700' : 'bg-[#181818] text-white hover:bg-[#1f1f1f]'
+              isEditing ? 'bg-red-600 text-white hover:bg-red-700' : 'text-white'
             }`}
+            style={{ backgroundColor: isEditing ? undefined : 'var(--button-color)' }}
           >
             <span>UPDATE</span>
             <span>NOW!</span>
