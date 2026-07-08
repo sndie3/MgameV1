@@ -6,7 +6,7 @@ export default function AuthenticatedLayout() {
 
   // not yet implemented: if user is logged in, redirect to dashboard. If not, redirect to login page.
   return (
-     <section className="min-h-dvh flex w-full bg-black">
+     <section className="min-h-dvh flex w-full bg-[var(--background-color)]">
       <main className="flex flex-1 flex-col overflow-y-auto">
         <Outlet />  
       </main>

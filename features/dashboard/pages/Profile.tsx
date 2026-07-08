@@ -81,7 +81,7 @@ export default function Profile() {
   }
 
   return (
-    <div className="min-h-screen text-white flex flex-col">
+    <div className="min-h-screen text-white flex flex-col bg-[var(--background-color)]">
       <ProfileHeader
         username={username}
         verificationStatus={verificationStatus}

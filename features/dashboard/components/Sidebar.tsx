@@ -59,18 +59,19 @@ export default function Sidebar({
             {/* backdrop */}
             <div
                 onClick={() => setSidebarOpen(false)}
-                className={`fixed inset-0 bg-black z-40 transition-opacity duration-300 ${sidebarOpen
+                className={`fixed inset-0 z-40 transition-opacity duration-300 ${sidebarOpen
                     ? "opacity-100 pointer-events-auto"
                     : "opacity-0 pointer-events-none"
                     }`}
+                style={{ backgroundColor: 'var(--background-color)' }}
             />
             {/* sidebar with details */}
             <div
-                className={`fixed top-0 left-0 h-full w-full bg-black z-50 flex flex-col
+                className={`fixed top-0 left-0 h-full w-full z-50 flex flex-col bg-black
         transform transition-transform duration-300 ease-in-out
         ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}`}
             >
-                <div className="flex items-center justify-between p-5 border-b border-[#2a2a2a]">
+                <div className="flex items-center justify-between p-5 border-b border-white/10">
                     <div className="h-12 w-auto rounded-full flex items-center gap-5 p-3" style={{ backgroundColor: 'var(--button-color)' }}>
                         <img src="/assets/icons/setting.png" alt="setting" className="w-10 h-9 rounded-full" />
                         <img src="/assets/icons/ribbon.png" alt="ribbon" className="w-10 h-9 rounded-full" />
@@ -100,7 +101,7 @@ export default function Sidebar({
                             <button
                                 key={item.title}
                                 onClick={() => handleMenuClick(item.title)}
-                                className="w-full px-6 py-4 flex items-center hover:bg-white/10 transition gap-2"
+                                className="w-full px-6 py-4 flex items-center hover:bg-[var(--hover-color)] transition gap-2"
                             >
                                 <div className="flex items-center gap-10 flex-1">
                                     <span className="flex-1 text-left font-semibold text-[20px]">

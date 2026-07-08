@@ -19,7 +19,7 @@ export default function VerificationDocuments({
   return (
     <div className="px-5 py-6">
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 align-items-stretch">
-        <div className="rounded-lg p-4 flex flex-col" style={{ backgroundColor: 'var(--card-color)' }}>
+        <div className="rounded-lg border border-white/10 p-4 flex flex-col" style={{ backgroundColor: 'var(--card-color)' }}>
           <ImageUpload
             label="Front of ID"
             value={images.frontId}
@@ -34,7 +34,7 @@ export default function VerificationDocuments({
           />
         </div>
 
-        <div className="rounded-lg p-4 flex flex-col" style={{ backgroundColor: 'var(--card-color)' }}>
+        <div className="rounded-lg border border-white/10 p-4 flex flex-col" style={{ backgroundColor: 'var(--card-color)' }}>
           <ImageUpload
             label="Back of ID"
             value={images.backId}
@@ -49,12 +49,12 @@ export default function VerificationDocuments({
           />
         </div>
 
-        <div className="rounded-lg p-4 flex flex-col" style={{ backgroundColor: 'var(--card-color)' }}>
+        <div className="rounded-lg border border-white/10 p-4 flex flex-col" style={{ backgroundColor: 'var(--card-color)' }}>
           {verificationStatus.includes('*') ? (
             <>
               <p className="text-sm font-medium mb-2 text-left">Selfie with ID</p>
               <div 
-                className="w-full h-[180px] border border-[#333] rounded flex items-center justify-center relative overflow-hidden cursor-pointer hover:border-[#666] transition-colors"
+                className="w-full h-[180px] border border-white/10 rounded flex items-center justify-center relative overflow-hidden cursor-pointer hover:border-white/30 transition-colors"
                 onClick={!images.selfieWithId ? onStartCamera : undefined}
               >
                 {images.selfieWithId ? (

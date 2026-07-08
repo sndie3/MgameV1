@@ -1,17 +1,11 @@
-import { useState } from 'react';
-import { useTheme } from '../../../context/ThemeContext';
-import type { Theme } from '../../../context/ThemeContext';
+import { useState, useEffect } from 'react';
+import { useTheme } from '../../../hooks/useTheme';
+import type { Theme } from '../../../utils/theme';
+import { applyTheme } from '../../../utils/theme';
 import { ArrowLeft } from 'lucide-react';
 import Footer from '../../../components/common/Footer';
 
-interface ThemeSelectionViewProps {
-  onBack: () => void;
-  username: string;
-  verificationStatus: string;
-}
-
 const themes: { id: Theme; name: string; image: string }[] = [
-  { id: '1', name: 'Theme 1', image: '/assets/themes/1.jpg' },
   { id: '2', name: 'Theme 2', image: '/assets/themes/2.jpg' },
   { id: '3', name: 'Theme 3', image: '/assets/themes/3.jpg' },
   { id: '4', name: 'Theme 4', image: '/assets/themes/4.jpg' },
@@ -30,26 +24,44 @@ const themes: { id: Theme; name: string; image: string }[] = [
   { id: '17', name: 'Theme 17', image: '/assets/themes/17.jpg' },
 ];
 
+interface ThemeSelectionViewProps {
+  onBack: () => void;
+  username: string;
+  verificationStatus: string;
+}
+
 export default function ThemeSelectionView({ onBack, username, verificationStatus }: ThemeSelectionViewProps) {
   const { theme: currentTheme, setTheme } = useTheme();
   const [selectedIndex, setSelectedIndex] = useState(() => {
-    const idx = themes.findIndex(t => t.id === currentTheme);
+    const idx = themes.findIndex((t) => t.id === currentTheme);
     return idx >= 0 ? idx : 0;
   });
 
-  const previewTheme = themes[selectedIndex].id;
+  const normalizedIndex = ((selectedIndex % themes.length) + themes.length) % themes.length;
+  const previewTheme = themes[normalizedIndex]?.id;
 
   const handleActivate = () => {
-    setTheme(previewTheme);
-    onBack();
+    if (previewTheme) {
+      setTheme(previewTheme);
+      onBack();
+    }
   };
 
   const handleDefault = () => {
-    const defaultIndex = themes.findIndex(t => t.id === '1');
-    if (defaultIndex >= 0) {
-      setSelectedIndex(defaultIndex);
-    }
+    setTheme('1');
+    onBack();
   };
+
+  // Preview theme on body while in selection view
+  useEffect(() => {
+    const previewThemeId = previewTheme ?? '1';
+    applyTheme(previewThemeId);
+
+    return () => {
+      // Restore original theme when leaving
+      applyTheme(currentTheme);
+    };
+  }, [previewTheme, currentTheme]);
 
   // For touch swipe support
   const [touchStart, setTouchStart] = useState<number | null>(null);
@@ -65,17 +77,22 @@ export default function ThemeSelectionView({ onBack, username, verificationStatu
 
     if (diff > 50) {
       // Swipe left
-      if (selectedIndex < themes.length - 1) setSelectedIndex(prev => prev + 1);
+      setSelectedIndex((prev) => prev + 1);
     } else if (diff < -50) {
       // Swipe right
-      if (selectedIndex > 0) setSelectedIndex(prev => prev - 1);
+      setSelectedIndex((prev) => prev - 1);
     }
     setTouchStart(null);
   };
 
   return (
-    <div className="min-h-screen text-white flex flex-col relative z-50 bg-[#0a0a0a]">
-      <div className="flex-1 flex flex-col">
+    <div 
+      className="min-h-screen text-white flex flex-col relative z-50"
+    >
+      {/* Dark overlay to ensure readability */}
+      <div className="absolute inset-0 bg-black/70 z-0"></div>
+      
+      <div className="flex-1 flex flex-col relative z-10">
         {/* Header */}
         <div className="px-5 pt-6 pb-4">
           <div className="flex items-center relative mb-6">
@@ -118,10 +135,10 @@ export default function ThemeSelectionView({ onBack, username, verificationStatu
           onTouchEnd={handleTouchEnd}
         >
           <div className="relative w-full h-[75vh] max-h-[600px] flex items-center justify-center">
-            {themes.map((theme, idx) => {
-              const offset = idx - selectedIndex;
-              const isVisible = Math.abs(offset) <= 2;
-              if (!isVisible) return null;
+            {[-2, -1, 0, 1, 2].map((offset) => {
+              const absoluteIdx = selectedIndex + offset;
+              const actualIdx = ((absoluteIdx % themes.length) + themes.length) % themes.length;
+              const theme = themes[actualIdx];
 
               let translateX = '0%';
               let scale = 1;
@@ -136,8 +153,8 @@ export default function ThemeSelectionView({ onBack, username, verificationStatu
 
               return (
                 <div 
-                  key={theme.id}
-                  onClick={() => setSelectedIndex(idx)}
+                  key={`${absoluteIdx}-${theme.id}`}
+                  onClick={() => setSelectedIndex(absoluteIdx)}
                   className="absolute w-[65%] h-[90%] transition-all duration-300 ease-out cursor-pointer"
                   style={{
                     transform: `translateX(${translateX}) scale(${scale})`,
@@ -152,7 +169,7 @@ export default function ThemeSelectionView({ onBack, username, verificationStatu
                   />
                   {offset === 0 && (
                     <div className="absolute -bottom-8 left-0 right-0 text-center text-sm font-semibold tracking-widest uppercase">
-                      HERE
+                      {theme.name}
                     </div>
                   )}
                 </div>
@@ -162,17 +179,14 @@ export default function ThemeSelectionView({ onBack, username, verificationStatu
 
           {/* Pagination Dots */}
           <div className="flex items-center justify-center gap-2 mt-8 mb-4">
-            {themes.slice(Math.max(0, selectedIndex - 4), Math.min(themes.length, selectedIndex + 5)).map((theme, idx) => {
-              const actualIdx = Math.max(0, selectedIndex - 4) + idx;
-              return (
-                <div 
-                  key={theme.id}
-                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                    actualIdx === selectedIndex ? 'bg-white scale-125' : 'bg-transparent border border-white/50'
-                  }`}
-                />
-              );
-            })}
+            {[-3, -2, -1, 0, 1, 2, 3].map((offset) => (
+              <div
+                key={`dot-${offset}`}
+                className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                  offset === 0 ? 'bg-white scale-125' : 'bg-transparent border border-white/50'
+                }`}
+              />
+            ))}
           </div>
         </div>
 
@@ -187,7 +201,7 @@ export default function ThemeSelectionView({ onBack, username, verificationStatu
         </div>
       </div>
       
-      <div className="px-5 py-4 bg-[#0a0a0a]">
+      <div className="px-5 py-4 relative z-10 bg-black/40 backdrop-blur-sm">
         <Footer />
       </div>
     </div>

@@ -183,18 +183,17 @@ export default function Dashboard() {
             <div
                 className={` fixed bottom-0 left-0 right-0 z-30
         rounded-t-3xl
-        bg-[#1d1d1d]/20
-        backdrop-blur-sm
+        bg-[var(--card-color)]
         transition-all duration-500
         ${collapsed ? "h-14" : "h-[430px]"}`}
             >
                 {/* Search */}
-                <div className="border-b border-[#2a2a2a] flex items-center px-4 h-14">
+                <div className="border-b border-white/10 flex items-center px-4 h-14">
                     <Search size={18} className="text-gray-500" />
 
                     <input
                         placeholder="Search"
-                        className="flex-1 bg-transparent px-3 outline-none placeholder:text-gray- 500"
+                        className="flex-1 bg-transparent px-3 outline-none placeholder:text-gray-500"
                     />
                     <button
                         onClick={() => setCollapsed(!collapsed)}
@@ -220,7 +219,7 @@ export default function Dashboard() {
                         <button
                             key={item.title}
                             onClick={() => navigate(item.route)}
-                            className="w-full px-6 py-4 flex items-center hover:bg-white/10 transition gap-2"
+                            className="w-full px-6 py-4 flex items-center hover:bg-[var(--hover-color)] transition gap-2"
                         >
                             <div className="flex items-center gap-10 flex-1">
                                 <img src={item.icon} alt={item.title}

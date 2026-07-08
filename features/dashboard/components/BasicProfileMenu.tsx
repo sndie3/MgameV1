@@ -13,7 +13,7 @@ export default function BasicProfileMenu({ profile, onEditProfile, onThemeClick 
         {/* Profile Edit Button */}
         <div 
           onClick={onEditProfile}
-          className="h-[56px] rounded-lg border border-[#3A3A3A] flex items-center justify-center cursor-pointer transition hover:opacity-80"
+          className="h-[56px] rounded-lg border border-white/10 flex items-center justify-center cursor-pointer transition hover:opacity-80"
           style={{ backgroundColor: 'var(--card-color)' }}
         >
           <span className="font-bold text-[18px] text-white">Profile Edit</span>
@@ -22,7 +22,7 @@ export default function BasicProfileMenu({ profile, onEditProfile, onThemeClick 
         {/* Email Field */}
         <div 
           onClick={onEditProfile}
-          className="h-[56px] rounded-lg border border-[#3A3A3A] flex items-center justify-between px-4 cursor-pointer transition hover:opacity-80"
+          className="h-[56px] rounded-lg border border-white/10 flex items-center justify-between px-4 cursor-pointer transition hover:opacity-80"
           style={{ backgroundColor: 'var(--card-color)' }}
         >
           <span className="font-bold text-[16px] text-white truncate">
@@ -44,14 +44,14 @@ export default function BasicProfileMenu({ profile, onEditProfile, onThemeClick 
         {/* Theme Button */}
         <div 
           onClick={onThemeClick}
-          className="h-[56px] rounded-lg border border-[#3A3A3A] flex items-center justify-center cursor-pointer transition hover:opacity-80"
+          className="h-[56px] rounded-lg border border-white/10 flex items-center justify-center cursor-pointer transition hover:opacity-80"
           style={{ backgroundColor: 'var(--card-color)' }}
         >
           <span className="font-bold text-[18px] text-white">Theme</span>
         </div>
 
         {/* Change Password Button */}
-        <div className="h-[56px] rounded-lg border border-[#3A3A3A] flex items-center justify-center cursor-pointer transition hover:opacity-80" style={{ backgroundColor: 'var(--card-color)' }}>
+        <div className="h-[56px] rounded-lg border border-white/10 flex items-center justify-center cursor-pointer transition hover:opacity-80" style={{ backgroundColor: 'var(--card-color)' }}>
           <span className="font-bold text-[18px] text-white">Change Password</span>
         </div>
       </div>
