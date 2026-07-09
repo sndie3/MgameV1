@@ -8,6 +8,7 @@ interface PersonalInformationFormProps {
   openDropdown: string | null;
   onProfileChange: (field: keyof UserProfile, value: string) => void;
   onDropdownToggle: (field: string) => void;
+  onToggleEditing: () => void;
 }
 
 export default function PersonalInformationForm({
@@ -16,7 +17,12 @@ export default function PersonalInformationForm({
   openDropdown,
   onProfileChange,
   onDropdownToggle,
+  onToggleEditing,
 }: PersonalInformationFormProps) {
+  const handlePencilClick = () => {
+    onToggleEditing();
+  };
+
   return (
     <div className="px-5 py-6">
       <h2 className="text-lg font-semibold mb-4">Personal Information</h2>
@@ -75,10 +81,20 @@ export default function PersonalInformationForm({
                 <div className="pr-4 flex items-center gap-2">
                   <span className="text-[13px] italic text-[#6E727A] font-medium">{item.label}</span>
                   {!item.readonly && (
-                    <Edit2 
-                      size={20} 
-                      className="text-[#8A8F98] opacity-75 hover:opacity-100 hover:text-[#B0B4BB] transition-all duration-200"
-                    />
+                    <button
+                      type="button"
+                      onClick={handlePencilClick}
+                      className="p-1 rounded"
+                    >
+                      <Edit2 
+                        size={20} 
+                        className={`transition-all duration-200 ${
+                          isEditing
+                            ? 'text-white opacity-100'
+                            : 'text-[#8A8F98] opacity-75 hover:opacity-100 hover:text-[#B0B4BB]'
+                        }`}
+                      />
+                    </button>
                   )}
                 </div>
               </>

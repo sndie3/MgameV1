@@ -126,6 +126,7 @@ export default function Profile() {
               openDropdown={openDropdown}
               onProfileChange={handleProfileChange}
               onDropdownToggle={toggleDropdown}
+              onToggleEditing={handleUpdateNow}
             />
 
             <VerificationDocuments

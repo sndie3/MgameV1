@@ -122,8 +122,8 @@ export default function ChangePasswordView({ onBack }: ChangePasswordViewProps) 
           <button
             onClick={handleConfirm}
             disabled={!isOtpComplete || !isNumberComplete || !newPassword || !confirmPassword}
-            className="cursor-pointer text-white w-full max-w-[300px] md:max-w-[400px] py-4 rounded hover:opacity-90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-            style={{ fontFamily: '"Bahnschrift SemiCondensed", Bahnschrift, sans-serif', fontSize: 'clamp(15px, 2vw, 20px)', backgroundColor: 'var(--button-color, #1a1a1a)' }}
+            className="cursor-pointer text-white w-full max-w-[300px] md:max-w-[400px] py-4 rounded bg-[#121212] hover:bg-[#1a1a1a] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            style={{ fontFamily: '"Bahnschrift SemiCondensed", Bahnschrift, sans-serif', fontSize: 'clamp(15px, 2vw, 20px)' }}
           >
             Confirm
           </button>

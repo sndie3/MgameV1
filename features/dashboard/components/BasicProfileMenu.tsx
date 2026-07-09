@@ -22,8 +22,7 @@ export default function BasicProfileMenu({ profile, onEditProfile, onThemeClick,
 
         {/* Email Field */}
         <div 
-          onClick={onEditProfile}
-          className="h-[56px] rounded-lg border border-white/10 flex items-center justify-between px-4 cursor-pointer transition hover:opacity-80"
+          className="h-[56px] rounded-lg border border-white/10 flex items-center justify-between px-4"
           style={{ backgroundColor: '#121212' }}
         >
           <span className="font-bold text-[16px] text-white truncate">
@@ -33,8 +32,7 @@ export default function BasicProfileMenu({ profile, onEditProfile, onThemeClick,
 
         {/* Contact Field */}
         <div 
-          onClick={onEditProfile}
-          className="h-[56px] rounded-lg border border-[#3A3A3A] flex items-center justify-between px-4 cursor-pointer transition hover:opacity-80"
+          className="h-[56px] rounded-lg border border-[#3A3A3A] flex items-center justify-between px-4"
           style={{ backgroundColor: '#121212' }}
         >
           <span className="font-bold text-[16px] text-white truncate">
