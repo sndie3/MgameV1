@@ -41,15 +41,22 @@ function HowToUse() {
                 <p>Yours truly,</p>
                 <br />
                 <br />
-                <p>MGame</p>
+                <div className="relative">
+                    <p>MGame</p>
+                    <img
+                        src="/assets/icons/manoy1.png"
+                        alt="manoy-gamay"
+                        className="block mx-auto mt-2 w-15 h-auto"
+                    />
+                </div>
                 <div className='py-5'>
                     <Button variant='secondary'>
-                    Explore Now
-                </Button>
+                        Explore Now
+                    </Button>
                 </div>
             </div>
-             
-            <Footer/>
+
+            <Footer />
         </div>
     )
 }
