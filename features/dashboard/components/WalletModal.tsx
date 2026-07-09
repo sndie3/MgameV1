@@ -44,24 +44,24 @@ function WalletModal({
                     <h2 className="text-2xl font-semibold font-bahnschrift py-6">WALLET</h2>
 
                     <div className="flex flex-col gap-5">
-                        <div className="flex flex-col bg-red-800 hover:bg-red-700 py-1.5">
-                            <h1 className="mt-1 text-3xl font-bold text-white">
-                                ₱
+                        <div className="flex flex-col bg-red-800 hover:bg-red-700 py-2">
+                            <h1 className="mb-2 text-3xl font-bold text-white">
+                                {/* ₱ */}
                                 {standardWallet.toLocaleString("en-PH", {
                                     minimumFractionDigits: 2,
                                 })}
                             </h1>
-                            <p className="text-gray-400 text-sm">Standard Wallet</p>
+                            <p className="text-white text-md">STANDARD WALLET</p>
                         </div>
 
-                        <div className="flex flex-col bg-[#1d1d1d] hover:bg-[#252525] py-1.5">
-                            <h1 className="mt-1 text-3xl font-bold text-white">
-                                ₱
+                        <div className="flex flex-col bg-[#1d1d1d] hover:bg-[#252525] py-2">
+                            <h1 className="mb-2 text-3xl font-bold text-white">
+                                {/* ₱ */}
                                 {specialityWallet.toLocaleString("en-PH", {
                                     minimumFractionDigits: 2,
                                 })}
                             </h1>
-                            <p className="text-gray-400 text-sm">Speciality Wallet</p>
+                            <p className="text-white text-md">SPECIALITY WALLET</p>
                         </div>
                     </div>
                 </div>
