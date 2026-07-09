@@ -1,5 +1,4 @@
-import React from "react";
-import { X, Wallet, ArrowDownToLine, ArrowUpFromLine } from "lucide-react";
+import { X } from "lucide-react";
 
 interface WalletModalProps {
     open: boolean;
