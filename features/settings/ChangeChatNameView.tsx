@@ -8,16 +8,18 @@ export default function ChangeChatNameView() {
   const navigate = useNavigate();
   const { showModal } = useModal();
 
-  const savedName = localStorage.getItem('chatName') || 'ROGER NICON';
+  const [currentName, setCurrentName] = useState(() => localStorage.getItem('chatName') || 'ROGER NICON');
   const [newName, setNewName] = useState('');
 
   const isValid = newName.trim().length > 0;
 
   const handleSubmit = () => {
     if (!isValid) return;
-    localStorage.setItem('chatName', newName.trim());
-    showModal('success', 'Chat Name Updated', `Your chat name is now ${newName.trim()}.`);
-    setTimeout(() => navigate('/settings/chat-settings'), 1200);
+    const trimmed = newName.trim();
+    localStorage.setItem('chatName', trimmed);
+    setCurrentName(trimmed);
+    setNewName('');
+    showModal('success', 'Chat Name Updated', `Your chat name is now ${trimmed}.`);
   };
 
   return (
@@ -39,7 +41,7 @@ export default function ChangeChatNameView() {
       {/* Content */}
       <div className="flex-1 px-5 py-8 flex flex-col items-center">
         <p className="text-[14px] uppercase tracking-[0.2em] text-[#666] mb-2">Chat Name</p>
-        <h2 className="text-[24px] font-bold uppercase mb-8">{savedName}</h2>
+        <h2 className="text-[24px] font-bold uppercase mb-8">{currentName}</h2>
 
         <input
           type="text"
