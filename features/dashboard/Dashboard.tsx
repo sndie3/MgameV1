@@ -17,7 +17,7 @@ const gameProvider = new MockGameProvider();
 
 export default function Dashboard() {
     const [collapsed, setCollapsed] = useState(false);
-                const [walletOpen, setWalletOpen] = useState(false);
+    const [walletOpen, setWalletOpen] = useState(false);
 
     const [verificationStatus] = useState<string>(() => {
         const status = localStorage.getItem('verificationStatus');
@@ -136,16 +136,20 @@ export default function Dashboard() {
                         </div>
                     </div>
 
-                    <span onClick={() => setWalletOpen(true)} className="text-2xl font-semibold">Wallet</span>
+                    <span onClick={() => setWalletOpen(true)} className="text-lg font-semibold flex place-items-center cursor-pointer font-bahnschrift">
+                        <img src="/assets/icons/wallet.png" alt="" className="w-12" />
+                        WALLET
+                    </span>
                 </div>
             </div>
 
             {/* Header Tab */}
+            {/* THIS WILL DISPLAY IF THE USER IS FULLY VERIFIED */}
             <div className="grid grid-cols-4 gap-1 mt-2 px-2">
                 {tabs.map((tab) => (
                     <button
                         key={tab.label}
-                        className="py-4 text-sm font-semibold hover:opacity-80" style={{ backgroundColor: 'var(--button-color)' }}
+                        className="py-4 text-sm font-semibold hover:opacity-80 bg-[#1d1d1d] hover:bg-[#252525]" 
                     >
                         <div className="flex items-center justify-center gap-2">
                             {tab.icon && (
@@ -156,6 +160,16 @@ export default function Dashboard() {
 
                     </button>
                 ))}
+            </div>
+            {/* THIS WILL DISPLAY IF USER IS NOT SEMI VERIFIED */}
+            <div className="px-2 mt-4 space-y-3">
+                <button className="w-full rounded-xl bg-[#1d1d1d] py-4 text-center font-semibold hover:bg-[#252525]">
+                    Proceed to Semi Verified Approve & Get 20 Pesos
+                </button>
+            {/* THIS WILL DISPLAY IF USER IS SEMI VERIFIED BUT NOT FULL VERIFIED */}
+                <button className="w-full rounded-xl bg-[#1d1d1d] py-4 text-center font-semibold hover:bg-[#252525]">
+                    Proceed to Fully Verified & Get 30 Pesos
+                </button>
             </div>
 
             {/* Contents / Game Cards Grid */}
@@ -244,12 +258,12 @@ export default function Dashboard() {
             </div>
 
 
-<WalletModal
-  open={walletOpen}
-  onClose={() => setWalletOpen(false)}
-  specialityWallet={1234}
-  standardWallet={1000}
-/>
+            <WalletModal
+                open={walletOpen}
+                onClose={() => setWalletOpen(false)}
+                specialityWallet={1234}
+                standardWallet={1000}
+            />
         </div>
     );
 }
