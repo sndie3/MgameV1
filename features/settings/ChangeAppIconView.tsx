@@ -78,7 +78,7 @@ export default function ChangeAppIconView() {
       <div className="px-5 pb-8">
         <button
           onClick={handleActivate}
-          className="w-full h-[56px] flex items-center justify-center rounded-none border-none bg-black text-white font-bold text-lg transition"
+          className="w-full h-[56px] flex items-center justify-center rounded-none border-none bg-[#121212] text-white font-bold text-lg transition hover:opacity-80"
         >
           Activate
         </button>
