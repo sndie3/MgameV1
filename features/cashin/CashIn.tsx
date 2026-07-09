@@ -65,7 +65,10 @@ function CashIn() {
                                         : "text-white"
                                 }
                             >
-                                {amount}
+                                {amount.toLocaleString("en-US", {
+                                    minimumFractionDigits: 2,
+                                    maximumFractionDigits: 2,
+                                })}
                             </span>
                         </button>
                     ))}
@@ -136,7 +139,6 @@ function CashIn() {
                 open={showCashInOption}
                 onClose={() => setShowCashInOption(false)}
                 amount={Number(customAmount || selectedAmount)}
-
                 onSelect={(option) => {
                     if (option === "e-casino") {
                         // Navigate or perform action

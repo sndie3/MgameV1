@@ -4,9 +4,23 @@ import { useState } from "react";
 import GameCard from "./components/GameCard";
 
 function Support() {
+    const games = [
+        { imageSrc: "/assets/Hari-tari.png", title: "Hari Tari" },
+        { imageSrc: "/assets/regnum.png", title: "Slots" },
+        { imageSrc: "/assets/Hari-tari.png", title: "Baccarat" },
+        { imageSrc: "/assets/regnum.png", title: "Poker" },
+        { imageSrc: "/assets/Hari-tari.png", title: "Hari Tari" },
+        { imageSrc: "/assets/regnum.png", title: "Slots" },
+        { imageSrc: "/assets/Hari-tari.png", title: "Baccarat" },
+        { imageSrc: "/assets/regnum.png", title: "Poker" },
+    ];
+
     const route = useNavigate()
     const [activeTab, setActiveTab] = useState("support");
-
+    const [selectedGame, setSelectedGame] = useState<{
+        imageSrc: string;
+        title: string;
+    } | null>(null);
     const tabs = [
         { id: "support", label: "SUPPORT" },
         { id: "contacts", label: "CONTACTS" },
@@ -31,10 +45,19 @@ function Support() {
                 </div>
             </div>
             <button
+                disabled={!selectedGame}
                 onClick={() => setShowGame(!showGame)}
-                className={`${showGame ? "bg-white text-black" : "bg-red-500 text-white"} w-full bg-red-800 py-3 cursor-pointer flex justify-center relative z-30`}
+                className={`
+        w-full py-3 flex justify-center relative z-30
+        ${selectedGame
+                        ? showGame
+                            ? "bg-white text-black cursor-pointer"
+                            : "bg-red-500 text-white cursor-pointer"
+                        : "bg-gray-700 text-gray-400 cursor-not-allowed"
+                    }
+    `}
             >
-                <p className={"font-bold text-lg"}>GAME</p>
+                <p className="font-bold text-lg">GAME</p>
             </button>
             <div
                 className={`
@@ -117,7 +140,26 @@ function Support() {
                         </div>
                     )}
                 </div>
-
+                {/* carousel auto run */}
+                <div className="overflow-hidden w-full">
+                    <div className="flex w-max animate-marquee">
+                        {[...games, ...games, ...games].map((game, index) => (
+                            <div
+                                key={index}
+                                className="mr-3 shrink-0"
+                                onClick={() => {
+                                    setSelectedGame(game);
+                                    setShowGame(true);
+                                }}
+                            >
+                                <GameCard
+                                    imageSrc={game.imageSrc}
+                                    title={game.title}
+                                />
+                            </div>
+                        ))}
+                    </div>
+                </div>
                 <div
                     className="flex items-center gap-2 p-3 border-t border-[#333]"
                     style={{ backgroundColor: "var(--button-color)" }}
@@ -129,7 +171,6 @@ function Support() {
                         onChange={(e) => setMessage(e.target.value)}
                         className="flex-1 bg-[#111] rounded-full px-4 py-3 outline-none"
                     />
-
                     <button className="px-5 py-3">
                         <SendHorizonal />
                     </button>
@@ -137,15 +178,13 @@ function Support() {
             </div>
             {/* mao ning loopan paras duwa die, lamat sa tanan */}
             <div className="absolute inset-0 bg-black flex items-center justify-center z-10">
-                <GameCard
-                    imageSrc="/assets/Hari-tari.png"
-                    title="Slots"
-                    size="big"
-                    // ads
-                    // live
-                    // tutorial
-                    // play
-                />
+                {selectedGame && (
+                    <img
+                        src={selectedGame.imageSrc}
+                        alt={selectedGame.title}
+                        className="w-125"
+                    />
+                )}
             </div>
         </div>
     )

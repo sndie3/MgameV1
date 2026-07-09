@@ -3,7 +3,7 @@ interface CreditModalProps {
     open: boolean;
     onClose: () => void;
     onSelect: (option: "e-casino" | "pinoy-games") => void;
-    amount:number
+    amount: number
 }
 
 function CreditModalCashIn({
@@ -30,7 +30,10 @@ function CreditModalCashIn({
                     CASH IN
                 </h2>
                 <h2 className="text-center text-4xl font-bold text-white mb-6">
-                    {Number(amount).toFixed(2)}
+                    {amount.toLocaleString("en-US", {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                    })}
                 </h2>
                 <h2 className="text-center text-xl font-bold text-white mb-6">
                     SELECT YOUR WALLET
