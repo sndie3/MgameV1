@@ -17,6 +17,8 @@ import Settings from "../features/settings/Settings";
 import BetLimitView from "../features/settings/BetLimitView";
 import SelfExclusionView from "../features/settings/SelfExclusionView";
 import CashInLimitView from "../features/settings/CashInLimitView";
+import NotificationsView from "../features/settings/NotificationsView";
+import DeactivateAccountView from "../features/settings/DeactivateAccountView";
 export default function AppRoutes() { 
 
   return ( 
@@ -49,6 +51,8 @@ export default function AppRoutes() {
             <Route path="settings/bet-limit" element={<BetLimitView/>} />
             <Route path="settings/self-exclusion" element={<SelfExclusionView/>} />
             <Route path="settings/cash-in-limit" element={<CashInLimitView/>} />
+            <Route path="settings/notifications" element={<NotificationsView/>} />
+            <Route path="settings/deactivate-account" element={<DeactivateAccountView/>} />
 
         </Route>
       </Route> 

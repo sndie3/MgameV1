@@ -11,7 +11,7 @@ const settingsOptions = [
   'System License',
   'Chat Settings',
   'Profile Security',
-  'DEACTIVIATE ACCOUNT',
+  'DEACTIVATE ACCOUNT',
 ];
 
 export default function Settings() {
@@ -32,7 +32,7 @@ export default function Settings() {
           <h1 className="text-[24px] font-semibold">Settings</h1>
         </div>
       </div>
-
+ 
       {/* Menu Options */}
       <div className="flex-1 px-5 py-6">
         <div className="space-y-3">
@@ -46,6 +46,10 @@ export default function Settings() {
                   navigate('/settings/self-exclusion');
                 } else if (option === 'Cash-In Limit') {
                   navigate('/settings/cash-in-limit');
+                } else if (option === 'Notifications') {
+                  navigate('/settings/notifications');
+                } else if (option === 'DEACTIVATE ACCOUNT') {
+                  navigate('/settings/deactivate-account');
                 }
               }}
               className="w-full h-[56px] flex items-center justify-center bg-[#121212] hover:opacity-80 transition"
