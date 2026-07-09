@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react';
 import { Edit2, ChevronDown } from 'lucide-react';
 import type { UserProfile } from '../types/profile.types';
 import { FORM_FIELDS_CONFIG } from '../constants/profileConstants';
@@ -19,9 +20,22 @@ export default function PersonalInformationForm({
   onDropdownToggle,
   onToggleEditing,
 }: PersonalInformationFormProps) {
-  const handlePencilClick = () => {
+  const inputRefs = useRef<Record<string, HTMLInputElement | null>>({});
+  const focusFieldRef = useRef<string | null>(null);
+
+  const handlePencilClick = (field: string) => {
+    if (!isEditing) {
+      focusFieldRef.current = field;
+    }
     onToggleEditing();
   };
+
+  useEffect(() => {
+    if (isEditing && focusFieldRef.current) {
+      inputRefs.current[focusFieldRef.current]?.focus();
+      focusFieldRef.current = null;
+    }
+  }, [isEditing]);
 
   return (
     <div className="px-5 py-6">
@@ -73,6 +87,7 @@ export default function PersonalInformationForm({
                     onChange={(e) => onProfileChange(item.field as keyof UserProfile, e.target.value)}
                     disabled={item.readonly || !isEditing}
                     readOnly={item.readonly}
+                    ref={(el) => { inputRefs.current[item.field] = el; }}
                     className={`w-full bg-transparent text-white font-bold text-[18px] uppercase outline-none ${
                       item.readonly ? 'cursor-default pointer-events-none' : ''
                     } ${!isEditing && !item.readonly ? 'cursor-default' : ''}`}
@@ -83,7 +98,7 @@ export default function PersonalInformationForm({
                   {!item.readonly && (
                     <button
                       type="button"
-                      onClick={handlePencilClick}
+                      onClick={() => handlePencilClick(item.field)}
                       className="p-1 rounded"
                     >
                       <Edit2 
