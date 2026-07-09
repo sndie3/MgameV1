@@ -9,6 +9,7 @@ export interface CompressOptions {
   quality?: number;
   fit?: 'cover' | 'contain' | 'fill' | 'inside' | 'outside';
   progressive?: boolean;
+  format?: 'jpeg' | 'png' | 'webp';
 }
 
 export interface CompressionStats {
@@ -28,6 +29,7 @@ export async function compressImageFile(
     quality = 80,
     fit = 'cover',
     progressive = true,
+    format = 'jpeg',
   } = options;
 
   const outputDir = path.dirname(outputPath);
@@ -42,10 +44,17 @@ export async function compressImageFile(
   if (width !== undefined) resizeOptions.width = width;
   if (height !== undefined) resizeOptions.height = height;
 
-  await sharp(inputPath)
-    .resize(resizeOptions)
-    .jpeg({ quality, progressive })
-    .toFile(outputPath);
+  const pipeline = sharp(inputPath).resize(resizeOptions);
+
+  if (format === 'png') {
+    pipeline.png({ quality, progressive });
+  } else if (format === 'webp') {
+    pipeline.webp({ quality });
+  } else {
+    pipeline.jpeg({ quality, progressive });
+  }
+
+  await pipeline.toFile(outputPath);
 
   const newStats = fs.statSync(outputPath);
   const compressedSize = newStats.size;

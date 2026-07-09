@@ -65,6 +65,10 @@ export default function ChatSettingsView() {
       navigate('/settings/change-chat-name');
       return;
     }
+    if (option === 'App Icon') {
+      navigate('/settings/change-app-icon');
+      return;
+    }
     showModal('info', option, `${option} settings will be available soon.`);
   };
 

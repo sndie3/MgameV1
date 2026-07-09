@@ -9,7 +9,8 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "compress:chat-wallpapers": "tsx utils/compressChatWallpapers.ts",
-    "compress:theme-images": "tsx utils/compressThemeImages.ts"
+    "compress:theme-images": "tsx utils/compressThemeImages.ts",
+    "compress:app-icons": "tsx utils/compressAppIcons.ts"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.3.2",
