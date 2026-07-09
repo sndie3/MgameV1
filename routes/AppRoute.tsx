@@ -13,6 +13,7 @@ import CashIn from "../features/cashin/CashIn";
 import CashOut from "../features/cashout/CashOut"
 import Support from "../features/support/Support";
 import HowToUse from "../features/howtouse/HowToUse";
+import Settings from "../features/settings/Settings";
 export default function AppRoutes() { 
 
   return ( 
@@ -41,6 +42,7 @@ export default function AppRoutes() {
             <Route path="cash-out" element={<CashOut/>} />
             <Route path="support" element={<Support/>} />
             <Route path="how-to-use" element={<HowToUse/>} />
+            <Route path="settings" element={<Settings/>} />
 
         </Route>
       </Route> 

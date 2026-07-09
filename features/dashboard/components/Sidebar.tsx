@@ -17,6 +17,9 @@ const menus = [
         title: "Profile",
     },
     {
+        title: "Settings",
+    },
+    {
         title: "Notifications",
     },
     {
@@ -42,8 +45,11 @@ export default function Sidebar({
         if (title === 'Profile') {
             navigate('/profile');
             setSidebarOpen(false);
-        }else if (title === 'How to Use'){
+        } else if (title === 'How to Use') {
             navigate('/how-to-use');
+            setSidebarOpen(false);
+        } else if (title === 'Settings') {
+            navigate('/settings');
             setSidebarOpen(false);
         }
     };
