@@ -39,7 +39,7 @@ export default function Settings() {
           {settingsOptions.map((option) => (
             <button
               key={option}
-              className="w-full h-[56px] rounded-lg border border-white/10 flex items-center justify-center bg-[#121212] hover:opacity-80 transition"
+              className="w-full h-[56px] flex items-center justify-center bg-[#121212] hover:opacity-80 transition"
             >
               <span className="font-bold text-[18px] uppercase">{option}</span>
             </button>
