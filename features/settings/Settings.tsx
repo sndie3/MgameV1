@@ -4,7 +4,7 @@ import Footer from '../../components/common/Footer';
 
 const settingsOptions = [
   'Bet Limit',
-  'Self Exclusion',
+  'Self-Exclusion',
   'Cash-In Limit',
   'Notifications',
   'Licenses',
@@ -42,7 +42,7 @@ export default function Settings() {
               onClick={() => {
                 if (option === 'Bet Limit') {
                   navigate('/settings/bet-limit');
-                } else if (option === 'Self Exclusion') {
+                } else if (option === 'Self-Exclusion') {
                   navigate('/settings/self-exclusion');
                 } else if (option === 'Cash-In Limit') {
                   navigate('/settings/cash-in-limit');
