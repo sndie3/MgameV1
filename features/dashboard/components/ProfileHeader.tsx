@@ -29,7 +29,7 @@ export default function ProfileHeader({
   };
 
   return (
-    <div className="rounded-t-[32px] px-5 pt-6 pb-6 relative z-10" style={{ backgroundColor: 'var(--card-color)' }}>
+    <div className="px-5 pt-6 pb-6 relative z-10" style={{ backgroundColor: '#121212' }}>
       <div className="flex items-center gap-4 mb-5">
         <button
           onClick={handleBack}

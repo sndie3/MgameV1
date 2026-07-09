@@ -15,7 +15,7 @@ export default function BasicProfileMenu({ profile, onEditProfile, onThemeClick,
         <div 
           onClick={onEditProfile}
           className="h-[56px] rounded-lg border border-white/10 flex items-center justify-center cursor-pointer transition hover:opacity-80"
-          style={{ backgroundColor: 'var(--card-color)' }}
+          style={{ backgroundColor: '#121212' }}
         >
           <span className="font-bold text-[18px] text-white">Profile Edit</span>
         </div>
@@ -24,7 +24,7 @@ export default function BasicProfileMenu({ profile, onEditProfile, onThemeClick,
         <div 
           onClick={onEditProfile}
           className="h-[56px] rounded-lg border border-white/10 flex items-center justify-between px-4 cursor-pointer transition hover:opacity-80"
-          style={{ backgroundColor: 'var(--card-color)' }}
+          style={{ backgroundColor: '#121212' }}
         >
           <span className="font-bold text-[16px] text-white truncate">
             Email: <span className="ml-2 font-normal">{profile.email || ''}</span>
@@ -35,7 +35,7 @@ export default function BasicProfileMenu({ profile, onEditProfile, onThemeClick,
         <div 
           onClick={onEditProfile}
           className="h-[56px] rounded-lg border border-[#3A3A3A] flex items-center justify-between px-4 cursor-pointer transition hover:opacity-80"
-          style={{ backgroundColor: 'var(--card-color)' }}
+          style={{ backgroundColor: '#121212' }}
         >
           <span className="font-bold text-[16px] text-white truncate">
             Contact: <span className="ml-2 font-normal">{profile.phoneNumber || ''}</span>
@@ -46,7 +46,7 @@ export default function BasicProfileMenu({ profile, onEditProfile, onThemeClick,
         <div 
           onClick={onThemeClick}
           className="h-[56px] rounded-lg border border-white/10 flex items-center justify-center cursor-pointer transition hover:opacity-80"
-          style={{ backgroundColor: 'var(--card-color)' }}
+          style={{ backgroundColor: '#121212' }}
         >
           <span className="font-bold text-[18px] text-white">Theme</span>
         </div>
@@ -55,7 +55,7 @@ export default function BasicProfileMenu({ profile, onEditProfile, onThemeClick,
         <div
           onClick={onChangePasswordClick}
           className="h-[56px] rounded-lg border border-white/10 flex items-center justify-center cursor-pointer transition hover:opacity-80"
-          style={{ backgroundColor: 'var(--card-color)' }}
+          style={{ backgroundColor: '#121212' }}
         >
           <span className="font-bold text-[18px] text-white">Change Password</span>
         </div>

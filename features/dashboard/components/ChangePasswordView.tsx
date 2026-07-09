@@ -47,7 +47,7 @@ export default function ChangePasswordView({ onBack }: ChangePasswordViewProps) 
   };
 
   return (
-    <div className="min-h-screen text-white flex flex-col bg-black">
+    <div className="min-h-screen text-white flex flex-col bg-[var(--background-color)]">
       <div className="flex flex-col flex-1 w-full px-4 py-6 sm:px-8 sm:py-8 md:px-12 md:py-12 lg:px-16 max-w-[1200px] mx-auto">
         {/* Header */}
         <div className="relative flex items-center justify-center mb-6 md:mb-10 w-full">
@@ -83,7 +83,7 @@ export default function ChangePasswordView({ onBack }: ChangePasswordViewProps) 
             placeholder="Input your 6 digit OTP"
             value={otp}
             onChange={(e) => setOtp(e.currentTarget.value.replace(/[^0-9]/g, ''))}
-            className="w-full bg-transparent border border-[#333] rounded px-4 py-3 md:py-4 text-center text-white placeholder:text-[#666] focus:outline-none focus:border-white transition-colors"
+            className="w-full bg-[#121212] border border-[#333] rounded px-4 py-3 md:py-4 text-center text-white placeholder:text-[#666] focus:outline-none focus:border-white transition-colors"
             style={{ fontFamily: '"Calibri Light", Calibri, sans-serif', fontSize: 'clamp(14px, 1.5vw, 18px)' }}
           />
           <input
@@ -94,7 +94,7 @@ export default function ChangePasswordView({ onBack }: ChangePasswordViewProps) 
             value={mobileNumber}
             disabled={!isOtpComplete}
             onChange={(e) => setMobileNumber(e.currentTarget.value.replace(/[^0-9]/g, ''))}
-            className="w-full bg-transparent border border-[#333] rounded px-4 py-3 md:py-4 text-center text-white placeholder:text-[#666] focus:outline-none focus:border-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full bg-[#121212] border border-[#333] rounded px-4 py-3 md:py-4 text-center text-white placeholder:text-[#666] focus:outline-none focus:border-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             style={{ fontFamily: '"Calibri Light", Calibri, sans-serif', fontSize: 'clamp(14px, 1.5vw, 18px)' }}
           />
           <input
@@ -103,7 +103,7 @@ export default function ChangePasswordView({ onBack }: ChangePasswordViewProps) 
             value={newPassword}
             disabled={!isNumberComplete}
             onChange={(e) => setNewPassword(e.target.value)}
-            className="w-full bg-transparent border border-[#333] rounded px-4 py-3 md:py-4 text-center text-white placeholder:text-[#666] focus:outline-none focus:border-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full bg-[#121212] border border-[#333] rounded px-4 py-3 md:py-4 text-center text-white placeholder:text-[#666] focus:outline-none focus:border-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             style={{ fontFamily: '"Calibri Light", Calibri, sans-serif', fontSize: 'clamp(14px, 1.5vw, 18px)' }}
           />
           <input
@@ -112,7 +112,7 @@ export default function ChangePasswordView({ onBack }: ChangePasswordViewProps) 
             value={confirmPassword}
             disabled={!isNewPasswordEntered}
             onChange={(e) => setConfirmPassword(e.target.value)}
-            className="w-full bg-transparent border border-[#333] rounded px-4 py-3 md:py-4 text-center text-white placeholder:text-[#666] focus:outline-none focus:border-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full bg-[#121212] border border-[#333] rounded px-4 py-3 md:py-4 text-center text-white placeholder:text-[#666] focus:outline-none focus:border-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             style={{ fontFamily: '"Calibri Light", Calibri, sans-serif', fontSize: 'clamp(14px, 1.5vw, 18px)' }}
           />
         </div>
@@ -130,7 +130,7 @@ export default function ChangePasswordView({ onBack }: ChangePasswordViewProps) 
         </div>
 
         {/* Footer */}
-        <div className="mt-auto flex justify-between items-center w-full pb-2 md:pb-4 border-t border-[#333] pt-4 md:pt-6">
+        <div className="mt-auto flex justify-between items-center w-full pb-2 md:pb-4 border-t border-[#333] pt-4 md:pt-6 bg-[#121212] rounded">
           <div className="flex items-center gap-1.5 sm:gap-2">
             <span className="text-white font-bold" style={{ fontSize: 'clamp(10px, 1.2vw, 14px)' }}>
               RESET
