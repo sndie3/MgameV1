@@ -61,7 +61,7 @@ export default function Dashboard() {
         {
             icon: "/assets/icons/Nav6.png",
             title: "Support",
-            route: ""
+            route: "/support"
         },
     ];
 
