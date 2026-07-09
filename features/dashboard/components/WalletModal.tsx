@@ -62,7 +62,7 @@ function WalletModal({
                                     minimumFractionDigits: 2,
                                 })}
                             </h1>
-                            <p className="text-gray-400 text-sm">Standard Wallet</p>
+                            <p className="text-gray-400 text-sm">Speciality Wallet</p>
                         </div>
                     </div>
                 </div>
