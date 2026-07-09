@@ -10,12 +10,15 @@ import { getUsername } from "./services/profileStorage.service";
 // import { ApiGameProvider } from "./providers/ApiGameProvider"; // Swap here for production
 import Sidebar from "./components/Sidebar";
 import { useNavigate } from "react-router-dom";
+import WalletModal from "./components/WalletModal";
 
 // Instantiate provider outside component to avoid recreation on re-renders
 const gameProvider = new MockGameProvider();
 
 export default function Dashboard() {
     const [collapsed, setCollapsed] = useState(false);
+                const [walletOpen, setWalletOpen] = useState(false);
+
     const [verificationStatus] = useState<string>(() => {
         const status = localStorage.getItem('verificationStatus');
         return status ? status.toUpperCase() : "Fully Verified";
@@ -133,7 +136,7 @@ export default function Dashboard() {
                         </div>
                     </div>
 
-                    <span className="text-2xl font-semibold">₱1,237.00</span>
+                    <span onClick={() => setWalletOpen(true)} className="text-2xl font-semibold">Wallet</span>
                 </div>
             </div>
 
@@ -239,6 +242,14 @@ export default function Dashboard() {
                     ))}
                 </div>
             </div>
+
+
+<WalletModal
+  open={walletOpen}
+  onClose={() => setWalletOpen(false)}
+  specialityWallet={1234}
+  standardWallet={1000}
+/>
         </div>
     );
 }

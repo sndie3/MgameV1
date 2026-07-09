@@ -59,7 +59,7 @@ function Support() {
                         ? showGame
                             ? "bg-white text-black cursor-pointer"
                             : "bg-red-500 text-white cursor-pointer"
-                        : "bg-gray-700 text-gray-400 cursor-not-allowed"
+                        : "bg-[#1d1d1d] hover:bg-[#252525] cursor-not-allowed"
                     }
     `}
             >
