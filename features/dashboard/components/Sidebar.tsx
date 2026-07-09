@@ -19,9 +19,7 @@ const menus = [
     {
         title: "Settings",
     },
-    {
-        title: "Notifications",
-    },
+
     {
         title: "Privacy",
     },
