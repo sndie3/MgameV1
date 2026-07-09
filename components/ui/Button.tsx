@@ -53,6 +53,7 @@ export default function Button({
         transition
         duration-200
         w-full
+        py-4
         ${widthClasses[widthSize]}
         ${variantClasses[variant]}
         ${sizeClasses[size]}

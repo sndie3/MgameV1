@@ -42,6 +42,9 @@ export default function Sidebar({
         if (title === 'Profile') {
             navigate('/profile');
             setSidebarOpen(false);
+        }else if (title === 'How to Use'){
+            navigate('/how-to-use');
+            setSidebarOpen(false);
         }
     };
 

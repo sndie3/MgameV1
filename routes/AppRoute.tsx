@@ -12,6 +12,7 @@ import ProtectedRoute from "../routes/ProtectedRoute";
 import CashIn from "../features/cashin/CashIn";
 import CashOut from "../features/cashout/CashOut"
 import Support from "../features/support/Support";
+import HowToUse from "../features/howtouse/HowToUse";
 export default function AppRoutes() { 
 
   return ( 
@@ -39,7 +40,7 @@ export default function AppRoutes() {
             <Route path="cash-in" element={<CashIn/>} />
             <Route path="cash-out" element={<CashOut/>} />
             <Route path="support" element={<Support/>} />
-
+            <Route path="how-to-use" element={<HowToUse/>} />
 
         </Route>
       </Route> 
