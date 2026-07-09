@@ -61,6 +61,10 @@ export default function ChatSettingsView() {
       navigate('/settings/chat-wallpaper');
       return;
     }
+    if (option === 'Change Chat Name') {
+      navigate('/settings/change-chat-name');
+      return;
+    }
     showModal('info', option, `${option} settings will be available soon.`);
   };
 

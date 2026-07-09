@@ -21,6 +21,7 @@ import NotificationsView from "../features/settings/NotificationsView";
 import DeactivateAccountView from "../features/settings/DeactivateAccountView";
 import ChatSettingsView from "../features/settings/ChatSettingsView";
 import ChatWallpaperView from "../features/settings/ChatWallpaperView";
+import ChangeChatNameView from "../features/settings/ChangeChatNameView";
 export default function AppRoutes() { 
 
   return ( 
@@ -57,6 +58,7 @@ export default function AppRoutes() {
             <Route path="settings/deactivate-account" element={<DeactivateAccountView/>} />
             <Route path="settings/chat-settings" element={<ChatSettingsView/>} />
             <Route path="settings/chat-wallpaper" element={<ChatWallpaperView/>} />
+            <Route path="settings/change-chat-name" element={<ChangeChatNameView/>} />
 
         </Route>
       </Route> 
