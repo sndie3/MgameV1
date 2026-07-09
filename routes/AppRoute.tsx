@@ -23,6 +23,10 @@ import ChatSettingsView from "../features/settings/ChatSettingsView";
 import ChatWallpaperView from "../features/settings/ChatWallpaperView";
 import ChangeChatNameView from "../features/settings/ChangeChatNameView";
 import ChangeAppIconView from "../features/settings/ChangeAppIconView";
+import PinoyGames from "../features/pinoy-games/PinoyGames";
+import Ecasino from "../features/e-casino/Ecasino";
+import Ebingo from "../features/e-bingo/Ebingo";
+import Gift from "../features/gift/Gift";
 export default function AppRoutes() { 
 
   return ( 
@@ -51,6 +55,9 @@ export default function AppRoutes() {
             <Route path="cash-out" element={<CashOut/>} />
             <Route path="support" element={<Support/>} />
             <Route path="how-to-use" element={<HowToUse/>} />
+            <Route path="pinoy-games" element={<PinoyGames/>}/>
+            <Route path="e-casino" element={<Ecasino/>}/>
+            <Route path="e-bingo" element={<Ebingo/>}/>
             <Route path="settings" element={<Settings/>} />
             <Route path="settings/bet-limit" element={<BetLimitView/>} />
             <Route path="settings/self-exclusion" element={<SelfExclusionView/>} />
@@ -61,6 +68,7 @@ export default function AppRoutes() {
             <Route path="settings/chat-wallpaper" element={<ChatWallpaperView/>} />
             <Route path="settings/change-chat-name" element={<ChangeChatNameView/>} />
             <Route path="settings/change-app-icon" element={<ChangeAppIconView/>} />
+            <Route path="gift" element={<Gift/>}/>
 
         </Route>
       </Route> 

@@ -4,7 +4,7 @@ function Footer() {
     <div className="flex justify-between items-center ">
       <div className="font-bold text-xs text-white">
         MGame.ph
-        <span className="text-gray-500 ml-2 text-xs">v1.0</span>
+        <span className="text-gray-500 ml-2 text-xs"> 2026 v1.0</span>
       </div>
 
      <div className="flex gap-4">

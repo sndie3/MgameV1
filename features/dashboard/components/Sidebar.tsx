@@ -89,7 +89,14 @@ export default function Sidebar({
                         >
                             <img src="/assets/icons/setting.png" alt="setting" className="w-10 h-9 rounded-full" />
                         </button>
-                        <img src="/assets/icons/ribbon.png" alt="ribbon" className="w-10 h-9 rounded-full" />
+                        <button 
+                        onClick={() => {
+                                navigate('/gift');
+                                setSidebarOpen(false);
+                            }}
+                        className="p-0 bg-transparent border-none cursor-pointer">
+                            <img src="/assets/icons/ribbon.png" alt="ribbon" className="w-10 h-9 rounded-full" />
+                        </button>
                     </div>
                     <button
                         onClick={() => setSidebarOpen(false)}
