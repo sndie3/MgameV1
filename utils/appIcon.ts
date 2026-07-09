@@ -3,12 +3,10 @@ const DEFAULT_ICON = '/favicon.svg';
 let currentManifestUrl: string | null = null;
 
 function createManifest(iconPath: string): string {
-  const origin = typeof window !== 'undefined' ? window.location.origin : '';
   const manifest = {
     name: 'mgame-v1',
     short_name: 'mgame',
-    start_url: `${origin}/`,
-    scope: `${origin}/`,
+    start_url: '/',
     display: 'standalone',
     background_color: '#000000',
     theme_color: '#000000',
