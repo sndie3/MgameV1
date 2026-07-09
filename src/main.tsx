@@ -8,6 +8,16 @@ import { applyAppIcon, getSavedAppIcon } from '../utils/appIcon';
 
 applyAppIcon(getSavedAppIcon());
 
+const isStandalone =
+  window.matchMedia('(display-mode: standalone)').matches ||
+  (window.navigator as Navigator & { standalone?: boolean }).standalone === true;
+
+const firstLaunch = !sessionStorage.getItem('appLaunched');
+if (isStandalone && firstLaunch && window.location.pathname !== '/') {
+  sessionStorage.setItem('appLaunched', 'true');
+  window.location.replace('/');
+}
+
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
