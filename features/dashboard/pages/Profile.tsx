@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import Footer from '../../../components/common/Footer';
 import ProfileHeader from '../components/ProfileHeader';
 import PersonalInformationForm from '../components/PersonalInformationForm';
@@ -7,6 +7,7 @@ import CameraModal from '../components/CameraModal';
 import SaveActivateButton from '../components/SaveActivateButton';
 import BasicProfileMenu from '../components/BasicProfileMenu';
 import ThemeSelectionView from '../components/ThemeSelectionView';
+import ChangePasswordView from '../components/ChangePasswordView';
 import { useProfileData } from '../hooks/useProfileData';
 import { useCamera } from '../hooks/useCamera';
 import { useDropdown } from '../hooks/useDropdown';
@@ -16,6 +17,13 @@ export default function Profile() {
   const [isEditing, setIsEditing] = useState(false);
   const [showDetailedForm, setShowDetailedForm] = useState(false);
   const [showThemeModal, setShowThemeModal] = useState(false);
+  const [showChangePassword, setShowChangePassword] = useState(() => {
+    return localStorage.getItem('showChangePassword') === 'true';
+  });
+
+  useEffect(() => {
+    localStorage.setItem('showChangePassword', String(showChangePassword));
+  }, [showChangePassword]);
 
   const {
     verificationStatus,
@@ -70,6 +78,10 @@ export default function Profile() {
     setShowThemeModal(true);
   }, []);
 
+  const handleChangePasswordClick = useCallback(() => {
+    setShowChangePassword(true);
+  }, []);
+
   if (showThemeModal) {
     return (
       <ThemeSelectionView 
@@ -80,8 +92,12 @@ export default function Profile() {
     );
   }
 
+  if (showChangePassword) {
+    return <ChangePasswordView onBack={() => setShowChangePassword(false)} />;
+  }
+
   return (
-    <div className="min-h-screen text-white flex flex-col bg-[var(--background-color)]">
+    <div className="min-h-screen text-white flex flex-col">
       <ProfileHeader
         username={username}
         verificationStatus={verificationStatus}
@@ -100,6 +116,7 @@ export default function Profile() {
               setIsEditing(false);
             }}
             onThemeClick={handleThemeClick}
+            onChangePasswordClick={handleChangePasswordClick}
           />
         ) : (
           <>

@@ -4,9 +4,10 @@ interface BasicProfileMenuProps {
   profile: UserProfile;
   onEditProfile: () => void;
   onThemeClick: () => void;
+  onChangePasswordClick: () => void;
 }
 
-export default function BasicProfileMenu({ profile, onEditProfile, onThemeClick }: BasicProfileMenuProps) {
+export default function BasicProfileMenu({ profile, onEditProfile, onThemeClick, onChangePasswordClick }: BasicProfileMenuProps) {
   return (
     <div className="px-5 py-6 font-bahnschrift">
       <div className="space-y-3">
@@ -51,7 +52,11 @@ export default function BasicProfileMenu({ profile, onEditProfile, onThemeClick 
         </div>
 
         {/* Change Password Button */}
-        <div className="h-[56px] rounded-lg border border-white/10 flex items-center justify-center cursor-pointer transition hover:opacity-80" style={{ backgroundColor: 'var(--card-color)' }}>
+        <div
+          onClick={onChangePasswordClick}
+          className="h-[56px] rounded-lg border border-white/10 flex items-center justify-center cursor-pointer transition hover:opacity-80"
+          style={{ backgroundColor: 'var(--card-color)' }}
+        >
           <span className="font-bold text-[18px] text-white">Change Password</span>
         </div>
       </div>
