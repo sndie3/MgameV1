@@ -83,7 +83,7 @@ export default function ChatSettingsView() {
             <button
               key={option}
               onClick={() => handleOptionClick(option)}
-              className="w-full h-[56px] flex items-center justify-center bg-black rounded-none border-none transition"
+              className="w-full h-[56px] flex items-center justify-center bg-[#121212] rounded-none border-none transition"
             >
               <span className="font-bold text-[18px] uppercase">{option}</span>
             </button>
