@@ -19,6 +19,7 @@ import SelfExclusionView from "../features/settings/SelfExclusionView";
 import CashInLimitView from "../features/settings/CashInLimitView";
 import NotificationsView from "../features/settings/NotificationsView";
 import DeactivateAccountView from "../features/settings/DeactivateAccountView";
+import ChatSettingsView from "../features/settings/ChatSettingsView";
 export default function AppRoutes() { 
 
   return ( 
@@ -53,6 +54,7 @@ export default function AppRoutes() {
             <Route path="settings/cash-in-limit" element={<CashInLimitView/>} />
             <Route path="settings/notifications" element={<NotificationsView/>} />
             <Route path="settings/deactivate-account" element={<DeactivateAccountView/>} />
+            <Route path="settings/chat-settings" element={<ChatSettingsView/>} />
 
         </Route>
       </Route> 

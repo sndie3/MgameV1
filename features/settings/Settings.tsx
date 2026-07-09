@@ -50,6 +50,8 @@ export default function Settings() {
                   navigate('/settings/notifications');
                 } else if (option === 'DEACTIVATE ACCOUNT') {
                   navigate('/settings/deactivate-account');
+                } else if (option === 'Chat Settings') {
+                  navigate('/settings/chat-settings');
                 }
               }}
               className="w-full h-[56px] flex items-center justify-center bg-[#121212] hover:opacity-80 transition"
