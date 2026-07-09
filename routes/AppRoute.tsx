@@ -20,6 +20,7 @@ import CashInLimitView from "../features/settings/CashInLimitView";
 import NotificationsView from "../features/settings/NotificationsView";
 import DeactivateAccountView from "../features/settings/DeactivateAccountView";
 import ChatSettingsView from "../features/settings/ChatSettingsView";
+import ChatWallpaperView from "../features/settings/ChatWallpaperView";
 export default function AppRoutes() { 
 
   return ( 
@@ -55,6 +56,7 @@ export default function AppRoutes() {
             <Route path="settings/notifications" element={<NotificationsView/>} />
             <Route path="settings/deactivate-account" element={<DeactivateAccountView/>} />
             <Route path="settings/chat-settings" element={<ChatSettingsView/>} />
+            <Route path="settings/chat-wallpaper" element={<ChatWallpaperView/>} />
 
         </Route>
       </Route> 

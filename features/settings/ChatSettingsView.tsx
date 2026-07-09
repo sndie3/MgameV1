@@ -57,6 +57,10 @@ export default function ChatSettingsView() {
   };
 
   const handleOptionClick = (option: string) => {
+    if (option === 'Chat Wallpaper') {
+      navigate('/settings/chat-wallpaper');
+      return;
+    }
     showModal('info', option, `${option} settings will be available soon.`);
   };
 

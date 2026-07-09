@@ -1,6 +1,6 @@
 import { ArrowLeft, SendHorizonal } from "lucide-react"
 import { useNavigate } from "react-router-dom"
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import GameCard from "./components/GameCard";
 
 function Support() {
@@ -28,6 +28,12 @@ function Support() {
     ];
     const [message, setMessage] = useState("");
     const [showGame, setShowGame] = useState(false);
+    const [chatWallpaper, setChatWallpaper] = useState("");
+
+    useEffect(() => {
+        setChatWallpaper(localStorage.getItem('chatWallpaper') || '');
+    }, []);
+
     return (
         <div className="relative min-h-screen overflow-hidden text-white flex flex-col font-bahnschrift">
             <div className="rounded-t-[32px] px-3 pt-6 pb-2 relative z-30" style={{ backgroundColor: 'var(--background-color)' }}>
@@ -64,9 +70,16 @@ function Support() {
                 absolute inset-0 pt-[160px]
                 flex flex-col
                 transition-transform duration-700 ease-in-out
-                bg-black z-20
+                z-20
                 ${showGame ? "translate-y-full" : "translate-y-0"}
+                ${chatWallpaper ? "bg-black/60" : "bg-black"}
             `}
+                style={chatWallpaper ? {
+                    backgroundImage: `url(${chatWallpaper})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    backgroundRepeat: 'no-repeat',
+                } : undefined}
             >
                 <div className="grid grid-cols-3 gap-3 mt-2">
                     {tabs.map((tab) => (
