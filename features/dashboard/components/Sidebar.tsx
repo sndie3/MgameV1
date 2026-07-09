@@ -82,7 +82,15 @@ export default function Sidebar({
             >
                 <div className="flex items-center justify-between p-5 border-b border-white/10">
                     <div className="h-12 w-auto rounded-full flex items-center gap-5 p-3" style={{ backgroundColor: 'var(--button-color)' }}>
-                        <img src="/assets/icons/setting.png" alt="setting" className="w-10 h-9 rounded-full" />
+                        <button
+                            onClick={() => {
+                                navigate('/settings');
+                                setSidebarOpen(false);
+                            }}
+                            className="p-0 bg-transparent border-none cursor-pointer"
+                        >
+                            <img src="/assets/icons/setting.png" alt="setting" className="w-10 h-9 rounded-full" />
+                        </button>
                         <img src="/assets/icons/ribbon.png" alt="ribbon" className="w-10 h-9 rounded-full" />
                     </div>
                     <button
