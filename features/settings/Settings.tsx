@@ -39,6 +39,15 @@ export default function Settings() {
           {settingsOptions.map((option) => (
             <button
               key={option}
+              onClick={() => {
+                if (option === 'Bet Limit') {
+                  navigate('/settings/bet-limit');
+                } else if (option === 'Self Exclusion') {
+                  navigate('/settings/self-exclusion');
+                } else if (option === 'Cash-In Limit') {
+                  navigate('/settings/cash-in-limit');
+                }
+              }}
               className="w-full h-[56px] flex items-center justify-center bg-[#121212] hover:opacity-80 transition"
             >
               <span className="font-bold text-[18px] uppercase">{option}</span>
