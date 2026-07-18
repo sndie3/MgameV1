@@ -101,6 +101,7 @@ function LiveGame() {
           <span className="last-round-label">LAST ROUND</span>
         </div>
       )}
+
       {showMoneyRain && (
         <div className="money-rain-container">
           {Array.from({ length: 150 }).map((_, i) => {
@@ -135,8 +136,8 @@ function LiveGame() {
       <button onClick={triggerLastRound} className="bg-red-600  fixed bottom-4 right-20 -translate-x-1/2 z-50  text-black font-black px-5 py-2 rounded-full shadow-lg cursor-pointer">
         Last Round
       </button>
-
       <div className="relative">
+
         {/* Popup */}
         {showHistory && (
           <div
@@ -199,6 +200,22 @@ function LiveGame() {
             <img src="/assets/icons/wallet.png" className="h-10" />
             <span>{walletBalance.toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
           </div>
+        </div>
+
+
+        <div className="absolute top-20 w-full flex justify-end items-start px-5 pt-6 z-10">
+          <img
+            src="/assets/gift.png"
+            alt="gift"
+            className="w-14 object-contain"
+          />
+        </div>
+        <div className="absolute top-40 w-full flex justify-end items-start px-5 pt-6 z-10">
+          <img
+            src="/assets/chat.png"
+            alt="gift"
+            className="w-14 object-contain"
+          />
         </div>
       </div>
 
