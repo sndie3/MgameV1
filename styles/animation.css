@@ -64,136 +64,128 @@
   }
 }
 
-/* --- Firework mover: launches from center (YOU WIN) to a random spot --- */
-.firework-mover {
+/* --- Money rain container: covers the screen, sits above the game UI --- */
+.money-rain-container {
+  position: fixed;
+  inset: 0;
+  z-index: 55;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* --- Individual falling bill ---
+   Each bill uses CSS vars set inline per-instance:
+   --x        : horizontal start position (e.g. "12vw", "88vw")
+   --sway     : horizontal drift amount during fall (e.g. "-40px", "60px")
+   --rot      : total rotation over the fall (e.g. "540deg", "-380deg")
+   --duration : fall duration (e.g. "2.4s")
+   --delay    : stagger delay (e.g. "0.3s")
+*/
+.money-bill {
+  position: absolute;
+  top: -60px;
+  left: var(--x, 50%);
+  width: 50px;
+  height: 22px;
+  border-radius: 3px;
+  background: linear-gradient(135deg, #16a34a, #22c55e 45%, #4ade80);
+  border: 1.5px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 0 0 8px 1px rgba(34, 197, 94, 0.45);
+  opacity: 0;
+  animation: moneyFall var(--duration, 2.6s) linear var(--delay, 0s) forwards;
+}
+
+/* A simple currency mark so the "bill" reads clearly at small sizes */
+.money-bill::after {
+  content: "₱";
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.85);
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.35);
+}
+
+@keyframes moneyFall {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+    opacity: 0;
+  }
+
+  6% {
+    opacity: 1;
+  }
+
+  50% {
+    transform: translate(var(--sway, 20px), 55vh) rotate(calc(var(--rot, 360deg) * 0.55));
+  }
+
+  92% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: translate(calc(var(--sway, 20px) * 1.6), 105vh) rotate(var(--rot, 360deg));
+    opacity: 0;
+  }
+}
+
+/* --- Coins mixed in with the bills for variety --- */
+.money-coin {
+  position: absolute;
+  top: -40px;
+  left: var(--x, 50%);
+  width: 25px;
+  height: 25px;
+  border-radius: 9999px;
+  background: radial-gradient(circle at 35% 30%, #fde68a, #f59e0b 60%, #b45309);
+  border: 1.5px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 0 6px 1px rgba(245, 158, 11, 0.5);
+  opacity: 0;
+  animation: moneyFall var(--duration, 2.2s) linear var(--delay, 0s) forwards;
+}
+
+/* --- Optional burst flash at the moment the win triggers (kept subtle) --- */
+.money-burst-flash {
   position: fixed;
   top: 50%;
   left: 50%;
-  z-index: 55;
-  pointer-events: none;
-  width: 0;
-  height: 0;
-  transform: translate(-50%, -50%);
-  animation: fireworkFly 0.6s cubic-bezier(0.25, 0.65, 0.3, 1) forwards;
-}
-
-@keyframes fireworkFly {
-  0% {
-    transform: translate(-50%, -50%) scale(0.5);
-    opacity: 0;
-  }
-
-  8% {
-    opacity: 1;
-  }
-
-  100% {
-    transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1);
-    opacity: 1;
-  }
-}
-
-/* Small twinkling stars marking the flight path, like a comet trail */
-.firework-trail-star {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 15px;
-  height: 15px;
-  border-radius: 9999px;
-  transform: translate(calc(-50% + var(--tdx)), calc(-50% + var(--tdy))) scale(0);
-  opacity: 0;
-  animation: trailTwinkle 0.5s ease-out forwards;
-}
-
-@keyframes trailTwinkle {
-  0% {
-    transform: translate(calc(-50% + var(--tdx)), calc(-50% + var(--tdy))) scale(0);
-    opacity: 0;
-  }
-
-  30% {
-    transform: translate(calc(-50% + var(--tdx)), calc(-50% + var(--tdy))) scale(1.3);
-    opacity: 1;
-  }
-
-  100% {
-    transform: translate(calc(-50% + var(--tdx)), calc(-50% + var(--tdy))) scale(0.2);
-    opacity: 0;
-  }
-}
-
-/* --- Explosion: fires once the mover has arrived at its target --- */
-.firework-explosion {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 0;
-  height: 0;
-}
-
-.firework-flash {
-  position: absolute;
-  top: 0;
-  left: 0;
+  z-index: 54;
   width: 20px;
   height: 20px;
   border-radius: 9999px;
   transform: translate(-50%, -50%) scale(0);
   opacity: 0;
-  animation: flashPop 0.4s ease-out forwards;
+  background: radial-gradient(circle, #fef9c3, #facc15 60%, transparent 70%);
+  animation: moneyFlashPop 0.5s ease-out forwards;
+  pointer-events: none;
 }
 
-@keyframes flashPop {
+@keyframes moneyFlashPop {
   0% {
     transform: translate(-50%, -50%) scale(0);
     opacity: 0;
   }
 
-  30% {
-    transform: translate(-50%, -50%) scale(5);
-    opacity: 1;
+  35% {
+    transform: translate(-50%, -50%) scale(6);
+    opacity: 0.9;
   }
 
   100% {
     transform: translate(-50%, -50%) scale(1);
-    opacity: 0;
-  }
-}
-
-.firework-spark {
-  position: absolute;
-  width: 10px;
-  height: 10px;
-  border-radius: 9999px;
-  top: 0;
-  left: 0;
-  opacity: 0;
-  animation: sparkFly 2s cubic-bezier(0.15, 0.6, 0.35, 1) forwards;
-}
-
-@keyframes sparkFly {
-  0% {
-    transform: translate(-50%, -50%) scale(1);
-    opacity: 1;
-  }
-
-  15% {
-    opacity: 1;
-  }
-
-  100% {
-    transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) scale(0.2);
     opacity: 0;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
 
-  .firework-mover,
-  .firework-trail-star,
-  .firework-spark,
-  .firework-flash {
+  .money-bill,
+  .money-coin,
+  .money-burst-flash {
     animation: none;
     opacity: 0;
   }
@@ -319,10 +311,9 @@
 
 @media (prefers-reduced-motion: reduce) {
 
-  .firework-mover,
-  .firework-trail-star,
-  .firework-spark,
-  .firework-flash,
+  .money-bill,
+  .money-coin,
+  .money-burst-flash,
   .next-round-label,
   .last-round-label {
     animation: none;

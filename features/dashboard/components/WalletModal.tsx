@@ -56,13 +56,13 @@ function WalletModal({
 
                             <div className="flex justify-between">
                                 <button
-                                    className="px-5 py-2 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg transition"
+                                    className="px-5 py-2 bg-white hover:bg-gray-400 text-red-500 font-semibold transition"
                                 >
                                     CASH IN
                                 </button>
 
                                 <button
-                                    className="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition"
+                                    className="px-5 py-2 bg-white hover:bg-gray-400 text-black font-semibold transition"
                                 >
                                     CASH OUT
                                 </button>
@@ -81,13 +81,13 @@ function WalletModal({
 
                             <div className="flex justify-between">
                                 <button
-                                    className="px-5 py-2 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg transition"
+                                    className="px-5 py-2 bg-white hover:bg-gray-400 text-red-500 font-semibold transition"
                                 >
                                     CASH IN
                                 </button>
 
                                 <button
-                                    className="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition"
+                                    className="px-5 py-2 bg-white hover:bg-gray-400 text-black font-semibold transition"
                                 >
                                     CASH OUT
                                 </button>

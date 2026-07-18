@@ -112,7 +112,7 @@ export default function Dashboard() {
                 verificationStatus={verificationStatus}
             />
             {/* Header */}
-            <div className="px-5 pt-4">
+            <div className="px-8 xl:px-5 pt-4">
                 <div className="flex items-start justify-between">
                     <div className="flex gap-3">
                         <button onClick={() => setSidebarOpen(true)} className="h-12 w-12 rounded-full flex items-center justify-center" style={{ backgroundColor: 'var(--button-color)' }}>
@@ -137,7 +137,7 @@ export default function Dashboard() {
                     </div>
 
                     <span onClick={() => setWalletOpen(true)} className="text-lg font-semibold flex place-items-center cursor-pointer font-bahnschrift ">
-                        <img src="/assets/icons/wallet2.png" alt="" className="w-12 wallet-pulse" />
+                        <img src="/assets/icons/wallet2.png" alt="" className="w-14 wallet-pulse" />
                         {/* WALLET */}
                     </span>
                 </div>

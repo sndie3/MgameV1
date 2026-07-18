@@ -9,26 +9,6 @@ const chipBorders: Record<number, string> = {
   1000: "border-green-500",
 };
 
-const PARTICLE_COLORS = ["#ef4444", "#3b82f6", "#8b5cf6", "#eab308", "#22c55e", "#f97316"];
-const FLIGHT_DURATION = 0.6;
-const TRAIL_FRACTIONS = [0.25, 0.45, 0.65, 0.85, 1];
-
-interface Spark {
-  id: number;
-  tx: number;
-  ty: number;
-  color: string;
-}
-
-interface Burst {
-  id: number;
-  dx: number;
-  dy: number;
-  delay: number;
-  color: string;
-  sparks: Spark[];
-}
-
 function LiveGame() {
 
   const roundHistory = [
@@ -55,54 +35,19 @@ function LiveGame() {
   const walletRef = useRef<HTMLDivElement>(null);
 
   const [showWinText, setShowWinText] = useState(false);
-  const [fireworks, setFireworks] = useState<Burst[]>([]);
+  const [showMoneyRain, setShowMoneyRain] = useState(false);
 
-  const launchFireworks = () => {
-    const bursts = 15;
-    const newFireworks: Burst[] = Array.from({ length: bursts }).map((_, i) => {
-      const sparkCount = 50;
-      const color = PARTICLE_COLORS[i % PARTICLE_COLORS.length];
-      const sparks: Spark[] = Array.from({ length: sparkCount }).map((_, j) => {
-        const angle = (360 / sparkCount) * j;
-        const rad = (angle * Math.PI) / 180;
-        const dist = 80 + Math.random() * 60;
-        return {
-          id: j,
-          tx: Math.cos(rad) * dist,
-          ty: Math.sin(rad) * dist,
-          color,
-        };
-      });
-
-      // Target spot anywhere on the page, expressed as travel distance from
-      // the center (where "YOU WIN" pop up), in vw/vh units.
-      const targetXPercent = 8 + Math.random() * 84; // 8% - 92% of width
-      const targetYPercent = 10 + Math.random() * 75; // 10% - 85% of height
-
-      return {
-        id: Date.now() + i,
-        dx: targetXPercent - 50,
-        dy: targetYPercent - 50,
-        delay: i * 0.22,
-        color,
-        sparks,
-      };
-    });
-    setFireworks(newFireworks);
-    setTimeout(
-      () => setFireworks([]),
-      bursts * 220 + FLIGHT_DURATION * 1000 + 900
-    );
-  };
 
   const triggerWin = (amount: number) => {
 
-    launchFireworks();
+    setShowMoneyRain(true);
     setShowWinText(true);
 
     setTimeout(() => {
       setWalletBalance((prev) => prev + amount);
       setShowWinText(false);
+      setShowMoneyRain(false);
+
     }, 5000);
   };
 
@@ -156,70 +101,28 @@ function LiveGame() {
           <span className="last-round-label">LAST ROUND</span>
         </div>
       )}
-      {/* Fireworks layer pop up the YOU WIN then explodes */}
-      <div className="pointer-events-none fixed inset-0 z-50 overflow-hidden">
-        {fireworks.map((fw) => (
-          <div
-            key={fw.id}
-            className="firework-mover"
-            style={
-              {
-                animationDelay: `${fw.delay}s`,
-                "--dx": `${fw.dx}vw`,
-                "--dy": `${fw.dy}vh`,
-              } as React.CSSProperties
-            }
-          >
-            {/* twinkling star trail */}
-            {TRAIL_FRACTIONS.map((f, idx) => (
-              <span
-                key={idx}
-                className="firework-trail-star"
-                style={
-                  {
-                    backgroundColor: fw.color,
-                    boxShadow: `0 0 6px 2px ${fw.color}`,
-                    animationDelay: `${fw.delay + FLIGHT_DURATION * f * 0.9}s`,
-                    "--tdx": `${fw.dx * f}vw`,
-                    "--tdy": `${fw.dy * f}vh`,
-                  } as React.CSSProperties
-                }
-              />
-            ))}
+      {showMoneyRain && (
+        <div className="money-rain-container">
+          {Array.from({ length: 150 }).map((_, i) => {
+            const isBill = Math.random() > 0.35;
 
-            {/* explosion, timed to fire once the mover arrives */}
-            <div
-              className="firework-explosion"
-              style={{ animationDelay: `${fw.delay + FLIGHT_DURATION}s` }}
-            >
-              <span
-                className="firework-flash"
-                style={{
-                  backgroundColor: fw.color,
-                  boxShadow: `0 0 20px 6px ${fw.color}`,
-                  animationDelay: `${fw.delay + FLIGHT_DURATION}s`,
-                }}
-              />
-              {fw.sparks.map((s) => (
-                <span
-                  key={s.id}
-                  className="firework-spark"
-                  style={
-                    {
-                      backgroundColor: s.color,
-                      boxShadow: `0 0 6px 2px ${s.color}`,
-                      animationDelay: `${fw.delay + FLIGHT_DURATION}s`,
-                      "--tx": `${s.tx}px`,
-                      "--ty": `${s.ty}px`,
-                    } as React.CSSProperties
-                  }
-                />
-              ))}
-            </div>
-          </div>
-        ))}
-      </div>
-      
+            const style = {
+              "--x": `${Math.random() * 100}vw`,
+              "--sway": `${(Math.random() - 0.5) * 160}px`,
+              "--rot": `${(Math.random() > 0.5 ? 1 : -1) * (300 + Math.random() * 400)}deg`,
+              "--duration": `${2 + Math.random() * 1.5}s`,
+              "--delay": `${Math.random() * 0.8}s`,
+            } as React.CSSProperties;
+
+            return isBill ? (
+              <div key={i} className="money-bill" style={style} />
+            ) : (
+              <div key={i} className="money-coin" style={style} />
+            );
+          })}
+        </div>
+      )}
+
 
       {/* animations test buttons for testing only.. it will be mounted in operator side. */}
       <button
@@ -391,7 +294,7 @@ function LiveGame() {
               </div>
             </div>
             <span className="border h-full"></span>
-            <button 
+            <button
               onClick={() => setShowHistory(!showHistory)}
               className="w-1/2 text-center font-bold">HISTORY</button>
           </div>
