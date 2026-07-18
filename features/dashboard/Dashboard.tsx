@@ -137,8 +137,8 @@ export default function Dashboard() {
                     </div>
 
                     <span onClick={() => setWalletOpen(true)} className="text-lg font-semibold flex place-items-center cursor-pointer font-bahnschrift ">
-                        <img src="/assets/icons/wallet.png" alt="" className="w-12 wallet-pulse" />
-                        WALLET
+                        <img src="/assets/icons/wallet2.png" alt="" className="w-12 wallet-pulse" />
+                        {/* WALLET */}
                     </span>
                 </div>
             </div>
