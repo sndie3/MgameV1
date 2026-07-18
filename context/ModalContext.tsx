@@ -15,13 +15,15 @@ interface ModalState {
     type: ModalType;
     title: string;
     message: string;
+    confirmText?:string;
 }
 
 interface ModalContextType {
     showModal: (
         type: ModalType,
         title: string,
-        message: string
+        message: string,
+        confirmText?:string
     ) => void;
 
     closeModal: () => void;
@@ -39,18 +41,21 @@ export function ModalProvider({
         type: "info",
         title: "",
         message: "",
+        confirmText:"OKAY"
     });
 
     const showModal = (
         type: ModalType,
         title: string,
-        message: string
+        message: string,
+        confirmText?:string
     ) => {
         setModal({
             open: true,
             type,
             title,
             message,
+            confirmText
         });
     };
 
@@ -75,6 +80,7 @@ export function ModalProvider({
                 type={modal.type}
                 title={modal.title}
                 message={modal.message}
+                confirmText={modal.confirmText}
                 onConfirm={closeModal}
             />
         </ModalContext.Provider>

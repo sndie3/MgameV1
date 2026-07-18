@@ -58,7 +58,7 @@ export default function CashInLimitView() {
 
     const amount = selectedPreset !== null ? selectedPreset : customValue;
     localStorage.setItem('cashInLimit', String(amount));
-    showModal('success', 'Cash-In Limit Set', `Your cash-in limit has been set to ${amount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}.`);
+    showModal('success', 'Cash-In Limit Set', `Your cash-in limit has been updated to ₱ ${amount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}.`,'CONFIRM');
   };
 
   return (
@@ -98,7 +98,7 @@ export default function CashInLimitView() {
             ref={inputRef}
             type="text"
             inputMode="numeric"
-            placeholder="Input any amount, max is 1,000,000.00"
+            placeholder="Enter any amount up to ₱1,000,000.00."
             value={displayValue}
             onChange={handleCustomChange}
             className="w-full h-[56px] bg-[#121212] text-center text-white placeholder:italic placeholder:text-[#666] outline-none uppercase rounded-none border-none"

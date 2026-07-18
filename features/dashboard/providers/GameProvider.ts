@@ -1,3 +1,4 @@
+//provider
 import type { Game } from '../utils/layoutGenerator';
 
 export interface GameProvider {

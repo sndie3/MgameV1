@@ -26,7 +26,7 @@ function CashIn() {
                     </div>
                 </div>
                 <p className="text-gray-500 text-center mb-8">
-                    Make sure that the number is correct and order.
+                    Please check that your mobile number is correct before continuing.
                 </p>
 
                 {/* Payment Methods */}
@@ -77,11 +77,12 @@ function CashIn() {
                 {/* Custom Amount */}
                 <div className="px-5 font-bahnschrift">
                     <input
-                        type="number"
-                        placeholder="Any amount"
+                        type="tel"
+                        placeholder="Input desired amount"
                         value={customAmount === 0 ? "" : customAmount}
                         onChange={(e) => {
-                            setCustomAmount(Number(e.target.value));
+                            const value = e.target.value.replace(/\D/g, ""); 
+                            setCustomAmount(value === "" ? 0 : Number(value));
                             setSelectedAmount(0);
                         }}
                         className="w-full h-15 bg-[#111] text-center text-2xl placeholder:text-gray-600 outline-none mb-10 italic"
@@ -103,7 +104,7 @@ function CashIn() {
                 </div>
 
                 {/* Logos */}
-                <div className="mt-12 flex justify-evenly items-center gap-10">
+                {/* <div className="mt-12 flex justify-evenly items-center gap-10">
                     <img
                         src="/assets/icons/gcash.png"
                         alt="GCash"
@@ -115,15 +116,15 @@ function CashIn() {
                         alt="AllBank"
                         className="h-6 object-contain"
                     />
-                </div>
+                </div> */}
 
-                <div className="flex justify-center mt-6">
+                {/* <div className="flex justify-center mt-6">
                     <img
                         src="/assets/icons/maya.png"
                         alt="Maya"
                         className="h-6 object-contain"
                     />
-                </div>
+                </div> */}
 
             </div>
 

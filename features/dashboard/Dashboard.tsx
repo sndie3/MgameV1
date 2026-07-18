@@ -33,20 +33,20 @@ export default function Dashboard() {
             icon: "/assets/icons/Nav1.png",
             title: "Pinoy Games",
             count: "3",
-            route: ""
+            route: "/pinoy-games"
         },
         {
             icon: "/assets/icons/Nav2.png",
             title: "E-Casino",
             count: "3,247",
-            route: ""
+            route: "/e-casino"
 
         },
         {
             icon: "/assets/icons/Nav3.png",
             title: "E-Bingo",
             count: "12",
-            route: ""
+            route: "/e-bingo"
 
         },
         {
@@ -69,7 +69,7 @@ export default function Dashboard() {
     ];
 
     const tabs = [
-        { label: "Recently" },
+        { label: "Recently Played " },
         { label: "Invite", icon: "/assets/icons/invite.png" },
         { label: "Rewards" },
         { label: "EPT" },
@@ -136,8 +136,8 @@ export default function Dashboard() {
                         </div>
                     </div>
 
-                    <span onClick={() => setWalletOpen(true)} className="text-lg font-semibold flex place-items-center cursor-pointer font-bahnschrift">
-                        <img src="/assets/icons/wallet.png" alt="" className="w-12" />
+                    <span onClick={() => setWalletOpen(true)} className="text-lg font-semibold flex place-items-center cursor-pointer font-bahnschrift ">
+                        <img src="/assets/icons/wallet.png" alt="" className="w-12 wallet-pulse" />
                         WALLET
                     </span>
                 </div>
@@ -149,7 +149,7 @@ export default function Dashboard() {
                 {tabs.map((tab) => (
                     <button
                         key={tab.label}
-                        className="py-4 text-sm font-semibold hover:opacity-80 bg-[#1d1d1d] hover:bg-[#252525]" 
+                        className="py-4 text-sm font-semibold hover:opacity-80 bg-[#1d1d1d] hover:bg-[#252525]"
                     >
                         <div className="flex items-center justify-center gap-2">
                             {tab.icon && (
@@ -164,11 +164,11 @@ export default function Dashboard() {
             {/* THIS WILL DISPLAY IF USER IS NOT SEMI VERIFIED */}
             <div className="px-2 mt-4 space-y-3">
                 <button className="w-full rounded-xl bg-[#1d1d1d] py-4 text-center font-semibold hover:bg-[#252525]">
-                    Proceed to Semi Verified Approve & Get 20 Pesos
+                    Complete Semi Verification and get ₱20.
                 </button>
-            {/* THIS WILL DISPLAY IF USER IS SEMI VERIFIED BUT NOT FULL VERIFIED */}
+                {/* THIS WILL DISPLAY IF USER IS SEMI VERIFIED BUT NOT FULL VERIFIED */}
                 <button className="w-full rounded-xl bg-[#1d1d1d] py-4 text-center font-semibold hover:bg-[#252525]">
-                    Proceed to Fully Verified & Get 30 Pesos
+                    Complete Full Verification to receive ₱30.
                 </button>
             </div>
 

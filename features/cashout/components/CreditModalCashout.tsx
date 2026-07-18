@@ -34,34 +34,32 @@ function CreditModalCashOut({
 
 
                 <div className="px-5 font-bahnschrift w-full">
-                    <div className="flex justify-center py-4">
-                        <label htmlFor="any-amount" className="text-xl">Input Amount</label>
-                    </div>
+
                     <input
-                        type="number"
-                        placeholder="Any amount"
+                        type="tel"
+                        placeholder="Input desired amount"
                         value={customAmount === 0 ? "" : customAmount}
                         onChange={(e) => {
-                            setCustomAmount(Number(e.target.value));
-                            //setSelectedAmount(0);
+                            const value = e.target.value.replace(/\D/g, "");
+                            setCustomAmount(value === "" ? 0 : Number(value));
                         }}
                         className="w-full h-15 bg-[#111] text-center text-2xl placeholder:text-gray-600 outline-none mb-10 italic"
                     />
                 </div>
-               <div className="px-5 flex flex-col gap-5">
-                 <button
-                    onClick={onClose}
-                    className=" w-full rounded-md  py-3 text-gray-300 transition bg-red-800 hover:bg-red-700 font-bahnschrift cursor-pointer"
-                >
-                    Withdraw
-                </button>
-                <button
-                    onClick={onClose}
-                    className=" w-full rounded-md  py-3 text-gray-300 transition bg-[#1E1E1E] hover:bg-[#2A2A2A] font-bahnschrift cursor-pointer"
-                >
-                    Cancel
-                </button>
-               </div>
+                <div className="px-5 flex flex-col gap-5">
+                    <button
+                        onClick={onClose}
+                        className=" w-full rounded-md  py-3 text-gray-300 transition bg-red-800 hover:bg-red-700 font-bahnschrift cursor-pointer"
+                    >
+                        Withdraw
+                    </button>
+                    <button
+                        onClick={onClose}
+                        className=" w-full rounded-md  py-3 text-gray-300 transition bg-[#1E1E1E] hover:bg-[#2A2A2A] font-bahnschrift cursor-pointer"
+                    >
+                        Cancel
+                    </button>
+                </div>
             </div>
         </div>
     );

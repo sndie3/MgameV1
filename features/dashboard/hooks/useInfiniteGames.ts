@@ -1,3 +1,4 @@
+//hooks
 import { useState, useRef, useCallback, useEffect } from 'react';
 import type { GameProvider } from '../providers/GameProvider';
 import { generateGameLayouts } from '../utils/layoutGenerator';

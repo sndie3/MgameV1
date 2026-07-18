@@ -8,22 +8,15 @@ export default function DisclaimerCard() {
         MGame
       </h1>
       <div className="flex flex-col gap-1 text-sm leading-6 sm:text-base">
+        <p>By tapping "Agree", you confirm that:</p>
         <p>1. I am over 21 years of age.</p>
-        <p>
-          2. I am not a government official or employee connected with any
-          government agency or armed forces.
-        </p>
-        <p>3. I am not a Gaming Employment License (GEL) holder.</p>
-        <p>
-          4. I am not included in PAGCOR's National Database of Restricted
-          Persons (NDRP).
-        </p>
-        <p>
-          Funds or credits in my account may be forfeited if found ineligible.
-        </p>
+        <p>2. You are not a government official or employee, a member of the armed forces, or connected with any government agency.</p>
+        <p>3. You are not a holder of a Gaming Employment License (GEL).</p>
+        <p>4. You are not listed in PAGCOR's National Database of Restricted Persons (NDRP). If you are found ineligible, your account, funds, and credits may be forfeited in accordance with applicable regulations.</p>
+        <p>5. You will not play in public places.</p>
         <p>5. Refrain from playing in public.</p>
         <p>
-          6. I agree to MGAME's{" "}
+          6. You have read and agree to MGame.ph's {" "}
           <span className="font-semibold text-red-600">
             Privacy Policy
           </span>{" "}
@@ -40,17 +33,15 @@ export default function DisclaimerCard() {
         </h2>
 
         <p className="text-justify text-xs leading-5 text-gray-200 sm:text-sm sm:leading-6 md:text-base">
-          Only eligible persons are allowed to register and play online games.
-          Players found ineligible may have their funds and credits forfeited in
-          favor of the Government. Please play responsibly. Playing online
-          games in open and public places is prohibited.{" "}
+          Only qualified individuals may register and play on MGame.ph. Players who are found ineligible may have their accounts, funds, and credits forfeited in accordance with applicable regulations.
+          Please play responsibly and avoid playing in public places.{" "}
           <span className="font-semibold italic text-red-600">
-            By clicking "Agree" you confirm that you are qualified to play.
+            By tapping "Agree", you confirm that you meet the eligibility requirements to use MGame.ph.
           </span>
         </p>
       </div>
       <Button onClick={() => navigate("/login")}>
-         I Agree
+         AGREE
       </Button>
     </div>
   );

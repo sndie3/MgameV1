@@ -24,8 +24,7 @@ export default function Reset() {
           className="text-[#666] leading-relaxed mb-6 md:mb-10 text-center sm:text-justify max-w-[800px] mx-auto w-full"
           style={{ fontFamily: '"Aptos Narrow", sans-serif', fontSize: 'clamp(12px, 1.5vw, 16px)' }}
         >
-          Make sure that the number is correct and order and also a pin will be send to your email account for a 2 way verification process.
-        </p>
+Please make sure your mobile number is correct and active. A One-Time Password (OTP) will be sent to your mobile number to verify your account.        </p>
 
         {/* Form section 1 */}
         <div className="flex flex-col gap-3 md:gap-5 w-full max-w-[800px] mx-auto">

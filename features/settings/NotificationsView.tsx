@@ -77,10 +77,10 @@ export default function NotificationsView() {
           ))}
         </div>
       </div>
-
+{/* 
       <div className="text-center text-[#666] text-sm uppercase tracking-widest mb-2">
         Policies
-      </div>
+      </div> */}
 
       <div className="px-5 py-4">
         <Footer />

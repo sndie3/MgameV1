@@ -30,7 +30,7 @@ export default function ChangeAppIconView() {
     if (!icon) return;
     localStorage.setItem('appIcon', icon.image);
     applyAppIcon(icon.image);
-    showModal('success', 'App Icon Updated', 'Your app icon has been changed.');
+    showModal('success', 'App Icon Updated', 'Your app icon has been changed successfully.');
   };
 
   return (

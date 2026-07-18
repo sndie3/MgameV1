@@ -7,7 +7,7 @@ interface BasicProfileMenuProps {
   onChangePasswordClick: () => void;
 }
 
-export default function BasicProfileMenu({ profile, onEditProfile, onThemeClick, onChangePasswordClick }: BasicProfileMenuProps) {
+export default function BasicProfileMenu({  onEditProfile, onThemeClick, onChangePasswordClick }: BasicProfileMenuProps) {
   return (
     <div className="px-5 py-6 font-bahnschrift">
       <div className="space-y-3">
@@ -21,24 +21,24 @@ export default function BasicProfileMenu({ profile, onEditProfile, onThemeClick,
         </div>
 
         {/* Email Field */}
-        <div 
+        {/* <div 
           className="h-[56px] rounded-lg border border-white/10 flex items-center justify-between px-4"
           style={{ backgroundColor: '#121212' }}
         >
           <span className="font-bold text-[16px] text-white truncate">
             Email: <span className="ml-2 font-normal">{profile.email || ''}</span>
           </span>
-        </div>
+        </div> */}
 
         {/* Contact Field */}
-        <div 
+        {/* <div 
           className="h-[56px] rounded-lg border border-[#3A3A3A] flex items-center justify-between px-4"
           style={{ backgroundColor: '#121212' }}
         >
           <span className="font-bold text-[16px] text-white truncate">
             Contact: <span className="ml-2 font-normal">{profile.phoneNumber || ''}</span>
           </span>
-        </div>
+        </div> */}
 
         {/* Theme Button */}
         <div 

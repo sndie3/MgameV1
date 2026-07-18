@@ -22,7 +22,7 @@ function CashIn() {
     // });
 
     const navigate = useNavigate();
- const paymentMethods = ["GCASH", "MAYA", "QR PH"];
+    const paymentMethods = ["GCASH", "MAYA", "QR PH"];
 
     const [selectedMethod, setSelectedMethod] = useState("GCASH");
     return (
@@ -41,7 +41,7 @@ function CashIn() {
                     </div>
                 </div>
                 <p className="text-gray-500 text-center mb-8">
-                    Make sure that the number is correct and order.
+                    Please check that your mobile number is correct before continuing.
                 </p>
                 <div className="flex place-content-center mb-5">
                     <img src="/assets/icons/manoy.png" alt="Manoy" className="h-30 object-contain" />
@@ -72,15 +72,15 @@ function CashIn() {
 
                 <div className="space-y-10 px-10 py-5">
                     <button
-                    onClick={() => setShowCashOutOption(true)}
+                        onClick={() => setShowCashOutOption(true)}
                         className="font-bahnschrift w-full rounded-md py-3 text-lg font-semibold text-white transition bg-red-800 hover:bg-red-700 cursor-pointer flex-col"
                     >
                         <p className="text-2xl">1,234</p>
-                        
+
                         <p>E-CASINO WALLET</p>
                     </button>
                     <button
-                    onClick={() => setShowCashOutOption(true)}
+                        onClick={() => setShowCashOutOption(true)}
                         className="font-bahnschrift w-full rounded-md  py-3 text-lg font-semibold text-white transition bg-red-800 hover:bg-red-700 cursor-pointer flex-col"
                     >
                         <p className="text-2xl">1,234</p>

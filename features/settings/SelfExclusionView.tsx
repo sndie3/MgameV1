@@ -63,7 +63,7 @@ export default function SelfExclusionView() {
     };
 
     localStorage.setItem('selfExclusion', JSON.stringify(data));
-    showModal('success', 'Self-Exclusion Set', `You have requested self-exclusion starting ${data.startDate} for ${data.days} day(s).`);
+    showModal('success', 'Self-Exclusion Set', `Your account will be self-excluded from ${data.startDate} for ${data.days} day(s).`,'CONFIM');
 
     setMonth('');
     setDay('');
@@ -88,6 +88,14 @@ export default function SelfExclusionView() {
         </div>
       </div>
 
+
+      <div className='px-5 pt-3'>
+        <p>Need a break from gaming?</p>
+        <br/>
+        <p>Self-Exclusion lets you temporarily or permanently block access to your MGame.ph account. While your account is excluded, you won't be able to log in, deposit, or play.</p>
+        <br/>
+        <p>Choose an option below to manage your gaming responsibly.</p>
+      </div>
       {/* Form */}
       <div className="flex-1 px-5 py-6">
         <div className="space-y-3">

@@ -19,26 +19,26 @@ export default function ChangePasswordView({ onBack }: ChangePasswordViewProps) 
 
   const handleConfirm = () => {
     if (!otp || !mobileNumber || !newPassword || !confirmPassword) {
-      showModal('warning', 'Missing Fields', 'Please fill in all required fields.');
+      showModal('warning', 'Missing Fields', 'Please fill in all required fields.',);
       return;
     }
 
     if (otp.length !== 6) {
-      showModal('warning', 'Invalid OTP', 'Please enter a valid 6 digit OTP.');
+      showModal('warning', 'Invalid OTP', 'Please enter a valid 6 digit OTP.',);
       return;
     }
 
     if (mobileNumber.length !== 11) {
-      showModal('warning', 'Invalid Mobile Number', 'Please enter an 11 digit mobile number.');
+      showModal('warning', 'Invalid Mobile Number', 'Please enter an 11 digit mobile number.',);
       return;
     }
 
     if (newPassword !== confirmPassword) {
-      showModal('warning', 'Password Mismatch', 'New password and confirm password do not match.');
+      showModal('warning', 'Password Mismatch', 'New password and confirm password do not match.',);
       return;
     }
 
-    showModal('success', 'Password Changed', 'Your password has been changed successfully.');
+    showModal('success', 'Password Changed', 'Your password has been changed successfully.',);
     setOtp('');
     setMobileNumber('');
     setNewPassword('');
@@ -71,7 +71,7 @@ export default function ChangePasswordView({ onBack }: ChangePasswordViewProps) 
           className="text-[#666] leading-relaxed mb-6 md:mb-10 text-left max-w-[800px] mx-auto w-full"
           style={{ fontFamily: '"Aptos Narrow", sans-serif', fontSize: 'clamp(12px, 1.5vw, 16px)' }}
         >
-          Make sure that the number is correct and order and also a OTP will be send to your email account for a verification process.
+          Please make sure your mobile number is correct and active. A One-Time Password (OTP) will be sent to your mobile number to verify your account.
         </p>
 
         {/* Form */}

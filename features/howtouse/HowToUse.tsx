@@ -30,19 +30,21 @@ function HowToUse() {
             </div>
             <div className='flex flex-col text-xl flex-1'>
                 <div className='flex flex-col py-5'>
-                    <p className='text-xl'>Name nako</p>
-                    <span className='text-gray-500 text-lg'>Verified gamay</span>
+                    <p className='text-xl'>Hello Roger,</p>
+                    <span className='text-gray-500 text-lg'>Fully Verified</span>
                 </div>
-                <p className='text-justify'>Welcome to MGame.ph , you are now about to experience on how to use this site of entertainment designed to our beloved Players, you will experience the luxury of Gaming Responsibly.</p>
+                <p className='text-justify'>Welcome to MGame.ph, your trusted online gaming and entertainment platform.
+                </p>
                 <br />
-                <p>Enjoy Watching!</p>
+                <p>This quick guide will show you how to use the app and make the most of its features. We are committed to providing a safe, secure, and enjoyable gaming experience while promoting Responsible Gaming.</p>
                 <br />
                 <br />
-                <p>Yours truly,</p>
+                <p>Let's Get Started!</p>
                 <br />
                 <br />
                 <div className="relative">
-                    <p>MGame</p>
+                    <p>Sincerely, </p>
+                    <p>The MGame.ph Team</p>
                     <img
                         src="/assets/icons/manoy1.png"
                         alt="manoy-gamay"

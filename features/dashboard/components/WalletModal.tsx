@@ -44,24 +44,54 @@ function WalletModal({
                     <h2 className="text-2xl font-semibold font-bahnschrift py-6">WALLET</h2>
 
                     <div className="flex flex-col gap-5">
-                        <div className="flex flex-col bg-red-800 hover:bg-red-700 py-2">
+                        {/* Standard Wallet */}
+                        <div className="bg-red-800 hover:bg-red-700 p-4">
                             <h1 className="mb-2 text-3xl font-bold text-white">
-                                {/* ₱ */}
                                 {standardWallet.toLocaleString("en-PH", {
                                     minimumFractionDigits: 2,
                                 })}
                             </h1>
-                            <p className="text-white text-md">STANDARD WALLET</p>
+
+                            <p className="text-white text-md mb-4">STANDARD WALLET</p>
+
+                            <div className="flex justify-between">
+                                <button
+                                    className="px-5 py-2 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg transition"
+                                >
+                                    CASH IN
+                                </button>
+
+                                <button
+                                    className="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition"
+                                >
+                                    CASH OUT
+                                </button>
+                            </div>
                         </div>
 
-                        <div className="flex flex-col bg-[#1d1d1d] hover:bg-[#252525] py-2">
+                        {/* Speciality Wallet */}
+                        <div className="bg-[#1d1d1d] hover:bg-[#252525] p-4">
                             <h1 className="mb-2 text-3xl font-bold text-white">
-                                {/* ₱ */}
                                 {specialityWallet.toLocaleString("en-PH", {
                                     minimumFractionDigits: 2,
                                 })}
                             </h1>
-                            <p className="text-white text-md">SPECIALITY WALLET</p>
+
+                            <p className="text-white text-md mb-4">SPECIALITY WALLET</p>
+
+                            <div className="flex justify-between">
+                                <button
+                                    className="px-5 py-2 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg transition"
+                                >
+                                    CASH IN
+                                </button>
+
+                                <button
+                                    className="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition"
+                                >
+                                    CASH OUT
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>

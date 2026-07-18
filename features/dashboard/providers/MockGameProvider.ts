@@ -1,3 +1,4 @@
+//provider
 import type { GameProvider } from './GameProvider';
 import type { Game } from '../utils/layoutGenerator';
 

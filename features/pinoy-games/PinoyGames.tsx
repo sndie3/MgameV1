@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom"
 
 function PinoyGames() {
-    const [collapsed, setCollapsed] = useState(false);
+    const [collapsed, setCollapsed] = useState(true);
 
     const menus = [
         {
@@ -44,9 +44,25 @@ function PinoyGames() {
             route: "/support"
         },
     ];
+    const games = [
+        {
+            image: "/assets/Hari-tari.png",
+            alt: "Hari Tari",
+            playRoute: "/play-game"
+        },
+        {
+            image: "/assets/regnum.png",
+            alt: "Regnum",
+            playRoute: "/play-gamex"
+
+        },
+    ];
     const route = useNavigate()
+
+
     return (
         <div className="relative min-h-screen overflow-hidden text-white flex flex-col font-bahnschrift">
+
             <div className="rounded-t-[32px] px-3 pt-6 pb-2 relative z-30" style={{ backgroundColor: 'var(--background-color)' }}>
                 <div className="flex items-center mb-5 justify-between">
                     <button
@@ -61,7 +77,34 @@ function PinoyGames() {
                     </div>
                 </div>
             </div>
+            <div className="min-h-screen bg-cover bg-center flex flex-col items-center py-6">
+                {games.map((game, index) => (
+                    <div key={index}>
+                        {/* Card */}
+                        <div className="w-[320px] h-[290px] border border-white/20 bg-black/20 flex items-center justify-center">
+                            <img
+                                src={game.image}
+                                alt={game.alt}
+                                className="w-[240px] object-contain"
+                            />
+                        </div>
 
+                        {/* Navigation */}
+                        <div className="w-[320px] flex justify-between items-center my-7 gap-5">
+                            <button className="text-red-600 text-[clamp(1.2rem,2vw,1.5rem)]">ADS</button>
+                            <button className="text-white text-[clamp(1.2rem,2vw,1.5rem)]">LIVE</button>
+                            <button className="text-white text-[clamp(1.2rem,2vw,1.5rem)]">TUTORIAL</button>
+
+                            <button
+                                onClick={() => route(game.playRoute)}
+                                className="text-white text-[clamp(2rem,4vw,2rem)] font-semibold tracking-wide"
+                            >
+                                PLAY
+                            </button>
+                        </div>
+                    </div>
+                ))}
+            </div>
             {/* Bottom Navbar*/}
             <div
                 className={` fixed bottom-0 left-0 right-0 z-30

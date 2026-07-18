@@ -36,11 +36,51 @@ export default function Register() {
     };
   });
 
-  // Cache form data on change
-  const handleFieldChange = (field: keyof RegisterFormData, value: string) => {
-    const updatedData = { ...formData, [field]: value };
-    setFormData(updatedData);
-    localStorage.setItem('registerFormData', JSON.stringify(updatedData));
+  // // Cache form data on change
+  // const handleFieldChange = (field: keyof RegisterFormData, value: string) => {
+  //   const updatedData = { ...formData, [field]: value };
+  //   setFormData(updatedData);
+  //   localStorage.setItem('registerFormData', JSON.stringify(updatedData));
+  // };
+
+  const handleFieldChange = (field: keyof typeof formData, value: string) => {
+    switch (field) {
+      case "firstName":
+      case "middleName":
+      case "lastName":
+        value = value.replace(/[^a-zA-Z\s'-]/g, "");
+        break;
+
+      case "mobileNumber":
+        value = value.replace(/\D/g, "").slice(0, 11);
+        break;
+
+      case "birthMonth":
+        value = value.replace(/\D/g, "").slice(0, 2);
+        if (value && Number(value) > 12) value = "12";
+        if (value === "00") value = "01";
+        break;
+
+      case "birthDay":
+        value = value.replace(/\D/g, "").slice(0, 2);
+        if (value && Number(value) > 31) value = "31";
+        if (value === "00") value = "01";
+        break;
+
+      case "birthYear":
+        value = value.replace(/\D/g, "").slice(0, 4);
+
+        if (value.length === 4 && Number(value) < 1900) {
+          value = "1900";
+        }
+
+        break;
+    }
+
+    setFormData((prev) => ({
+      ...prev,
+      [field]: value,
+    }));
   };
 
   // Clear cached form data
@@ -61,13 +101,13 @@ export default function Register() {
 
   const handleActivate = () => {
     // Validate required fields
-    if (!formData.firstName || !formData.lastName || !formData.email || 
-        !formData.mobileNumber || !formData.birthMonth || !formData.birthDay || 
-        !formData.birthYear || !formData.password) {
+    if (!formData.firstName || !formData.lastName || !formData.email ||
+      !formData.mobileNumber || !formData.birthMonth || !formData.birthDay ||
+      !formData.birthYear || !formData.password) {
       showModal(
         "warning",
         "Missing Required Fields",
-        "Please fill in all required fields"
+        "Please fill in all required fields",
       );
       return;
     }
@@ -76,27 +116,27 @@ export default function Register() {
     const verificationStatus = selfie ? 'semi-verified' : 'semi-verified*';
 
     // Here you would typically send the data to your backend
-    console.log('Registration data:', { 
-      ...formData, 
+    console.log('Registration data:', {
+      ...formData,
       selfie: selfie ? 'provided' : 'not provided',
-      verificationStatus 
+      verificationStatus
     });
-    
+
     // Store verification status in localStorage for later use
     localStorage.setItem('verificationStatus', verificationStatus);
-    
+
     // Store username (combination of first and last name) for dashboard
     const username = `${formData.firstName} ${formData.lastName}`.toUpperCase();
     localStorage.setItem('username', username);
-    
+
     // Store mobile number for login
     localStorage.setItem('userMobileNumber', formData.mobileNumber);
     localStorage.setItem('registeredMobileNumber', formData.mobileNumber);
-    
+
     // Display status with red asterisk if applicable
     const displayStatus = selfie ? 'SEMI-VERIFIED' : 'SEMI-VERIFIED*';
     const message = `Registration submitted successfully! Status: ${displayStatus}`;
-    
+
     // Create initial user profile for Profile page
     const initialProfile = {
       firstName: formData.firstName,
@@ -114,16 +154,16 @@ export default function Register() {
       gameVenue: '',
     };
     localStorage.setItem('userProfile', JSON.stringify(initialProfile));
-    
+
     if (selfie) {
       localStorage.setItem('selfieWithId', selfie);
     }
-    
+
     alert(message);
-    
+
     // Clear cache after successful submission
     clearCache();
-    
+
     // Navigate to login or dashboard
     navigate('/login');
   };
@@ -191,8 +231,8 @@ export default function Register() {
           <button onClick={() => navigate('/login')} className="cursor-pointer absolute left-0 w-8 h-8 md:w-12 md:h-12 bg-[#1a1a1a] rounded-full flex items-center justify-center shrink-0 hover:bg-[#333] transition-colors">
             <ChevronLeft className="w-5 h-5 md:w-7 md:h-7 text-white" />
           </button>
-          <h1 
-            className="text-center font-bold" 
+          <h1
+            className="text-center font-bold"
             style={{ fontFamily: 'Bahnschrift, sans-serif', fontSize: 'clamp(18px, 3vw, 28px)' }}
           >
             Register
@@ -200,11 +240,14 @@ export default function Register() {
         </div>
 
         {/* Disclaimer */}
-        <p 
+        <p
           className="text-[#666] leading-relaxed mb-6 md:mb-10 text-center sm:text-justify max-w-[800px] mx-auto w-full"
           style={{ fontFamily: '"Aptos Narrow", sans-serif', fontSize: 'clamp(12px, 1.5vw, 16px)' }}
         >
-          Make sure that all information are true and correct. Any false information will forfeit player privilege and automatically terminate or block player account use and access. Privacy Policy and Terms of Use will apply.
+          Please provide accurate and truthful information during registration.
+          Incorrect, false, or misleading information may lead to account suspension,
+          permanent account closure, and the forfeiture of player privileges.
+          By continuing, you confirm that you have read and accepted our Privacy Policy and Terms of Use.
         </p>
 
         {/* Form - Uses CSS Grid on larger screens */}
@@ -306,7 +349,7 @@ export default function Register() {
           />
 
           {/* Selfie Upload - Spans 2 columns on desktop */}
-          <div 
+          <div
             className="w-full md:col-span-2 h-32 md:h-48 lg:h-56 border border-[#333] rounded flex items-center justify-center relative overflow-hidden mt-2 md:mt-0 hover:border-[#666] transition-colors cursor-pointer"
             onClick={!selfie ? startCamera : undefined}
           >
@@ -371,14 +414,14 @@ export default function Register() {
 
         {/* Action Button */}
         <div className="flex flex-col items-center gap-4 mt-8 md:mt-12 mb-8 md:mb-12 w-full">
-          <button 
+          <button
             onClick={handleActivate}
             className="cursor-pointer bg-[#1a1a1a] text-white w-full max-w-[300px] md:max-w-[400px] py-4 rounded hover:bg-[#333] transition-colors"
             style={{ fontFamily: '"Bahnschrift SemiCondensed", Bahnschrift, sans-serif', fontSize: 'clamp(15px, 2vw, 20px)' }}
           >
             Activate
           </button>
-          <button 
+          <button
             onClick={clearCache}
             className="cursor-pointer text-[#666] text-xs hover:text-white transition-colors"
           >

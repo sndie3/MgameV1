@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom"; 
+import { Routes, Route } from "react-router-dom";
 import Home from "../features/home/Home";
 import Login from "../features/auth/Login";
 import Disclaimer from "../features/auth/Disclaimer";
@@ -27,55 +27,67 @@ import PinoyGames from "../features/pinoy-games/PinoyGames";
 import Ecasino from "../features/e-casino/Ecasino";
 import Ebingo from "../features/e-bingo/Ebingo";
 import Gift from "../features/gift/Gift";
-export default function AppRoutes() { 
+import LiveGame from "../features/pinoy-games/components/LiveGame"
+import GameTimeGuard from "../routes/GameTimeGuard"
+import HariTari from "../features/Hari-tari-op/Hari-tari"
+import Haritaritrends from "../features/Hari-tari-op/Hari-tari-trends"
+export default function AppRoutes() {
 
-  return ( 
-    <Routes> 
-      {/* Main Website */} 
-      <Route path="/"  element={<BaseLayout />}> 
+  return (
+    <Routes>
+      {/* Main Website */}
+      <Route path="/" element={<BaseLayout />}>
         <Route index element={<Home />} />
         <Route path="disclaimer" element={<Disclaimer />} />
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
         <Route path="reset" element={<Reset />} />
-      </Route> 
+      </Route>
 
       {/* Protected Routes */}
-      
-{/* 
+
+      {/* 
       FLOW -- Protected Route -> Render AuthenticatedLayout -> Access Routes 
       If not authenticated, redirect to login page */}
 
       <Route element={<ProtectedRoute />}>
         <Route element={<AuthenticatedLayout />}>
           {/* // Dashboard and other protected routes */}
-            <Route path="dashboard" element={<Dashboard />} />
-            <Route path="profile" element={<Profile />} />
-            <Route path="cash-in" element={<CashIn/>} />
-            <Route path="cash-out" element={<CashOut/>} />
-            <Route path="support" element={<Support/>} />
-            <Route path="how-to-use" element={<HowToUse/>} />
-            <Route path="pinoy-games" element={<PinoyGames/>}/>
-            <Route path="e-casino" element={<Ecasino/>}/>
-            <Route path="e-bingo" element={<Ebingo/>}/>
-            <Route path="settings" element={<Settings/>} />
-            <Route path="settings/bet-limit" element={<BetLimitView/>} />
-            <Route path="settings/self-exclusion" element={<SelfExclusionView/>} />
-            <Route path="settings/cash-in-limit" element={<CashInLimitView/>} />
-            <Route path="settings/notifications" element={<NotificationsView/>} />
-            <Route path="settings/deactivate-account" element={<DeactivateAccountView/>} />
-            <Route path="settings/chat-settings" element={<ChatSettingsView/>} />
-            <Route path="settings/chat-wallpaper" element={<ChatWallpaperView/>} />
-            <Route path="settings/change-chat-name" element={<ChangeChatNameView/>} />
-            <Route path="settings/change-app-icon" element={<ChangeAppIconView/>} />
-            <Route path="gift" element={<Gift/>}/>
+          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="profile" element={<Profile />} />
+          <Route path="cash-in" element={<CashIn />} />
+          <Route path="cash-out" element={<CashOut />} />
+          <Route path="support" element={<Support />} />
+          <Route path="how-to-use" element={<HowToUse />} />
+          <Route path="pinoy-games" element={<PinoyGames />} />
+          <Route path="e-casino" element={<Ecasino />} />
+          <Route path="e-bingo" element={<Ebingo />} />
+          <Route path="settings" element={<Settings />} />
+          <Route path="settings/bet-limit" element={<BetLimitView />} />
+          <Route path="settings/self-exclusion" element={<SelfExclusionView />} />
+          <Route path="settings/cash-in-limit" element={<CashInLimitView />} />
+          <Route path="settings/notifications" element={<NotificationsView />} />
+          <Route path="settings/deactivate-account" element={<DeactivateAccountView />} />
+          <Route path="settings/chat-settings" element={<ChatSettingsView />} />
+          <Route path="settings/chat-wallpaper" element={<ChatWallpaperView />} />
+          <Route path="settings/change-chat-name" element={<ChangeChatNameView />} />
+          <Route path="settings/change-app-icon" element={<ChangeAppIconView />} />
+          <Route path="gift" element={<Gift />} />
+
+            //LIVE GAME
+          <Route element={<GameTimeGuard />}>
+          </Route>
+                      <Route path="/play-game" element={<LiveGame />} />
+
+          <Route path="hari-tari-operator" element={<HariTari/>}/>
+          <Route path="hari-tari-trends" element={<Haritaritrends/>}/>
 
         </Route>
-      </Route> 
-     
+      </Route>
 
-      {/* 404 */} 
-      {/* <Route path="*" element={<NotFound />} /> */} 
-    </Routes> 
-  ); 
+
+      {/* 404 */}
+      {/* <Route path="*" element={<NotFound />} /> */}
+    </Routes>
+  );
 }

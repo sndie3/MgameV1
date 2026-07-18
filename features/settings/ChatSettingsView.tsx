@@ -17,8 +17,8 @@ const defaultToggles: Record<string, boolean> = {
 };
 
 const toggleSubtitles: Record<string, string> = {
-  'Show 21+ Content': 'Do not hide media that contains content suitable only for adults.',
-  'Direct Share': 'Show share application link.',
+  'Show 21+ Content': 'Turn on to display media suitable for users 21+.',
+  'Direct Share': 'Show app sharing options.',
 };
 
 function Toggle({ checked, onChange }: { checked: boolean; onChange: (value: boolean) => void }) {
@@ -69,7 +69,7 @@ export default function ChatSettingsView() {
       navigate('/settings/change-app-icon');
       return;
     }
-    showModal('info', option, `${option} settings will be available soon.`);
+    showModal('info', option, `${option} settings are coming soon.`,'BACK');
   };
 
   return (

@@ -23,7 +23,7 @@ export default function DeactivateAccountView() {
     showModal(
       'success',
       'Account Deactivated',
-      'Your account has been deactivated. We are sorry to see you go.'
+      'Your account has been deactivated successfully. Thank you for being part of MGame.ph.'
     );
 
     setTimeout(() => {

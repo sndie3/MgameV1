@@ -41,7 +41,7 @@ export default function LoginCard() {
       showModal(
         "warning",
         title,
-        message
+        message,
       );
 
       return;
@@ -51,7 +51,7 @@ export default function LoginCard() {
       showModal(
         "warning",
         "Agreement Required",
-        "Please agree to Privacy Policy & Terms of Use"
+        "Please accept the Privacy Policy and Terms of Use.",
       );
 
       return;
@@ -66,15 +66,15 @@ export default function LoginCard() {
 
     // Here you would typically authenticate with your backend
     console.log('Login attempt:', { username });
-    
+
     // Store user mobile number to establish session
     localStorage.setItem('userMobileNumber', username);
-    
+
     // Store registered mobile number if not present (simulating successful login for new device)
     if (!registeredMobileNumber) {
       localStorage.setItem('registeredMobileNumber', username);
     }
-    
+
     // Set a generic username if not registered
     if (!localStorage.getItem('username')) {
       localStorage.setItem('username', 'Player');
@@ -84,7 +84,7 @@ export default function LoginCard() {
     if (!localStorage.getItem('verificationStatus')) {
       localStorage.setItem('verificationStatus', 'fully-verified');
     }
-    
+
     // Navigate to dashboard
     navigate('/dashboard');
   };
@@ -111,13 +111,13 @@ export default function LoginCard() {
                 fontSize: "clamp(12px, 1.5vw, 16px)",
               }}
             >
-              This site is for 21 years and above only, not allowed to any
-              government official or employee connected with any government agency
-              or armed forces, not allowed to any Gaming Employment License (GEL)
-              holder, not allowed to any PAGCOR's National Database of Restricted
-              Persons (NDRP), also that your funds or credits in my account may be
-              forfeited if found ineligible, you are refrain from playing in
-              public, and I agree to MGAME's{" "}
+              MGame.ph is an online gaming platform for players aged 21 and above only.
+              You may register and play only if you are not a government official or employee,
+              a member of the armed forces, a Gaming Employment License (GEL) holder,
+              or listed in PAGCOR's National Database of Restricted Persons (NDRP).
+              If you are found ineligible, your account, funds, and credits may be forfeited in accordance with applicable regulations.
+              Please play responsibly and avoid playing in public places. By continuing,
+              you confirm that you meet the eligibility requirements and agree to MGame.ph's {" "}
               <span className="text-red-600 font-semibold">
                 Privacy Policy
               </span>{" "}

@@ -58,7 +58,7 @@ export default function ChangeChatNameView() {
             className="w-full h-[56px] flex items-center justify-center rounded-none border-none bg-[#121212] transition"
           >
             <span className={`font-bold text-[18px] uppercase ${isValid ? 'text-white' : 'text-[#666]'}`}>
-              Submit Change
+              SUBMIT
             </span>
           </button>
         </div>
