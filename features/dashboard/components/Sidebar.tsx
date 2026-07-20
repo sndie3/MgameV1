@@ -87,7 +87,7 @@ export default function Sidebar({
                             }}
                             className="p-0 bg-transparent border-none cursor-pointer"
                         >
-                            <img src="/assets/icons/Settings.png" alt="setting" className="w-10 h-9 rounded-full" />
+                            <img src="/assets/icons/Settings.png" alt="setting" className="w-10 h-9 rounded-full spin-settings" />
                         </button>
                         <button 
                         onClick={() => {
