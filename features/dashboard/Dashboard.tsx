@@ -153,7 +153,7 @@ export default function Dashboard() {
                     >
                         <div className="flex items-center justify-center gap-2">
                             {tab.icon && (
-                                <img src={tab.icon} alt={tab.label} className="w-7 h-7 animate-swing" />
+                                <img src={tab.icon} alt={tab.label} className="w-9 h-9 animate-swing object-contain" />
                             )}
                             {tab.label}
                         </div>
