@@ -73,7 +73,10 @@ export default function Register() {
         if (value.length === 4 && Number(value) < 1900) {
           value = "1900";
         }
+        break;
 
+      case "password":
+        value = value.replace(/[^a-zA-Z0-9]/g, "").slice(0, 32);
         break;
     }
 
