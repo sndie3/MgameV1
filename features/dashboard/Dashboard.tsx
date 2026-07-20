@@ -56,7 +56,7 @@ export default function Dashboard() {
 
         },
         {
-            icon: "/assets/icons/Wallets.png",
+            icon: "/assets/icons/Wallet.png",
             title: "Cash-Out",
             route: "/cash-out"
 
@@ -70,7 +70,7 @@ export default function Dashboard() {
 
     const tabs = [
         { label: "Recently Played " },
-        { label: "Invite", icon: "/assets/icons/Invite.png" },
+        { label: "Invite", icon: "/assets/icons/Invites.png" },
         { label: "Rewards" },
         { label: "EPT" },
     ];
@@ -137,7 +137,7 @@ export default function Dashboard() {
                     </div>
 
                     <span onClick={() => setWalletOpen(true)} className="text-lg font-semibold flex place-items-center cursor-pointer font-bahnschrift ">
-                        <img src="/assets/icons/wallet2.png" alt="" className="w-14 wallet-pulse" />
+                        <img src="/assets/icons/Wallet2.png" alt="" className="w-14 wallet-pulse" />
                         {/* WALLET */}
                     </span>
                 </div>
