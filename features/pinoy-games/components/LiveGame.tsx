@@ -1,12 +1,12 @@
 import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
-const chipBorders: Record<number, string> = {
-  20: "border-red-500",
-  50: "border-blue-500",
-  100: "border-violet-500",
-  500: "border-yellow-500",
-  1000: "border-green-500",
+const chipImages: Record<number, string> = {
+  20: "/assets/chips/20.png",
+  50: "/assets/chips/50.png",
+  100: "/assets/chips/100.png",
+  500: "/assets/chips/500.png",
+  1000: "/assets/chips/1K.png",
 };
 
 function LiveGame() {
@@ -104,7 +104,7 @@ function LiveGame() {
 
       {showMoneyRain && (
         <div className="money-rain-container">
-          {Array.from({ length: 150 }).map((_, i) => {
+          {Array.from({ length: 100 }).map((_, i) => {
             const isBill = Math.random() > 0.35;
 
             const style = {
@@ -196,8 +196,8 @@ function LiveGame() {
             </button>
           </div>
 
-          <div ref={walletRef} className="flex items-center text-lg">
-            <img src="/assets/icons/wallet.png" className="h-10" />
+          <div ref={walletRef} className="flex items-center text-lg gap-2">
+            <img src="/assets/icons/Wallet.png" className="h-10" />
             <span>{walletBalance.toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
           </div>
         </div>
@@ -205,15 +205,15 @@ function LiveGame() {
 
         <div className="absolute top-20 w-full flex justify-end items-start px-5 pt-6 z-10">
           <img
-            src="/assets/gift.png"
+            src="/assets/icons/gift.png"
             alt="gift"
             className="w-14 object-contain"
           />
         </div>
         <div className="absolute top-40 w-full flex justify-end items-start px-5 pt-6 z-10">
           <img
-            src="/assets/chat.png"
-            alt="gift"
+            src="/assets/icons/chat.png"
+            alt="chat"
             className="w-14 object-contain"
           />
         </div>
@@ -237,29 +237,18 @@ function LiveGame() {
           {[20, 50, 100, 500, 1000].map((x) => (
             <button
               key={x}
-              onClick={() => setSelectedBet(Number(x))}
-              className={` relative  w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center text-[10px]  font-black text-black transition-all duration-300 shadow-lg
-              ${selectedBet === x
-                  ? "scale-110"
-                  : "scale-100"
-                }
-            `}
+              onClick={() => setSelectedBet(x)}
+              className={`transition-all duration-300 ${selectedBet === x ? "scale-110" : "scale-100 opacity-80 hover:opacity-100"
+                }`}
             >
-              <span className={` absolute inset-0 rounded-full border-4 
-                  ${selectedBet === x ? `${chipBorders[x]} scale-110 shadow-lg` : "border-gray-700 scale-100"} 
-                  bg-gradient-to-br from-white via-gray-200 to-gray-400`} />
-              <span
-                className=" absolute inset-1 rounded-full border-2 border-dashed border-red-600 " />
-              <span className=" absolute w-8 h-8 rounded-full bg-white border-2 border-red-500 flex items-center justify-center z-10 ">
-                {x}
-              </span>
+              <img
+                src={chipImages[x]}
+                alt={`${x} chip`}
+                className={`w-12 h-12 sm:w-14 sm:h-14 object-contain transition-all duration-300 ${selectedBet === x ? "drop-shadow-[0_0_12px_gold]" : ""
+                  }`}
+              />
             </button>
           ))}
-
-          <div className="text-black text-center font-bold">
-            <p className="text-xs">Game</p>
-            <span className="text-lg">12314</span>
-          </div>
         </div>
 
         {/* Hari */}

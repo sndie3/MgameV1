@@ -30,39 +30,39 @@ export default function Dashboard() {
 
     const menus = [
         {
-            icon: "/assets/icons/Nav1.png",
+            icon: "/assets/icons/PinoyGame.png",
             title: "Pinoy Games",
             count: "3",
             route: "/pinoy-games"
         },
         {
-            icon: "/assets/icons/Nav2.png",
+            icon: "/assets/icons/E-Casino.png",
             title: "E-Casino",
             count: "3,247",
             route: "/e-casino"
 
         },
         {
-            icon: "/assets/icons/Nav3.png",
+            icon: "/assets/icons/E-Bingo.png",
             title: "E-Bingo",
             count: "12",
             route: "/e-bingo"
 
         },
         {
-            icon: "/assets/icons/Nav4.png",
+            icon: "/assets/icons/Cash-In.png",
             title: "Cash-In",
             route: "/cash-in"
 
         },
         {
-            icon: "/assets/icons/Nav5.png",
+            icon: "/assets/icons/Wallet.png",
             title: "Cash-Out",
             route: "/cash-out"
 
         },
         {
-            icon: "/assets/icons/Nav6.png",
+            icon: "/assets/icons/Support.png",
             title: "Support",
             route: "/support"
         },
@@ -70,7 +70,7 @@ export default function Dashboard() {
 
     const tabs = [
         { label: "Recently Played " },
-        { label: "Invite", icon: "/assets/icons/invite.png" },
+        { label: "Invite", icon: "/assets/icons/Invite.png" },
         { label: "Rewards" },
         { label: "EPT" },
     ];
@@ -202,7 +202,7 @@ export default function Dashboard() {
         rounded-t-3xl
         bg-[var(--card-color)]
         transition-all duration-500
-        ${collapsed ? "h-14" : "h-[430px]"}`}
+        ${collapsed ? "h-14" : "h-[420px]"}`}
             >
                 {/* Search */}
                 <div className="border-b border-white/10 flex items-center px-4 h-14">
@@ -236,11 +236,11 @@ export default function Dashboard() {
                         <button
                             key={item.title}
                             onClick={() => navigate(item.route)}
-                            className="w-full px-6 py-4 flex items-center hover:bg-[var(--hover-color)] transition gap-2"
+                            className="w-full px-6 py-3 flex items-center hover:bg-[var(--hover-color)] transition gap-2"
                         >
                             <div className="flex items-center gap-10 flex-1">
                                 <img src={item.icon} alt={item.title}
-                                    className={`object-contain w-6 h-6`} />
+                                    className={`object-contain w-9`} />
 
                                 <span className="flex-1 text-left font-semibold text-[20px]">
                                     {item.title}

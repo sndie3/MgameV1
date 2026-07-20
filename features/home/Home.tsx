@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-
+import ProviderLogoCarousel from "./components/ProviderLogosCarousel"
 function Home() {
     const navigate = useNavigate();
 
@@ -10,26 +10,36 @@ function Home() {
     const [touchEndX, setTouchEndX] = useState(0);
     const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
     const providers = [
-        {
-            name: "EPT",
-            logo: "/assets/ept.png",
-        },
-        {
-            name: "Pragmatic Play",
-            logo: "/assets/pragmatic.png",
-        },
-        {
-            name: "Victory Ark",
-            logo: "/assets/va_gaming.png",
-        },
-        {
-            name: "Realtime Gaming",
-            logo: "/assets/realtime_gaming.png",
-        },
-        {
-            name: "JILI",
-            logo: "/assets/jili.png",
-        },
+        { name: "Provider 1", logo: "/assets/providers/Asset 1.png" },
+        { name: "Provider 2", logo: "/assets/providers/Asset 2.png" },
+        { name: "Provider 3", logo: "/assets/providers/Asset 3.png" },
+        { name: "Provider 4", logo: "/assets/providers/Asset 4.png" },
+        { name: "Provider 5", logo: "/assets/providers/Asset 5.png" },
+        { name: "Provider 6", logo: "/assets/providers/Asset 6.png" },
+        { name: "Provider 7", logo: "/assets/providers/Asset 7.png" },
+        { name: "Provider 8", logo: "/assets/providers/Asset 8.png" },
+        { name: "Provider 9", logo: "/assets/providers/Asset 9.png" },
+        { name: "Provider 10", logo: "/assets/providers/Asset 10.png" },
+        { name: "Provider 11", logo: "/assets/providers/Asset 11.png" },
+        { name: "Provider 12", logo: "/assets/providers/Asset 12.png" },
+        { name: "Provider 13", logo: "/assets/providers/Asset 13.png" },
+        { name: "Provider 14", logo: "/assets/providers/Asset 14.png" },
+        { name: "Provider 15", logo: "/assets/providers/Asset 15.png" },
+        { name: "Provider 16", logo: "/assets/providers/Asset 16.png" },
+        { name: "Provider 17", logo: "/assets/providers/Asset 17.png" },
+        { name: "Provider 18", logo: "/assets/providers/Asset 18.png" },
+        { name: "Provider 19", logo: "/assets/providers/Asset 19.png" },
+        { name: "Provider 20", logo: "/assets/providers/Asset 20.png" },
+        { name: "Provider 21", logo: "/assets/providers/Asset 21.png" },
+        { name: "Provider 22", logo: "/assets/providers/Asset 22.png" },
+        { name: "Provider 23", logo: "/assets/providers/Asset 23.png" },
+        { name: "Provider 24", logo: "/assets/providers/Asset 24.png" },
+        { name: "Provider 25", logo: "/assets/providers/Asset 25.png" },
+        { name: "Provider 26", logo: "/assets/providers/Asset 26.png" },
+        { name: "Provider 27", logo: "/assets/providers/Asset 27.png" },
+        { name: "Provider 28", logo: "/assets/providers/Asset 28.png" },
+        { name: "Provider 29", logo: "/assets/providers/Asset 29.png" },
+        { name: "Provider 30", logo: "/assets/providers/Asset 30.png" },
     ];
 
     const videos = [
@@ -181,7 +191,7 @@ function Home() {
 
                 {/* HOME */}
                 <section
-                className={`
+                    className={`
                 absolute inset-0 z-10
                 origin-top flex-1 min-h-screen bg-black flex flex-col items-center justify-center text-white px-6
                 transition-transform duration-700 ease-in-out overflow-auto 
@@ -190,7 +200,8 @@ function Home() {
                 >
                     {/* Home Content */}
                     {/* Provider Logos */}
-                    <div className="flex flex-col items-center ">
+                    <ProviderLogoCarousel providers={providers} />
+                    {/* <div className="flex flex-col items-center ">
                         <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-5 ">
                             {providers.map((provider) => (
                                 <img
@@ -205,7 +216,7 @@ function Home() {
                                 />
                             ))}
                         </div>
-                    </div>
+                    </div> */}
 
                     <h1 className="text-[clamp(0.5rem,4vw,1.5rem)] font-semibold mt-10 ">
                         MGame.ph
