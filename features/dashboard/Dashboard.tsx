@@ -56,7 +56,7 @@ export default function Dashboard() {
 
         },
         {
-            icon: "/assets/icons/Wallet.png",
+            icon: "/assets/icons/Wallets.png",
             title: "Cash-Out",
             route: "/cash-out"
 
