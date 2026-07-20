@@ -238,14 +238,13 @@ function LiveGame() {
             <button
               key={x}
               onClick={() => setSelectedBet(x)}
-              className={`transition-all duration-300 ${selectedBet === x ? "scale-110" : "scale-100 opacity-80 hover:opacity-100"
+              className={`transition-all duration-300 ${selectedBet === x ? "scale-150 opacity-100" : "scale-100 opacity-80 hover:opacity-100"
                 }`}
             >
               <img
                 src={chipImages[x]}
                 alt={`${x} chip`}
-                className={`w-12 h-12 sm:w-14 sm:h-14 object-contain transition-all duration-300 ${selectedBet === x ? "drop-shadow-[0_0_12px_gold]" : ""
-                  }`}
+                className={`w-12 h-12 sm:w-14 sm:h-14 object-contain transition-all duration-300 `}
               />
             </button>
           ))}
