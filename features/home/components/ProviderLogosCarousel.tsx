@@ -32,11 +32,13 @@ function MarqueeColumn({
   speed,
   largeLogoNames,
   columnHeight,
+  direction = "up",
 }: {
   items: Provider[];
   speed: number;
   largeLogoNames: string[];
   columnHeight: number;
+  direction?: "up" | "down";
 }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const firstListRef = useRef<HTMLDivElement>(null);
@@ -47,17 +49,32 @@ function MarqueeColumn({
   useEffect(() => {
     if (!containerRef.current || !firstListRef.current) return;
 
+    const listHeight = firstListRef.current.offsetHeight;
+
+    // Downward marquee starts with the second copy visible.
+    if (direction === "down") {
+      y.current = -listHeight;
+      containerRef.current.style.transform = `translateY(${y.current}px)`;
+    }
+
     let animationId: number;
 
     const animate = () => {
       if (!paused.current) {
         const listHeight = firstListRef.current!.offsetHeight;
 
-        y.current -= speed;
+        if (direction === "up") {
+          y.current -= speed;
 
-        if (Math.abs(y.current) >= listHeight) {
-          // reset exactly one list height
-          y.current = 0;
+          if (Math.abs(y.current) >= listHeight) {
+            y.current = 0;
+          }
+        } else {
+          y.current += speed;
+
+          if (y.current >= 0) {
+            y.current = -listHeight;
+          }
         }
 
         containerRef.current!.style.transform = `translateY(${y.current}px)`;
@@ -69,7 +86,7 @@ function MarqueeColumn({
     animationId = requestAnimationFrame(animate);
 
     return () => cancelAnimationFrame(animationId);
-  }, [speed]);
+  }, [speed, direction]);
 
   if (!items.length) return null;
 
@@ -83,11 +100,10 @@ function MarqueeColumn({
           key={provider.name}
           src={provider.logo}
           alt={provider.name}
-          className={`object-contain shrink-0 opacity-90 transition-all duration-300 hover:scale-110 hover:opacity-100 ${
-            largeLogoNames.includes(provider.name)
-              ? "h-16 md:h-20"
-              : "h-10 md:h-10"
-          }`}
+          className={`object-contain shrink-0 opacity-90 transition-all duration-300 hover:scale-110 hover:opacity-100 ${largeLogoNames.includes(provider.name)
+            ? "h-16 md:h-20"
+            : "h-10 md:h-10"
+            }`}
         />
       ))}
     </div>
@@ -114,7 +130,7 @@ function MarqueeColumn({
 export default function ProviderLogosCarousel({
   providers,
   splitColumns = true,
-  speed = 0.2, // pixels per frame
+  speed = 0.5, // pixels per frame
   largeLogoNames = DEFAULT_LARGE_LOGOS,
   columnHeight = 320,
 }: ProviderLogosCarouselProps) {
@@ -131,6 +147,7 @@ export default function ProviderLogosCarousel({
       <MarqueeColumn
         items={col1}
         speed={speed}
+        direction="up"
         largeLogoNames={largeLogoNames}
         columnHeight={columnHeight}
       />
@@ -138,6 +155,7 @@ export default function ProviderLogosCarousel({
       <MarqueeColumn
         items={col2}
         speed={speed}
+        direction="down"
         largeLogoNames={largeLogoNames}
         columnHeight={columnHeight}
       />
@@ -145,6 +163,7 @@ export default function ProviderLogosCarousel({
       <MarqueeColumn
         items={col3}
         speed={speed}
+        direction="up"
         largeLogoNames={largeLogoNames}
         columnHeight={columnHeight}
       />
