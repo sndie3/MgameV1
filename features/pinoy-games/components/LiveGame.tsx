@@ -28,6 +28,27 @@ function LiveGame() {
   const [showLastRound, setShowLastRound] = useState(false);
   const [showHistory, setShowHistory] = useState(false);
 
+  // --- Coin pop state if click hari bet or tari bet--- //
+  const [hariCoinBurst, setHariCoinBurst] = useState(0); // key, incremented to retrigger animation
+  const [tariCoinBurst, setTariCoinBurst] = useState(0);
+  const [showHariCoins, setShowHariCoins] = useState(false);
+  const [showTariCoins, setShowTariCoins] = useState(false);
+  const hariCoinTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const tariCoinTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const popHariCoins = () => {
+    setHariCoinBurst((k) => k + 1);
+    setShowHariCoins(true);
+    if (hariCoinTimeout.current) clearTimeout(hariCoinTimeout.current);
+    hariCoinTimeout.current = setTimeout(() => setShowHariCoins(false), 700);
+  };
+
+  const popTariCoins = () => {
+    setTariCoinBurst((k) => k + 1);
+    setShowTariCoins(true);
+    if (tariCoinTimeout.current) clearTimeout(tariCoinTimeout.current);
+    tariCoinTimeout.current = setTimeout(() => setShowTariCoins(false), 700);
+  };
 
   // --- Win animation state --- //
   // Speciality wallet 
@@ -263,14 +284,28 @@ function LiveGame() {
                   if (selectedBet > 0) {
                     setHariBet(prev => prev + selectedBet);
                     setSelectedSide("HARI");
+                    popHariCoins();
                   }
                 }}
-                className="mt-4 w-[85%] bg-red-800 py-3 text-xl font-bold cursor-pointer"
+                className="mt-4 w-[85%] bg-red-800 py-3 text-xl font-bold cursor-pointer relative"
               >
                 HARI
+                {showHariCoins && (
+                  <div key={hariCoinBurst} className="coin-burst">
+                    {Array.from({ length: 15 }).map((_, i) => {
+                      const style = {
+                        "--x": `${(Math.random() - 0.5) * 120}px`,
+                        "--rot": `${(Math.random() - 0.5) * 360}deg`,
+                        "--delay": `${Math.random() * 0.15}s`,
+                      } as React.CSSProperties;
+                      return <img key={i} src="/assets//peso.png" className="coin-pop" style={style} />;
+                    })}
+                  </div>
+                )}
               </button>
             </div>
 
+            {/* Tari */}
             {/* Tari */}
             <div className="w-1/2 bg-black text-center pt-2 place-content-center">
               <div className="text-3xl font-bold">92,00,000</div>
@@ -282,11 +317,24 @@ function LiveGame() {
                   if (selectedBet > 0) {
                     setTariBet(prev => prev + selectedBet);
                     setSelectedSide("TARI");
+                    popTariCoins();          // ← added
                   }
                 }}
-                className="mt-4 w-[85%] bg-gray-600 py-3 text-xl font-bold cursor-pointer"
+                className="mt-4 w-[85%] bg-gray-600 py-3 text-xl font-bold cursor-pointer relative"
               >
                 TARI
+                {showTariCoins && (
+                  <div key={tariCoinBurst} className="coin-burst">
+                    {Array.from({ length: 15 }).map((_, i) => {
+                      const style = {
+                        "--x": `${(Math.random() - 0.5) * 120}px`,
+                        "--rot": `${(Math.random() - 0.5) * 360}deg`,
+                        "--delay": `${Math.random() * 0.15}s`,
+                      } as React.CSSProperties;
+                      return <img key={i} src="/assets/peso.png" className="coin-pop" style={style} />;
+                    })}
+                  </div>
+                )}
               </button>
             </div>
           </div>
