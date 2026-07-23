@@ -11,6 +11,8 @@ import { getUsername } from "./services/profileStorage.service";
 import Sidebar from "./components/Sidebar";
 import { useNavigate } from "react-router-dom";
 import WalletModal from "./components/WalletModal";
+import { MENUS, TABS } from "../../constants/dashboard-menu"
+import type { MENUIDS } from "../../constants/dashboard-menu"
 
 // Instantiate provider outside component to avoid recreation on re-renders
 const gameProvider = new MockGameProvider();
@@ -28,57 +30,12 @@ export default function Dashboard() {
     });
     const [sidebarOpen, setSidebarOpen] = useState(false);
 
-    const menus = [
-        {
-            icon: "/assets/icons/PinoyGame.png",
-            title: "Pinoy Games",
-            count: "3",
-            route: "/pinoy-games"
-        },
-        {
-            icon: "/assets/icons/E-Casino.png",
-            title: "E-Casino",
-            count: "3,247",
-            route: "/e-casino"
-
-        },
-        {
-            icon: "/assets/icons/E-Bingo.png",
-            title: "E-Bingo",
-            count: "12",
-            route: "/e-bingo"
-
-        },
-        {
-            icon: "/assets/icons/Cash-In.png",
-            title: "Cash-In",
-            route: "/cash-in"
-
-        },
-        {
-            icon: "/assets/icons/Wallet.png",
-            title: "Cash-Out",
-            route: "/cash-out"
-
-        },
-        {
-            icon: "/assets/icons/Support.png",
-            title: "Support",
-            route: "/support"
-        },
-    ];
-
-    const tabs = [
-        { label: "Recently Played " },
-        { label: "Invite", icon: "/assets/icons/Invites.png" },
-        { label: "Rewards" },
-        { label: "EPT" },
-    ];
-
     const { layouts, isLoading, hasMore, loadMore } = useInfiniteGames(gameProvider, 21);
     const navigate = useNavigate();
     const observerTarget = useRef<HTMLDivElement>(null);
     const scrollContainerRef = useRef<HTMLDivElement>(null);
+    const clickAudio = useRef<HTMLAudioElement>(null);
+
 
     // Intersection Observer for prefetching infinite scroll
     useEffect(() => {
@@ -103,8 +60,33 @@ export default function Dashboard() {
         return () => observer.disconnect();
     }, [hasMore, loadMore, layouts.length]);
 
+
+    const counts: Record<MENUIDS, number> = {
+        pinoyGames: 3,
+        eCasino: 3247,
+        eBingo: 12,
+    };
+
+    const addAudio = useRef<HTMLAudioElement>(null);
+
+    const addClick = () => {
+        if (addAudio.current) {
+            addAudio.current.currentTime = 0;
+            addAudio.current.play().catch(() => { });
+        }
+    };
+
+    const playClick = () => {
+        if (clickAudio.current) {
+            clickAudio.current.currentTime = 0;
+            clickAudio.current.play().catch(() => { });
+        }
+    };
     return (
         <div className="relative min-h-screen text-white overflow-hidden">
+            <audio ref={addAudio} src="/assets/music/menuclick.mp3" preload="auto" />
+            <audio ref={clickAudio} src="/assets/music/click.mp3" preload="auto" />
+
             <Sidebar
                 sidebarOpen={sidebarOpen}
                 setSidebarOpen={setSidebarOpen}
@@ -115,7 +97,7 @@ export default function Dashboard() {
             <div className="px-8 xl:px-5 pt-4">
                 <div className="flex items-start justify-between">
                     <div className="flex gap-3">
-                        <button onClick={() => setSidebarOpen(true)} className="h-12 w-12 rounded-full flex items-center justify-center" style={{ backgroundColor: 'var(--button-color)' }}>
+                        <button onClick={() => {playClick(); setSidebarOpen(true)}} className="h-12 w-12 rounded-full flex items-center justify-center" style={{ backgroundColor: 'var(--button-color)' }}>
                             <img src="/assets/icons/burger.png" alt="Avatar" className="w-7 h-3 " />
                         </button>
 
@@ -145,8 +127,8 @@ export default function Dashboard() {
 
             {/* Header Tab */}
             {/* THIS WILL DISPLAY IF THE USER IS FULLY VERIFIED */}
-            <div className="grid grid-cols-4 gap-1 mt-2 px-2">
-                {tabs.map((tab) => (
+            <div className="grid grid-cols-4 gap-1 mt-2 px-4 xl:px-5 ">
+                {TABS.map((tab) => (
                     <button
                         key={tab.label}
                         className="py-4 text-sm font-semibold hover:opacity-80 bg-[#1d1d1d] hover:bg-[#252525]"
@@ -162,7 +144,7 @@ export default function Dashboard() {
                 ))}
             </div>
             {/* THIS WILL DISPLAY IF USER IS NOT SEMI VERIFIED */}
-            <div className="px-2 mt-4 space-y-3">
+            <div className="px-4 xl:px-5 mt-4 space-y-3">
                 <button className="w-full rounded-xl bg-[#1d1d1d] py-4 text-center font-semibold hover:bg-[#252525]">
                     Complete Semi Verification and get ₱20.
                 </button>
@@ -173,7 +155,7 @@ export default function Dashboard() {
             </div>
 
             {/* Contents / Game Cards Grid */}
-            <div ref={scrollContainerRef} className="overflow-y-auto h-[calc(95vh-120px)] px-5 pt-4">
+            <div ref={scrollContainerRef} className="overflow-y-auto h-[calc(95vh-120px)] px-4 pt-4">
                 <div className="space-y-2">
                     {layouts.map((group, index) => {
                         if (group.layout === 'pattern1') {
@@ -232,25 +214,30 @@ export default function Dashboard() {
                         : "opacity-100 translate-y-0"
                         }`}
                 >
-                    {menus.map((item) => (
+                    {/* RENDER MENUS */}
+                    {MENUS.map((menu) => (
                         <button
-                            key={item.title}
-                            onClick={() => navigate(item.route)}
+                            key={menu.title}
+                            onClick={() => {
+                                addClick();
+                                setTimeout(() => {
+                                    navigate(menu.route);
+                                }, 300);
+                            }}
                             className="w-full px-6 py-3 flex items-center hover:bg-[var(--hover-color)] transition gap-2"
                         >
                             <div className="flex items-center gap-10 flex-1">
-                                <img src={item.icon} alt={item.title}
+                                <img src={menu.icon} alt={menu.title}
                                     className={`object-contain w-9`} />
 
                                 <span className="flex-1 text-left font-semibold text-[20px]">
-                                    {item.title}
+                                    {menu.title}
                                 </span>
                             </div>
-
-                            {item.count && (
-                                <span className=" text-gray-400">{item.count}</span>
+                            {/* RENDER COUNT OF PINOY-GAMES, E-CASINO, E-BINGO GAMES */}
+                            {menu.id && counts[menu.id] !== undefined && (
+                                <span>{counts[menu.id].toLocaleString()}</span>
                             )}
-
                             <ChevronRight size={20} />
                         </button>
                     ))}

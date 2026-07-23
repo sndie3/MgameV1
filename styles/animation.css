@@ -136,16 +136,14 @@
 /* --- Coins mixed in with the bills for variety --- */
 .money-coin {
   position: absolute;
-  top: -40px;
+  top: -45px;
   left: var(--x, 50%);
-  width: 25px;
-  height: 25px;
-  border-radius: 9999px;
-  background: radial-gradient(circle at 35% 30%, #fde68a, #f59e0b 60%, #b45309);
-  border: 1.5px solid rgba(255, 255, 255, 0.4);
-  box-shadow: 0 0 6px 1px rgba(245, 158, 11, 0.5);
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
   opacity: 0;
   animation: moneyFall var(--duration, 2.2s) linear var(--delay, 0s) forwards;
+  will-change: transform, opacity;
 }
 
 /* --- Optional burst flash at the moment the win triggers (kept subtle) --- */
@@ -181,7 +179,7 @@
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
+/* @media (prefers-reduced-motion: reduce) {
 
   .money-bill,
   .money-coin,
@@ -189,7 +187,7 @@
     animation: none;
     opacity: 0;
   }
-}
+} */
 
 /* --- Next Round banner: cheerful slide-in-and-out from the top --- */
 .next-round-label {
@@ -309,28 +307,22 @@
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-
-  .money-bill,
-  .money-coin,
-  .money-burst-flash,
-  .next-round-label,
-  .last-round-label {
-    animation: none;
-    opacity: 0;
-  }
-}
 
 @keyframes swing {
-  0%,100% {
+
+  0%,
+  100% {
     transform: rotate(0deg);
   }
+
   25% {
     transform: rotate(-8deg);
   }
+
   50% {
     transform: rotate(8deg);
   }
+
   75% {
     transform: rotate(-8deg);
   }
@@ -365,19 +357,51 @@
     transform: translate(-50%, -50%) translateY(0) rotate(0deg) scale(0.5);
     opacity: 1;
   }
+
   60% {
     opacity: 1;
   }
+
   100% {
     transform: translate(calc(-50% + var(--x)), -80px) rotate(var(--rot)) scale(1);
     opacity: 0;
   }
 }
+
 .spin-settings {
   animation: spin 3s linear infinite;
 }
 
 @keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes float-chat {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  20% {
+    opacity: 1;
+  }
+
+  80% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-150px);
+  }
+}
+
+.animate-float-chat {
+  animation: float-chat 4s ease-out forwards;
 }

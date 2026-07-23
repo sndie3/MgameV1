@@ -22,7 +22,7 @@ function WalletModal({
         >
             <div
                 onClick={(e) => e.stopPropagation()}
-                className="w-full max-w-lg bg-black text-white shadow-2xl"
+                className="w-full max-w-md bg-black text-white shadow-2xl"
             >
                 {/* Header */}
                 <div className="flex items-center justify-end py-2 px-2">
@@ -37,15 +37,15 @@ function WalletModal({
 
                 {/* Balance */}
                 <div className="px-6 mb-15 text-center">
-                    <div className="mx-auto  flex h-30 w-40 items-center justify-center  ">
+                    <div className="mx-auto  flex h-25 w-40 items-center justify-center  ">
                         <img src="/assets/icons/manoy.png" alt="manoy" className="w-full h-full object-contain" />
 
                     </div>
-                    <h2 className="text-2xl font-semibold font-bahnschrift py-6">WALLET</h2>
+                    <h2 className="text-2xl font-semibold font-bahnschrift py-4">WALLET</h2>
 
                     <div className="flex flex-col gap-5">
                         {/* Standard Wallet */}
-                        <div className="bg-red-800 hover:bg-red-700 p-4">
+                        <div className=" p-4">
                             <h1 className="mb-2 text-3xl font-bold text-white">
                                 {standardWallet.toLocaleString("en-PH", {
                                     minimumFractionDigits: 2,
@@ -56,21 +56,21 @@ function WalletModal({
 
                             <div className="flex justify-between">
                                 <button
-                                    className="px-5 py-2 bg-white hover:bg-gray-400 text-red-500 font-semibold transition"
+                                    className="px-5 py-2 border border-gray-600 hover:border-gray-200 text-white-500 font-semibold transition rounded-full cursor-pointer"
                                 >
-                                    CASH IN
+                                    CASH-IN
                                 </button>
 
                                 <button
-                                    className="px-5 py-2 bg-white hover:bg-gray-400 text-black font-semibold transition"
+                                    className="px-5 py-2 border border-gray-600 hover:border-gray-200 text-white- font-semibold transition rounded-full cursor-pointer"
                                 >
-                                    CASH OUT
+                                    CASH-OUT
                                 </button>
                             </div>
                         </div>
 
                         {/* Speciality Wallet */}
-                        <div className="bg-[#1d1d1d] hover:bg-[#252525] p-4">
+                        <div className=" p-4">
                             <h1 className="mb-2 text-3xl font-bold text-white">
                                 {specialityWallet.toLocaleString("en-PH", {
                                     minimumFractionDigits: 2,
@@ -81,15 +81,15 @@ function WalletModal({
 
                             <div className="flex justify-between">
                                 <button
-                                    className="px-5 py-2 bg-white hover:bg-gray-400 text-red-500 font-semibold transition"
+                                    className="px-5 py-2 border border-gray-600 hover:border-gray-200 text-white-500 font-semibold transition rounded-full cursor-pointer"
                                 >
-                                    CASH IN
+                                    CASH-IN
                                 </button>
 
                                 <button
-                                    className="px-5 py-2 bg-white hover:bg-gray-400 text-black font-semibold transition"
+                                    className="px-5 py-2 border border-gray-600 hover:border-gray-200 text-white- font-semibold transition rounded-full cursor-pointer"
                                 >
-                                    CASH OUT
+                                    CASH-OUT
                                 </button>
                             </div>
                         </div>

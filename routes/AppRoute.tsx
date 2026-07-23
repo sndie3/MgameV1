@@ -27,10 +27,12 @@ import PinoyGames from "../features/pinoy-games/PinoyGames";
 import Ecasino from "../features/e-casino/Ecasino";
 import Ebingo from "../features/e-bingo/Ebingo";
 import Gift from "../features/gift/Gift";
-import LiveGame from "../features/pinoy-games/components/LiveGame"
+import LiveGame from "../features/pinoy-games/hari-tari/LiveGame"
 import GameTimeGuard from "../routes/GameTimeGuard"
 import HariTari from "../features/Hari-tari-op/Hari-tari"
 import Haritaritrends from "../features/Hari-tari-op/Hari-tari-trends"
+import ThreeSMania from "../features/pinoy-games/3smania/LiveGame";
+
 export default function AppRoutes() {
 
   return (
@@ -77,7 +79,8 @@ export default function AppRoutes() {
             //LIVE GAME
           <Route element={<GameTimeGuard />}>
           </Route>
-                      <Route path="/play-game" element={<LiveGame />} />
+                      <Route path="/hari-tari-play-game" element={<LiveGame />} />
+                      <Route path="/3smania-play-game" element={<ThreeSMania/>}/>
 
           <Route path="hari-tari-operator" element={<HariTari/>}/>
           <Route path="hari-tari-trends" element={<Haritaritrends/>}/>

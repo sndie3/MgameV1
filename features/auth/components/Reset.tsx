@@ -11,8 +11,8 @@ export default function Reset() {
           <button onClick={() => navigate('/login')} className="cursor-pointer absolute left-0 w-8 h-8 md:w-12 md:h-12 bg-[#1a1a1a] rounded-full flex items-center justify-center shrink-0 hover:bg-[#333] transition-colors">
             <ChevronLeft className="w-5 h-5 md:w-7 md:h-7 text-white" />
           </button>
-          <h1 
-            className="text-center font-bold" 
+          <h1
+            className="text-center font-bold"
             style={{ fontFamily: 'Bahnschrift, sans-serif', fontSize: 'clamp(18px, 3vw, 28px)' }}
           >
             Reset
@@ -20,11 +20,12 @@ export default function Reset() {
         </div>
 
         {/* Disclaimer */}
-        <p 
+        <p
           className="text-[#666] leading-relaxed mb-6 md:mb-10 text-center sm:text-justify max-w-[800px] mx-auto w-full"
           style={{ fontFamily: '"Aptos Narrow", sans-serif', fontSize: 'clamp(12px, 1.5vw, 16px)' }}
         >
-Please make sure your mobile number is correct and active. A One-Time Password (OTP) will be sent to your mobile number to verify your account.        </p>
+          Please make sure your mobile number is correct and active. A One-Time Password (OTP) will be sent to your mobile number to verify your account.
+        </p>
 
         {/* Form section 1 */}
         <div className="flex flex-col gap-3 md:gap-5 w-full max-w-[800px] mx-auto">
@@ -50,7 +51,7 @@ Please make sure your mobile number is correct and active. A One-Time Password (
 
         {/* Reset Button */}
         <div className="flex justify-center mt-6 md:mt-10 mb-8 md:mb-12 w-full">
-          <button 
+          <button
             className="cursor-pointer bg-[#1a1a1a] text-white w-full max-w-[300px] md:max-w-[400px] py-4 rounded hover:bg-[#333] transition-colors"
             style={{ fontFamily: '"Bahnschrift SemiCondensed", Bahnschrift, sans-serif', fontSize: 'clamp(15px, 2vw, 20px)' }}
           >
@@ -70,7 +71,7 @@ Please make sure your mobile number is correct and active. A One-Time Password (
 
         {/* Submit Button */}
         <div className="flex justify-center mt-6 md:mt-10 mb-8 md:mb-16 w-full">
-          <button 
+          <button
             className="cursor-pointer bg-[#1a1a1a] text-white w-full max-w-[300px] md:max-w-[400px] py-4 rounded hover:bg-[#333] transition-colors"
             style={{ fontFamily: '"Bahnschrift SemiCondensed", Bahnschrift, sans-serif', fontSize: 'clamp(15px, 2vw, 20px)' }}
           >

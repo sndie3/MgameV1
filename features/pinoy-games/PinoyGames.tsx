@@ -1,65 +1,69 @@
 import { ArrowLeft, ChevronRight, Search } from "lucide-react"
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom"
+import { PINOYGAMESMENU } from "./hari-tari/constants/pinoygames-menu"
 
 function PinoyGames() {
     const [collapsed, setCollapsed] = useState(true);
-
-    const menus = [
-        {
-            icon: "/assets/icons/Nav1.png",
-            title: "Pinoy Games",
-            count: "3",
-            route: ""
-        },
-        {
-            icon: "/assets/icons/Nav2.png",
-            title: "E-Casino",
-            count: "3,247",
-            route: ""
-
-        },
-        {
-            icon: "/assets/icons/Nav3.png",
-            title: "E-Bingo",
-            count: "12",
-            route: ""
-
-        },
-        {
-            icon: "/assets/icons/Nav4.png",
-            title: "Cash-In",
-            route: "/cash-in"
-
-        },
-        {
-            icon: "/assets/icons/Nav5.png",
-            title: "Cash-Out",
-            route: "/cash-out"
-
-        },
-        {
-            icon: "/assets/icons/Nav6.png",
-            title: "Support",
-            route: "/support"
-        },
-    ];
+    const route = useNavigate()
+    const [activeTutorial, setActiveTutorial] = useState<any>(null);
+    const videoRef = useRef(null);
+    
     const games = [
         {
             image: "/assets/Hari-tari.png",
             alt: "Hari Tari",
-            playRoute: "/play-game"
+            playRoute: "/hari-tari-play-game",
+            tutorial: "/assets/how-to-play-hari-tari.flv",
+        },
+        {
+            image: "/assets/3Smania.png",
+            alt: "3Smania",
+            playRoute: "/3smania-play-game",
+            tutorial: "/assets/how-to-play-3smania.flv",
         },
         {
             image: "/assets/regnum.png",
             alt: "Regnum",
-            playRoute: "/play-gamex"
-
+            playRoute: "/regnum-play-game",
+            tutorial: "/assets/how-to-play-regnum.flv",
         },
     ];
-    const route = useNavigate()
 
 
+    useEffect(() => {
+        if (!activeTutorial) return;
+        if (!videoRef.current) return;
+
+        const loadPlayer = async () => {
+            const FlvJs = await import("flv.js");
+
+            if (!FlvJs.default.isSupported()) return;
+
+            const player = FlvJs.default.createPlayer({
+                type: "flv",
+                url: activeTutorial,
+            });
+
+            player.attachMediaElement(videoRef.current!);
+            player.load();
+            player.play();
+
+            return () => {
+                player.destroy();
+            };
+        };
+
+        let destroyPlayer: (() => void) | undefined;
+
+        loadPlayer().then((cleanup) => {
+            destroyPlayer = cleanup;
+        });
+
+        return () => {
+            destroyPlayer?.();
+        };
+    }, [activeTutorial]);
     return (
         <div className="relative min-h-screen overflow-hidden text-white flex flex-col font-bahnschrift">
 
@@ -73,7 +77,7 @@ function PinoyGames() {
                     </button>
                     <h1 className="text-[24px] font-semibold ">Pinoy Games </h1>
                     <div>
-                        <img src="/assets/ept.png" alt="icon" className="w-15 h-7 object-contain " />
+                        <img src="/assets/providers/ept.png" alt="ept" className="w-15 h-7 object-contain " />
                     </div>
                 </div>
             </div>
@@ -82,18 +86,28 @@ function PinoyGames() {
                     <div key={index}>
                         {/* Card */}
                         <div className="w-[320px] h-[290px] border border-white/20 bg-black/20 flex items-center justify-center">
-                            <img
-                                src={game.image}
-                                alt={game.alt}
-                                className="w-[240px] object-contain"
-                            />
+
+                            {activeTutorial === game.tutorial ? (
+                                <video
+                                    ref={videoRef}
+                                    controls
+                                    onEnded={() => setActiveTutorial(null)}
+                                    className="w-full h-full object-contain"
+                                />
+                            ) : (
+                                <img
+                                    src={game.image}
+                                    alt={game.alt}
+                                    className="w-[240px] object-contain"
+                                />
+                            )}
                         </div>
 
                         {/* Navigation */}
                         <div className="w-[320px] flex justify-between items-center my-7 gap-5">
                             <button className="text-red-600 text-[clamp(1.2rem,2vw,1.5rem)]">ADS</button>
                             <button className="text-white text-[clamp(1.2rem,2vw,1.5rem)]">LIVE</button>
-                            <button className="text-white text-[clamp(1.2rem,2vw,1.5rem)]">TUTORIAL</button>
+                            <button onClick={() => setActiveTutorial(game.tutorial)} className="text-white text-[clamp(1.2rem,2vw,1.5rem)]">TUTORIAL</button>
 
                             <button
                                 onClick={() => route(game.playRoute)}
@@ -140,7 +154,7 @@ function PinoyGames() {
                         : "opacity-100 translate-y-0"
                         }`}
                 >
-                    {menus.map((item) => (
+                    {PINOYGAMESMENU.map((item) => (
                         <button
                             key={item.title}
                             onClick={() => route(item.route)}
@@ -148,17 +162,12 @@ function PinoyGames() {
                         >
                             <div className="flex items-center gap-10 flex-1">
                                 <img src={item.icon} alt={item.title}
-                                    className={`object-contain w-6 h-6`} />
+                                    className={`object-contain h-3 `} />
 
                                 <span className="flex-1 text-left font-semibold text-[20px]">
                                     {item.title}
                                 </span>
                             </div>
-
-                            {item.count && (
-                                <span className=" text-gray-400">{item.count}</span>
-                            )}
-
                             <ChevronRight size={20} />
                         </button>
                     ))}

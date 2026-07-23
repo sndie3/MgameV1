@@ -95,7 +95,7 @@ export default function Sidebar({
                                 setSidebarOpen(false);
                             }}
                         className="p-0 bg-transparent border-none cursor-pointer">
-                            <img src="/assets/icons/PromoIcon.png" alt="ribbon" className="w-12 h-9 rounded-full " />
+                            <img src="/assets/icons/PromoIcon.png" alt="ribbon" className="w-12 h-9 rounded-full animate-swing" />
                         </button>
                     </div>
                     <button

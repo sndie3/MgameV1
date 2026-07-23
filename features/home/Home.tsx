@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import ProviderLogoCarousel from "./components/ProviderLogosCarousel"
+import { PROVIDERS } from "../../constants/providers"
 function Home() {
     const navigate = useNavigate();
 
@@ -9,66 +10,53 @@ function Home() {
     const [touchStartX, setTouchStartX] = useState(0);
     const [touchEndX, setTouchEndX] = useState(0);
     const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
-    const providers = [
-        { name: "Provider 1", logo: "/assets/providers/Asset 1.png" },
-        { name: "Provider 2", logo: "/assets/providers/Asset 2.png" },
-        { name: "Provider 3", logo: "/assets/providers/Asset 3.png" },
-        { name: "Provider 4", logo: "/assets/providers/Asset 4.png" },
-        { name: "Provider 5", logo: "/assets/providers/Asset 5.png" },
-        { name: "Provider 6", logo: "/assets/providers/Asset 6.png" },
-        { name: "Provider 7", logo: "/assets/providers/Asset 7.png" },
-        { name: "Provider 8", logo: "/assets/providers/Asset 8.png" },
-        { name: "Provider 9", logo: "/assets/providers/Asset 9.png" },
-        { name: "Provider 10", logo: "/assets/providers/Asset 10.png" },
-        { name: "Provider 11", logo: "/assets/providers/Asset 11.png" },
-        { name: "Provider 12", logo: "/assets/providers/Asset 12.png" },
-        { name: "Provider 13", logo: "/assets/providers/Asset 13.png" },
-        { name: "Provider 14", logo: "/assets/providers/Asset 14.png" },
-        { name: "Provider 15", logo: "/assets/providers/Asset 15.png" },
-        { name: "Provider 16", logo: "/assets/providers/Asset 16.png" },
-        { name: "Provider 17", logo: "/assets/providers/Asset 17.png" },
-        { name: "Provider 18", logo: "/assets/providers/Asset 18.png" },
-        { name: "Provider 19", logo: "/assets/providers/Asset 19.png" },
-        { name: "Provider 20", logo: "/assets/providers/Asset 20.png" },
-        { name: "Provider 21", logo: "/assets/providers/Asset 21.png" },
-        { name: "Provider 22", logo: "/assets/providers/Asset 22.png" },
-        { name: "Provider 23", logo: "/assets/providers/Asset 23.png" },
-        { name: "Provider 24", logo: "/assets/providers/Asset 24.png" },
-        { name: "Provider 25", logo: "/assets/providers/Asset 25.png" },
-        { name: "Provider 26", logo: "/assets/providers/Asset 26.png" },
-        { name: "Provider 27", logo: "/assets/providers/Asset 27.png" },
-        { name: "Provider 28", logo: "/assets/providers/Asset 28.png" },
-        { name: "Provider 29", logo: "/assets/providers/Asset 29.png" },
-        { name: "Provider 30", logo: "/assets/providers/Asset 30.png" },
-    ];
+
 
     const videos = [
-        "/assets/video1.mp4",
-        "/assets/video2.mp4",
+        "/assets/ads/manoy-1.flv",
+        "/assets/ads/manoy-2.flv",
+        "/assets/ads/manoy-3.flv",
+        "/assets/ads/PLAYER-Lucky-Wallet.flv",
+        "/assets/ads/PLAYER-Race-to-100.flv",
     ];
 
+useEffect(() => {
+    const video = videoRefs.current[currentVideo];
 
-    useEffect(() => {
-        videoRefs.current.forEach((video, index) => {
-            if (!video) return;
+    if (!video) return;
 
-            if (index === currentVideo) {
-                video.currentTime = 0;
-                video.play().catch(() => { });
-            } else {
-                video.pause();
-                video.currentTime = 0;
-            }
+    let player: any;
+
+    const loadPlayer = async () => {
+        const FlvJs = await import("flv.js");
+
+        if (!FlvJs.default.isSupported()) return;
+
+        player = FlvJs.default.createPlayer({
+            type: "flv",
+            url: videos[currentVideo],
         });
-    }, [currentVideo]);
 
-    useEffect(() => {
-        videoRefs.current.forEach((video) => {
-            if (!video) return;
+        player.attachMediaElement(video);
+        player.load();
+        player.play();
+    };
 
-            video.muted = !isOpen;
-        });
-    }, [isOpen]);
+    loadPlayer();
+
+    return () => {
+        player?.destroy();
+    };
+
+}, [currentVideo]);
+
+    // useEffect(() => {
+    //     videoRefs.current.forEach((video) => {
+    //         if (!video) return;
+
+    //         video.muted = !isOpen;
+    //     });
+    // }, [isOpen]);
 
     // Open the Carousel and set Video Index to 0
     const openCarousel = () => {
@@ -166,7 +154,7 @@ function Home() {
                         />
                     ))}
 
-                    <div className="absolute bottom-0 h-40 z-10 w-full bg-black px-4 py-2 text-white">
+                    <div className="absolute bottom-0 h-40 z-10 w-full bg-black/50 px-4 py-2 text-white">
                         <div className="flex justify-center pt-6">
                             <button
                                 onClick={closeCarousel}
@@ -200,7 +188,7 @@ function Home() {
                 >
                     {/* Home Content */}
                     {/* Provider Logos */}
-                    <ProviderLogoCarousel providers={providers} />
+                    <ProviderLogoCarousel providers={PROVIDERS} />
                     {/* <div className="flex flex-col items-center ">
                         <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-5 ">
                             {providers.map((provider) => (

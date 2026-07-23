@@ -1,37 +1,50 @@
-export const MENUS = [
+export type MENUIDS = "pinoyGames" | "eCasino" | "eBingo" ;
+
+export const MENUS: {
+  id?: MENUIDS;
+  icon: string;
+  title: string;
+  route: string
+}[] = [
     {
-        icon: "/assets/icons/Nav1.png",
+        id: "pinoyGames",
+        icon: "/assets/icons/PinoyGame.png",
         title: "Pinoy Games",
-        count: "3",
+        route: "/pinoy-games"
     },
     {
-        icon: "/assets/icons/Nav2.png",
+        id: "eCasino",
+        icon: "/assets/icons/E-Casino.png",
         title: "E-Casino",
-        count: "3,247",
+        route: "/e-casino"
     },
     {
-        icon: "/assets/icons/Nav3.png",
+        id: "eBingo",
+        icon: "/assets/icons/E-Bingo.png",
         title: "E-Bingo",
-        count: "12",
+        route: "/e-bingo"
     },
     {
-        icon: "/assets/icons/Nav4.png",
+        icon: "/assets/icons/Cash-In.png",
         title: "Cash-In",
+        route: "/cash-in"
     },
     {
-        icon: "/assets/icons/Nav5.png",
+        icon: "/assets/icons/Wallet.png",
         title: "Cash-Out",
+        route: "/cash-out"
     },
     {
-        icon: "/assets/icons/Nav6.png",
+        icon: "/assets/icons/Support.png",
         title: "Support",
+        route: "/support"
     },
 ];
 
 // FULLY VERIFIED
 export const TABS = [
     { label: "Recently" },
-    { label: "Invite", icon: "/assets/icons/invite.png" },
+    { label: "Invite", icon: "/assets/icons/Invites.png" },
     { label: "Rewards" },
     { label: "EPT" },
 ];
